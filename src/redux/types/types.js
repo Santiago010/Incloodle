@@ -8,4 +8,6 @@ export const types = {
   //TODO: TEACHER
   teacherGetCourse: "[TEACHER] GetCourse",
   teacherChooseCourse: "[TEACHER] ChooseCourse",
+  teacherGetDocumentsByCourse: "[TEACHER] GetDocumentsByCourse",
+  teacherChooseDocument: "[TEACHER] ChooseDocument",
 };

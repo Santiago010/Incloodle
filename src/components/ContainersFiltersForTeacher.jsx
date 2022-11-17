@@ -5,7 +5,7 @@ import { Box } from "@mui/system";
 import React from "react";
 import { BoxFields, formFilters } from "./styles/stylesList";
 
-const ContainerFiltersForTeacher = () => {
+export const FiltersByCourses = () => {
   return (
     <Box sx={BoxFields}>
       <Typography
@@ -15,7 +15,7 @@ const ContainerFiltersForTeacher = () => {
         variant="h5"
         component="h5"
       >
-        Administrar perfiles
+        Administrar cursos
       </Typography>
       <FormControl sx={formFilters} size="small">
         <Box
@@ -31,7 +31,7 @@ const ContainerFiltersForTeacher = () => {
           <TextField
             fullWidth
             id="input-with-sx"
-            label="Ingrese nombre de usuario"
+            label="Ingrese nombre del curso"
             variant="standard"
           />
         </Box>
@@ -40,4 +40,37 @@ const ContainerFiltersForTeacher = () => {
   );
 };
 
-export default ContainerFiltersForTeacher;
+export const FiltersByDocuments = () => {
+  return (
+    <Box sx={BoxFields}>
+      <Typography
+        sx={{
+          color: "#fff",
+        }}
+        variant="h5"
+        component="h5"
+      >
+        Administrar Materiales
+      </Typography>
+      <FormControl sx={formFilters} size="small">
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "flex-end",
+            width: "50%",
+            backgroundColor: "#fff",
+            borderRadius: "10px",
+          }}
+        >
+          <SearchIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+          <TextField
+            fullWidth
+            id="input-with-sx"
+            label="Ingrese nombre del material"
+            variant="standard"
+          />
+        </Box>
+      </FormControl>
+    </Box>
+  );
+};

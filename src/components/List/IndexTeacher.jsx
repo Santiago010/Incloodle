@@ -4,10 +4,17 @@ import { useModal } from "../../hooks/useModal";
 import {
   StartGetCourses,
   ChoosenCourse,
+  startGetDocumentsByCourse,
+  ChooseDocument,
 } from "../../redux/actions/teacherActions";
-import ContainerFiltersForTeacher from "../ContainerFiltersForTeacher";
+import {
+  FiltersByCourses,
+  FiltersByDocuments,
+} from "../ContainersFiltersForTeacher";
 import ModalCreateCourse from "../ModalCreateCourse";
+import ModalCreateDocument from "../ModalCreateDocument";
 import ModalDeleteCourse from "../ModalDeleteCourse";
+import ModalDeleteDocument from "../ModalDeleteDocument";
 import ModalEditCourse from "../ModalEditCourse";
 import Page from "./Page";
 
@@ -18,18 +25,30 @@ export const IndexTeacher = () => {
     handleCloseModal: handleCloseModalEdit,
   } = useModal(false);
   const {
-    isOpen: isOpenModalCreate,
-    handleOpenModal: handleOpenModalCreate,
-    handleCloseModal: handleCloseModalCreate,
+    isOpen: isOpenModalCreateCourse,
+    handleOpenModal: handleOpenModalCreateCourse,
+    handleCloseModal: handleCloseModalCreateCourse,
   } = useModal(false);
   const {
-    isOpen: isOpenModalDelete,
-    handleOpenModal: handleOpenModalDelete,
-    handleCloseModal: handleCloseModalDelete,
+    isOpen: isOpenModalCreateDocument,
+    handleOpenModal: handleOpenModalCreateDocument,
+    handleCloseModal: handleCloseModalCreateDocument,
+  } = useModal(false);
+  const {
+    isOpen: isOpenModalDeleteCourse,
+    handleOpenModal: handleOpenModalDeleteCourse,
+    handleCloseModal: handleCloseModalDeleteCourse,
+  } = useModal(false);
+  const {
+    isOpen: isOpenModalDeleteDocument,
+    handleOpenModal: handleOpenModalDeleteDocument,
+    handleCloseModal: handleCloseModalDeleteDocument,
   } = useModal(false);
   const dispatch = useDispatch();
   const { jwt } = useSelector((s) => s?.authReducer);
-  const { data, course } = useSelector((s) => s?.teacherReducer);
+  const { data, course, listShow, document } = useSelector(
+    (s) => s?.teacherReducer
+  );
   const [teacher, setTeacher] = useState({});
 
   const handleEditCourse = (course) => {
@@ -40,7 +59,13 @@ export const IndexTeacher = () => {
   const handleDeleteCourse = (course) => {
     console.log(course);
     dispatch(ChoosenCourse(course));
-    handleOpenModalDelete();
+    handleOpenModalDeleteCourse();
+  };
+
+  const handleDeleteDocument = (document) => {
+    console.log(document);
+    dispatch(ChooseDocument(document));
+    handleOpenModalDeleteDocument();
   };
 
   const getCurrentTeacher = () => {
@@ -54,36 +79,69 @@ export const IndexTeacher = () => {
     dispatch(StartGetCourses(jwt));
   }, []);
 
-  // useEffect(() => {
-  //   console.log(teacher);
-  // }, [teacher]);
+  const handleSeeMaterial = (course) => {
+    dispatch(ChoosenCourse(course));
+    dispatch(startGetDocumentsByCourse(jwt, course.course_id));
+  };
 
-  return (
-    <Page
-      containerFilters={<ContainerFiltersForTeacher />}
-      dataCourses={data}
-      fragmentModals={
-        <>
-          <ModalEditCourse
-            isOpen={isOpenModalEdit}
-            handleOnClose={handleCloseModalEdit}
-          />
-          <ModalDeleteCourse
-            isOpen={isOpenModalDelete}
-            handleOnClose={handleCloseModalDelete}
-            course={course}
-          />
-          <ModalCreateCourse
-            isOpen={isOpenModalCreate}
-            handleOnClose={handleCloseModalCreate}
-            teacher={teacher}
-          />
-        </>
-      }
-      handleEdit={handleEditCourse}
-      handleCreate={handleOpenModalCreate}
-      handleDelete={handleDeleteCourse}
-      paragraphBtnAdd={"Agregar Curso"}
-    />
-  );
+  const Content = () => {
+    if (listShow === "Courses") {
+      return (
+        <Page
+          containerFilters={<FiltersByCourses />}
+          dataCourses={data}
+          fragmentModals={
+            <>
+              <ModalEditCourse
+                isOpen={isOpenModalEdit}
+                handleOnClose={handleCloseModalEdit}
+              />
+              <ModalDeleteCourse
+                isOpen={isOpenModalDeleteCourse}
+                handleOnClose={handleCloseModalDeleteCourse}
+                course={course}
+              />
+              <ModalCreateCourse
+                isOpen={isOpenModalCreateCourse}
+                handleOnClose={handleCloseModalCreateCourse}
+                teacher={teacher}
+              />
+            </>
+          }
+          handleEdit={handleEditCourse}
+          handleCreate={handleOpenModalCreateCourse}
+          handleDelete={handleDeleteCourse}
+          handleSeeMaterial={handleSeeMaterial}
+          paragraphBtnAdd={"Agregar Curso"}
+        />
+      );
+    } else if (listShow === "Documents") {
+      return (
+        <Page
+          containerFilters={<FiltersByDocuments />}
+          dataDocuments={data}
+          fragmentModals={
+            <>
+              <ModalDeleteDocument
+                isOpen={isOpenModalDeleteDocument}
+                handleOnClose={handleCloseModalDeleteDocument}
+                document={document}
+              />
+              <ModalCreateDocument
+                isOpen={isOpenModalCreateDocument}
+                handleOnClose={handleCloseModalCreateDocument}
+                course={course}
+              />
+            </>
+          }
+          handleCreate={handleOpenModalCreateDocument}
+          handleDelete={handleDeleteDocument}
+          handleSeeMaterial={handleSeeMaterial}
+          paragraphBtnAdd={"Agregar Material"}
+        />
+      );
+    }
+  };
+
+  return <Content />;
 };

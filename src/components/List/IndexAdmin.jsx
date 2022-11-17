@@ -29,8 +29,7 @@ export const IndexAdmin = () => {
   } = useModal(false);
   const dispatch = useDispatch();
   const { jwt } = useSelector((s) => s?.authReducer);
-  const { data } = useSelector((s) => s?.profileReducer);
-  const { profile } = useSelector((s) => s?.profileReducer);
+  const { data, profile } = useSelector((s) => s?.profileReducer);
 
   const handleEditProfile = (profile) => {
     dispatch(ChoosenProfile(profile));

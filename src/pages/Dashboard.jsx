@@ -2,7 +2,6 @@ import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
 
 import Header from "../components/Header";
-import ListAdmin from "../components/ListAdmin";
 import OptionsAdmin from "../components/OptionsAdmin";
 import OptionsTeacher from "../components/OptionsTeacher";
 import { IndexTeacher } from "../components/List/IndexTeacher";
@@ -23,7 +22,6 @@ const Dashboard = () => {
           <Header>
             <OptionsAdmin />
           </Header>
-          {/* <ListAdmin /> */}
           <IndexAdmin />
         </>
       );

@@ -22,14 +22,16 @@ const Page = ({
   containerFilters,
   dataProfiles,
   dataCourses,
+  dataDocuments,
   paragraphBtnAdd,
   fragmentModals,
   handleEdit,
   handleCreate,
   handleDelete,
+  handleSeeMaterial,
 }) => {
   const ChooseList = () => {
-    if (dataProfiles && !dataCourses) {
+    if (dataProfiles && !dataCourses && !dataDocuments) {
       return dataProfiles.length === 0 ? (
         <CircularProgress />
       ) : (
@@ -66,7 +68,7 @@ const Page = ({
           );
         })
       );
-    } else if (dataCourses && !dataProfiles) {
+    } else if (dataCourses && !dataProfiles && !dataDocuments) {
       return dataCourses.length === 0 ? (
         <CircularProgress />
       ) : (
@@ -110,7 +112,21 @@ const Page = ({
                   variant="contained"
                   aria-label="outlined primary button group"
                 >
-                  <Button>INGRESAR</Button>
+                  <Button
+                    onClick={() =>
+                      handleSeeMaterial({
+                        course_id,
+                        name,
+                        period,
+                        final_score,
+                        teacher_id,
+                        createdAt,
+                        updatedAt,
+                      })
+                    }
+                  >
+                    INGRESAR
+                  </Button>
                   <Button
                     onClick={() =>
                       handleEdit({
@@ -146,6 +162,40 @@ const Page = ({
             );
           }
         )
+      );
+    } else if (dataDocuments && !dataCourses && !dataProfiles) {
+      return dataDocuments.length === 0 ? (
+        <CircularProgress />
+      ) : (
+        dataDocuments.map(({ document_id, name, link }) => {
+          return (
+            <ListItem key={document_id} sx={listItem}>
+              <ListItemButton
+                sx={{
+                  width: "70%",
+                }}
+                onClick={() => {}}
+                dense={true}
+              >
+                <Typography variant="h6" component="p">
+                  {name}
+                </Typography>
+              </ListItemButton>
+
+              <ButtonGroup
+                variant="contained"
+                aria-label="outlined primary button group"
+              >
+                <Button onClick={() => {}}>Ver</Button>
+                <Button
+                  onClick={() => handleDelete({ document_id, name, link })}
+                >
+                  ELIMINAR
+                </Button>
+              </ButtonGroup>
+            </ListItem>
+          );
+        })
       );
     }
   };
@@ -195,9 +245,17 @@ Page.propTypes = {
       updatedAt: PropTypes.string,
     })
   ),
+  dataDocuments: PropTypes.arrayOf(
+    PropTypes.shape({
+      document_id: PropTypes.number,
+      name: PropTypes.string,
+      link: PropTypes.string,
+    })
+  ),
   paragraphBtnAdd: PropTypes.string.isRequired,
   fragmentModals: PropTypes.node.isRequired,
-  handleEdit: PropTypes.func.isRequired,
+  handleEdit: PropTypes.func,
   handleCreate: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired,
+  handleSeeMaterial: PropTypes.func,
 };
