@@ -1,9 +1,43 @@
 import { Box } from "@mui/material";
+import { useEffect, useState } from "react";
 
-import HeaderAdmin from "../components/HeaderAdmin";
+import Header from "../components/Header";
 import ListAdmin from "../components/ListAdmin";
+import OptionsAdmin from "../components/OptionsAdmin";
+import OptionsTeacher from "../components/OptionsTeacher";
+import { IndexTeacher } from "../components/List/IndexTeacher";
+import { IndexAdmin } from "../components/List/IndexAdmin";
 
 const Dashboard = () => {
+  const [rol, setRol] = useState(null);
+  useEffect(() => {
+    let jwt = localStorage.getItem("jwt");
+    let dataJwt = JSON.parse(atob(jwt.split(".")[1]));
+    setRol(dataJwt.rol);
+  }, []);
+
+  const Content = () => {
+    if (rol === 0) {
+      return (
+        <>
+          <Header>
+            <OptionsAdmin />
+          </Header>
+          {/* <ListAdmin /> */}
+          <IndexAdmin />
+        </>
+      );
+    } else if (rol === 1) {
+      return (
+        <>
+          <Header>
+            <OptionsTeacher />
+          </Header>
+          <IndexTeacher />
+        </>
+      );
+    }
+  };
   return (
     <Box
       sx={{
@@ -12,8 +46,7 @@ const Dashboard = () => {
         overflow: "hidden",
       }}
     >
-      <HeaderAdmin />
-      <ListAdmin />
+      <Content />
     </Box>
   );
 };

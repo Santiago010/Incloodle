@@ -8,14 +8,15 @@ import {
   BoxButton,
 } from "./styles/stylesModals";
 import { useDispatch, useSelector } from "react-redux";
-import { StartDeleteProfile } from "../redux/actions/profileActions";
+import { StartDeleteCourse } from "../redux/actions/teacherActions";
 
-const ModalDelete = ({ isOpen, handleOnClose, profile }) => {
+const ModalDeleteCourse = ({ isOpen, handleOnClose, course }) => {
   const { jwt } = useSelector((s) => s?.authReducer);
   const dispatch = useDispatch();
 
   const handleOnDelete = () => {
-    dispatch(StartDeleteProfile(jwt, profile.id, profile.rol));
+    dispatch(StartDeleteCourse(jwt, course.course_id));
+    console.log(course);
     handleOnClose();
   };
   return (
@@ -36,7 +37,7 @@ const ModalDelete = ({ isOpen, handleOnClose, profile }) => {
             textAlign="center"
             sx={{ color: "#fff" }}
           >
-            ¿Está seguro que desea eliminar el usuario?
+            ¿Está seguro que desea eliminar el Curso?
           </Typography>
           <Box sx={{ ...BoxButton, marginY: "50px" }}>
             <Button
@@ -60,4 +61,4 @@ const ModalDelete = ({ isOpen, handleOnClose, profile }) => {
   );
 };
 
-export default ModalDelete;
+export default ModalDeleteCourse;

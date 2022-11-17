@@ -3,8 +3,9 @@ export const types = {
   authLogin: "[AUTH] Login",
   //TODO: PROFILE
   profileGet: "[PROFILE] Get",
-  profileEdit: "[PROFILE] Edit",
-  profilesAdd: "[PROFILE] Add",
   profileChoose: "[PROFILE] Choose",
-  profileDelete: "[Profile] Delete",
+  profileFilterByRol: "[PROFILE] FilterByRol",
+  //TODO: TEACHER
+  teacherGetCourse: "[TEACHER] GetCourse",
+  teacherChooseCourse: "[TEACHER] ChooseCourse",
 };

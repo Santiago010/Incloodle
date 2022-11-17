@@ -1,34 +1,34 @@
 import { types } from "../types/types";
 
-const intialState = {
+const initialState = {
   err: null,
   message: null,
   data: [],
-  profile: {
+  course: {
+    course_id: 0,
     name: "",
-    rut: "",
-    email: "",
-    password: "",
-    id: 0,
-    rol: 0,
+    period: "",
+    final_score: null,
+    teacher_id: 0,
+    createdAt: "",
+    updatedAt: null,
   },
 };
 
-export const profileReducer = (state = intialState, action) => {
+export const teacherReducer = (state = initialState, action) => {
   switch (action.type) {
-    case types.profileGet:
+    case types.teacherGetCourse:
       return {
         ...state,
         err: false,
         message: "found succesfully",
         data: action.payload,
       };
-    case types.profileChoose:
+    case types.teacherChooseCourse:
       return {
         ...state,
-        profile: action.payload,
+        course: action.payload,
       };
-
     default:
       return state;
   }

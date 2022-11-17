@@ -12,7 +12,6 @@ import {
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
-import PersonSearchIcon from "@mui/icons-material/PersonSearch";
 import AddIcon from "@mui/icons-material/Add";
 import React, { useEffect, useState } from "react";
 import ModalEditProfile from "./ModalEditProfile";
@@ -20,10 +19,12 @@ import ModalCreateProfile from "./ModalCreateProfile";
 import ModalDelete from "./ModalDelete";
 import {
   StartGetProfile,
-  ChosenProfile,
+  ChoosenProfile,
 } from "../redux/actions/profileActions";
 import { useDispatch, useSelector } from "react-redux";
 import CircularProgress from "@mui/material/CircularProgress";
+import { BoxPrincipal, listData, listItem } from "./styles/stylesList";
+import ContainerFiltersForAdmin from "./ContainerFiltersForAdmin";
 
 const ListAdmin = () => {
   const [isOpenModalEdit, setisOpenModalEdit] = useState(false);
@@ -60,114 +61,21 @@ const ListAdmin = () => {
     dispatch(StartGetProfile(jwt));
   }, []);
 
-  useEffect(() => {
-    console.log(profile);
-  }, [profile]);
-
   return (
-    <Box
-      sx={{
-        height: "calc(100vh - 80px)",
-        paddingX: "50px",
-        paddingY: "30px",
-      }}
-    >
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          maxHeight: "10%",
-        }}
-      >
-        <Typography
-          sx={{
-            color: "#fff",
-          }}
-          variant="h5"
-          component="h5"
-        >
-          Administrar perfiles
-        </Typography>
-        <FormControl
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            width: "85%",
-            justifyContent: "space-between",
-          }}
-          size="small"
-        >
-          <InputLabel
-            sx={{ marginLeft: "30px" }}
-            id="demo-simple-select-helper-label"
-          >
-            Filtrar Por
-          </InputLabel>
-          <Select
-            name="rol"
-            onChange={(ev) => console.log(ev.target.value)}
-            sx={{
-              marginLeft: "30px",
-              backgroundColor: "#fff",
-              width: "30%",
-            }}
-            labelId="demo-simple-select-helper-label"
-            id="demo-simple-select-helper"
-            label="Filtrar Por"
-          >
-            <MenuItem value={"Todos"}>Todos</MenuItem>
-            <MenuItem value={"Estudiante"}>Estudiante</MenuItem>
-            <MenuItem value={"Profesor"}>Profesor</MenuItem>
-          </Select>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "flex-end",
-              width: "50%",
-              backgroundColor: "#fff",
-              borderRadius: "10px",
-            }}
-          >
-            <PersonSearchIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
-            <TextField
-              fullWidth
-              id="input-with-sx"
-              label="Ingrese nombre de usuario"
-              variant="standard"
-            />
-          </Box>
-        </FormControl>
-      </Box>
-      <List
-        sx={{
-          backgroundColor: "#fff",
-          borderRadius: "10px",
-          marginY: "10px",
-          overflowX: "hidden",
-          overflowY: "scroll",
-          height: "80%",
-        }}
-      >
+    <Box sx={BoxPrincipal}>
+      <ContainerFiltersForAdmin />
+      <List sx={listData}>
         {data.length === 0 ? (
           <CircularProgress />
         ) : (
           data.map(({ id, email, name, rol, rut }) => {
             return (
-              <ListItem
-                key={rut}
-                sx={{
-                  borderBottom: "2px solid #DFDFDF",
-                  display: "flex",
-                  overflow: "hidden",
-                }}
-              >
+              <ListItem key={rut} sx={listItem}>
                 <ListItemButton
                   sx={{
                     width: "70%",
                   }}
-                  onClick={() => {
-                    dispatch(ChosenProfile({ id, email, name, rol, rut }));
-                  }}
+                  onClick={() => {}}
                   dense={true}
                 >
                   <Typography variant="h6" component="p">
@@ -180,7 +88,7 @@ const ListAdmin = () => {
                 >
                   <Button
                     onClick={() => {
-                      dispatch(ChosenProfile({ id, email, name, rol, rut }));
+                      dispatch(ChoosenProfile({ id, email, name, rol, rut }));
                       handleOpenModalEdit();
                     }}
                   >
@@ -188,7 +96,7 @@ const ListAdmin = () => {
                   </Button>
                   <Button
                     onClick={() => {
-                      dispatch(ChosenProfile({ id, email, name, rol, rut }));
+                      dispatch(ChoosenProfile({ id, email, name, rol, rut }));
                       handleOpenModalDelete();
                     }}
                   >

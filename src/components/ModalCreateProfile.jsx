@@ -52,7 +52,7 @@ const ModalCreateProfile = ({ isOpen, handleOnClose }) => {
             textAlign="center"
             sx={{ color: "#fff" }}
           >
-            Crear Perfil
+            Agregar Perfil
           </Typography>
           <form
             onSubmit={(ev) => handleOnSubmit(ev)}
@@ -80,7 +80,7 @@ const ModalCreateProfile = ({ isOpen, handleOnClose }) => {
                 required
                 sx={{ backgroundColor: "#fff", borderRadius: "5px" }}
                 id="outlined-basic"
-                label="Outlined"
+                label="Nombre"
                 variant="outlined"
                 name="name"
                 value={name}
@@ -116,6 +116,7 @@ const ModalCreateProfile = ({ isOpen, handleOnClose }) => {
                 id="demo-simple-select-helper"
                 label="Filtrar Por"
                 onChange={(ev) => setRol(ev.target.value)}
+                value={rol}
               >
                 <MenuItem value="">
                   <em></em>
@@ -145,7 +146,7 @@ const ModalCreateProfile = ({ isOpen, handleOnClose }) => {
                 name="rut"
                 sx={{ backgroundColor: "#fff", borderRadius: "5px" }}
                 id="outlined-basic"
-                label="Outlined"
+                label="Rut"
                 variant="outlined"
                 value={rut}
                 onChange={handleInputChange}
@@ -172,7 +173,7 @@ const ModalCreateProfile = ({ isOpen, handleOnClose }) => {
                 name="password"
                 sx={{ backgroundColor: "#fff", borderRadius: "5px" }}
                 id="outlined-basic"
-                label="Outlined"
+                label="Contraseña"
                 variant="outlined"
                 type="password"
                 value={password}
@@ -200,7 +201,7 @@ const ModalCreateProfile = ({ isOpen, handleOnClose }) => {
                 name="email"
                 sx={{ backgroundColor: "#fff", borderRadius: "5px" }}
                 id="outlined-basic"
-                label="Outlined"
+                label="Email"
                 variant="outlined"
                 type="email"
                 value={email}

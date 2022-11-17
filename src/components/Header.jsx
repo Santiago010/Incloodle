@@ -1,10 +1,9 @@
 import { Avatar, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import { Button } from "@mui/material";
-import ButtonGroup from "@mui/material/ButtonGroup";
 import React from "react";
+import OptionsAdmin from "./OptionsAdmin";
 
-const HeaderAdmin = () => {
+const Header = ({ children }) => {
   return (
     <Box
       sx={{
@@ -45,13 +44,9 @@ const HeaderAdmin = () => {
           Dominique
         </Typography>
       </Box>
-      <Box>
-        <Button>Estudiantes</Button>
-        <Button>Profesores</Button>
-        <Button variant="contained">Cerrar Sesion</Button>
-      </Box>
+      <Box>{children}</Box>
     </Box>
   );
 };
 
-export default HeaderAdmin;
+export default Header;

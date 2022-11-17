@@ -1,67 +1,33 @@
 import {
-  Box,
   Button,
+  ButtonGroup,
   IconButton,
   Modal,
   TextField,
   Typography,
-  MenuItem,
-  Select,
-  ButtonGroup,
 } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
-import React, { useEffect, useState } from "react";
+import { Box } from "@mui/system";
+import React from "react";
 import { BoxContainer, BoxPrincipal, ModalStyle } from "./styles/stylesModals";
-import { useDispatch, useSelector } from "react-redux";
+import CloseIcon from "@mui/icons-material/Close";
 import useForm from "../hooks/useForm";
-import { StartEditProfile } from "../redux/actions/profileActions";
+import { useDispatch, useSelector } from "react-redux";
+import { StartAddCourse } from "../redux/actions/teacherActions";
 
-const ModalEditProfile = ({ isOpen, handleOnClose }) => {
+const ModalCreateCourse = ({ isOpen, handleOnClose, teacher }) => {
   const dispatch = useDispatch();
   const { jwt } = useSelector((s) => s?.authReducer);
-  const { profile } = useSelector((s) => s?.profileReducer);
-  // const [values, handleInputChange] = useForm(profile); TODO:implementar
-
-  useEffect(() => {
-    console.log(profile);
-    setState({ ...state, ...profile });
-  }, [profile]);
-
-  useEffect(() => {
-    if (!isOpen) {
-      setState({
-        id: "",
-        email: "",
-        name: "",
-        rol: "",
-        rut: "",
-        password: "",
-      });
-    }
-  }, [isOpen]);
-
-  const [state, setState] = useState({
-    id: "",
-    email: "",
+  const [values, handleInputChange, resetValues] = useForm({
     name: "",
-    rol: "",
-    rut: "",
-    password: "",
+    period: "",
   });
-
-  const handleChange = ({ target }) => {
-    setState({
-      ...state,
-      [target.name]: target.value,
-    });
-  };
+  const { name, period } = values;
 
   const handleOnSubmit = (ev) => {
     ev.preventDefault();
-    dispatch(StartEditProfile(jwt, state));
+    dispatch(StartAddCourse(jwt, values, teacher.teacher_id));
     handleOnClose();
   };
-
   return (
     <Modal open={isOpen} onClose={handleOnClose} sx={ModalStyle}>
       <Box sx={BoxPrincipal}>
@@ -80,13 +46,11 @@ const ModalEditProfile = ({ isOpen, handleOnClose }) => {
             textAlign="center"
             sx={{ color: "#fff" }}
           >
-            Editar Perfil
+            Agregar Curso
           </Typography>
           <form
             onSubmit={(ev) => handleOnSubmit(ev)}
-            style={{
-              alignSelf: "center",
-            }}
+            style={{ alignSelf: "center" }}
           >
             <Box
               sx={{
@@ -102,7 +66,7 @@ const ModalEditProfile = ({ isOpen, handleOnClose }) => {
                 textAlign="center"
                 sx={{ color: "#fff" }}
               >
-                Nombre
+                Nombre curso
               </Typography>
               <TextField
                 required
@@ -111,8 +75,8 @@ const ModalEditProfile = ({ isOpen, handleOnClose }) => {
                 label="Nombre"
                 variant="outlined"
                 name="name"
-                value={state?.name}
-                onChange={handleChange}
+                value={name}
+                onChange={handleInputChange}
               />
             </Box>
             <Box
@@ -129,45 +93,17 @@ const ModalEditProfile = ({ isOpen, handleOnClose }) => {
                 textAlign="center"
                 sx={{ color: "#fff" }}
               >
-                Rut
+                Periodo curso
               </Typography>
               <TextField
                 required
-                name="rut"
                 sx={{ backgroundColor: "#fff", borderRadius: "5px" }}
                 id="outlined-basic"
-                label="Rut"
+                label="Periodo"
                 variant="outlined"
-                value={state?.rut}
-                onChange={handleChange}
-              />
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                marginY: "20px",
-              }}
-            >
-              <Typography
-                variant="h6"
-                component="h6"
-                textAlign="center"
-                sx={{ color: "#fff" }}
-              >
-                Contraseña
-              </Typography>
-              <TextField
-                required
-                name="password"
-                sx={{ backgroundColor: "#fff", borderRadius: "5px" }}
-                id="outlined-basic"
-                label="Password"
-                variant="outlined"
-                type="password"
-                value={state?.password}
-                onChange={handleChange}
+                name="period"
+                value={period}
+                onChange={handleInputChange}
               />
             </Box>
             <ButtonGroup
@@ -199,4 +135,4 @@ const ModalEditProfile = ({ isOpen, handleOnClose }) => {
   );
 };
 
-export default ModalEditProfile;
+export default ModalCreateCourse;

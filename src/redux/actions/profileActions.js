@@ -34,7 +34,7 @@ const GetProfile = (profiles) => ({
   payload: profiles,
 });
 
-export const ChosenProfile = (profile) => ({
+export const ChoosenProfile = (profile) => ({
   type: types.profileChoose,
   payload: profile,
 });
@@ -47,13 +47,13 @@ export const StartAddProfile = (jwt, values, rol) => {
           headers: { Authorization: `Bearer ${jwt}` },
         });
         console.log(data);
-        dispatch(AddProfile(data.err, data.message, values));
+        dispatch(StartGetProfile(jwt));
       } else if (rol === 2) {
         let { data } = await api.post("/api/student", values, {
           headers: { Authorization: `Bearer ${jwt}` },
         });
+        dispatch(StartGetProfile(jwt));
         console.log(data);
-        dispatch(AddProfile(data.err, data.message, values));
       }
     } catch (error) {
       console.error(error);
@@ -61,37 +61,45 @@ export const StartAddProfile = (jwt, values, rol) => {
   };
 };
 
-const AddProfile = (err, message, values) => ({
-  type: types.profilesAdd,
-  payload: { err, message, values },
-});
-
-export const StartEditProfile = (jwt, values, rol, id) => {
+export const StartEditProfile = (jwt, values) => {
   return async (dispatch) => {
     try {
-      if (rol === 1) {
-        let { data } = await api.post(`/api/teacher/${id}`, values, {
-          headers: { Authorization: `Bearer ${jwt}` },
-        });
+      if (values.rol === 1) {
+        let { data } = await api.put(
+          `/api/teacher/${values.id}`,
+          {
+            name: values.name,
+            rut: values.rut,
+            password: values.password,
+          },
+          {
+            headers: { Authorization: `Bearer ${jwt}` },
+          }
+        );
         console.log(data);
-        // dispatch(EditProfile(data.err, data.message, values));
-      } else if (rol === 2) {
-        let { data } = await api.post(`/api/student/${id}`, values, {
-          headers: { Authorization: `Bearer ${jwt}` },
-        });
+        dispatch(StartGetProfile(jwt));
+      } else if (values.rol === 2) {
+        let { data } = await api.put(
+          `/api/student/${values.id}`,
+          {
+            name: values.name,
+            rut: values.rut,
+            password: values.password,
+          },
+          {
+            headers: { Authorization: `Bearer ${jwt}` },
+          }
+        );
         console.log(data);
-        // dispatch(EditProfile(data.err, data.message, values));
+        dispatch(StartGetProfile(jwt));
       }
-    } catch (error) {}
+    } catch (error) {
+      console.error(error);
+    }
   };
 };
 
-// const EditProfile = (err, message, values) => ({
-//   type: types.profileEdit,
-//   payload: { err, message, values },
-// });
-
-export const StartDeleteProfile = (jwt, id, rol, rut) => {
+export const StartDeleteProfile = (jwt, id, rol) => {
   return async (dispatch) => {
     try {
       if (rol === 1) {
@@ -99,21 +107,16 @@ export const StartDeleteProfile = (jwt, id, rol, rut) => {
           headers: { Authorization: `Bearer ${jwt}` },
         });
         console.log(data);
-        dispatch(DeleteProfile(rut));
+        dispatch(StartGetProfile(jwt));
       } else if (rol === 2) {
         let { data } = await api.delete(`/api/student/${id}`, {
           headers: { Authorization: `Bearer ${jwt}` },
         });
-        dispatch(DeleteProfile(rut));
         console.log(data);
+        dispatch(StartGetProfile(jwt));
       }
     } catch (error) {
       console.error(error);
     }
   };
 };
-
-const DeleteProfile = (rut) => ({
-  type: types.profileDelete,
-  payload: rut,
-});
