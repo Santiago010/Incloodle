@@ -6,6 +6,7 @@ import {
   BoxContainer,
   ModalStyle,
   BoxButton,
+  titleModal,
 } from "./styles/stylesModals";
 import { useDispatch, useSelector } from "react-redux";
 import { StartDeleteCourse } from "../redux/actions/teacherActions";
@@ -35,7 +36,7 @@ const ModalDeleteCourse = ({ isOpen, handleOnClose, course }) => {
             variant="h6"
             component="h6"
             textAlign="center"
-            sx={{ color: "#fff" }}
+            sx={titleModal}
           >
             ¿Está seguro que desea eliminar el Curso?
           </Typography>

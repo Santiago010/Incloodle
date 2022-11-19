@@ -1,199 +1,102 @@
-import {
-  Box,
-  Button,
-  ButtonGroup,
-  CircularProgress,
-  List,
-  ListItem,
-  ListItemButton,
-  Typography,
-} from "@mui/material";
+import { Box, Button, CircularProgress, List } from "@mui/material";
 import React from "react";
 import PropTypes from "prop-types";
-import {
-  BoxBtnAdd,
-  BoxPrincipal,
-  listData,
-  listItem,
-} from "../styles/stylesList";
+import { BoxBtnAdd, BoxPrincipal, listData } from "../styles/stylesList";
 import AddIcon from "@mui/icons-material/Add";
+import ListItemProfile from "../ListItemProfile";
+import ListItemCourse from "../ListItemCourse";
+import ListItemDocument from "../ListItemDocument";
+import ListItemStudent from "../ListItemStudent";
 
 const Page = ({
   containerFilters,
   dataProfiles,
   dataCourses,
   dataDocuments,
+  dataStudents,
   paragraphBtnAdd,
   fragmentModals,
   handleEdit,
   handleCreate,
   handleDelete,
   handleSeeMaterial,
+  handleSeeDocumentOrExam,
+  handleEvaluateStudent,
+  handleReportStudent,
+  handleSeeStudents,
 }) => {
   const ChooseList = () => {
-    if (dataProfiles && !dataCourses && !dataDocuments) {
+    if (dataProfiles && !dataCourses && !dataDocuments && !dataStudents) {
       return dataProfiles.length === 0 ? (
         <CircularProgress />
       ) : (
-        dataProfiles.map(({ id, email, name, rol, rut }) => {
+        dataProfiles.map((data) => {
           return (
-            <ListItem key={rut} sx={listItem}>
-              <ListItemButton
-                sx={{
-                  width: "70%",
-                }}
-                onClick={() => {}}
-                dense={true}
-              >
-                <Typography variant="h6" component="p">
-                  {name}
-                </Typography>
-              </ListItemButton>
-              <ButtonGroup
-                variant="contained"
-                aria-label="outlined primary button group"
-              >
-                <Button
-                  onClick={() => handleEdit({ id, email, name, rol, rut })}
-                >
-                  EDITAR
-                </Button>
-                <Button
-                  onClick={() => handleDelete({ id, email, name, rol, rut })}
-                >
-                  ELIMINAR
-                </Button>
-              </ButtonGroup>
-            </ListItem>
+            <ListItemProfile
+              data={data}
+              handleEdit={handleEdit}
+              handleDelete={handleDelete}
+            />
           );
         })
       );
-    } else if (dataCourses && !dataProfiles && !dataDocuments) {
+    } else if (
+      dataCourses &&
+      !dataProfiles &&
+      !dataDocuments &&
+      !dataStudents
+    ) {
       return dataCourses.length === 0 ? (
         <CircularProgress />
       ) : (
-        dataCourses.map(
-          ({
-            course_id,
-            name,
-            period,
-            final_score,
-            teacher_id,
-            createdAt,
-            updatedAt,
-          }) => {
-            return (
-              <ListItem key={course_id} sx={listItem}>
-                <ListItemButton
-                  sx={{
-                    minWidth: "35%",
-                    maxWidth: "70%",
-                  }}
-                  onClick={() => {}}
-                  dense={true}
-                >
-                  <Typography variant="h6" component="p">
-                    {name}
-                  </Typography>
-                </ListItemButton>
-                <ListItemButton
-                  sx={{
-                    minWidth: "35%",
-                    maxWidth: "70%",
-                  }}
-                  onClick={() => {}}
-                  dense={true}
-                >
-                  <Typography variant="h6" component="p">
-                    {period}
-                  </Typography>
-                </ListItemButton>
-                <ButtonGroup
-                  variant="contained"
-                  aria-label="outlined primary button group"
-                >
-                  <Button
-                    onClick={() =>
-                      handleSeeMaterial({
-                        course_id,
-                        name,
-                        period,
-                        final_score,
-                        teacher_id,
-                        createdAt,
-                        updatedAt,
-                      })
-                    }
-                  >
-                    INGRESAR
-                  </Button>
-                  <Button
-                    onClick={() =>
-                      handleEdit({
-                        course_id,
-                        name,
-                        period,
-                        final_score,
-                        teacher_id,
-                        createdAt,
-                        updatedAt,
-                      })
-                    }
-                  >
-                    EDITAR
-                  </Button>
-                  <Button
-                    onClick={() =>
-                      handleDelete({
-                        course_id,
-                        name,
-                        period,
-                        final_score,
-                        teacher_id,
-                        createdAt,
-                        updatedAt,
-                      })
-                    }
-                  >
-                    ELIMINAR
-                  </Button>
-                </ButtonGroup>
-              </ListItem>
-            );
-          }
-        )
+        dataCourses.map((data) => {
+          return (
+            <ListItemCourse
+              data={data}
+              handleSeeMaterial={handleSeeMaterial}
+              handleEdit={handleEdit}
+              handleDelete={handleDelete}
+              handleSeeStudents={handleSeeStudents}
+            />
+          );
+        })
       );
-    } else if (dataDocuments && !dataCourses && !dataProfiles) {
+    } else if (
+      dataDocuments &&
+      !dataCourses &&
+      !dataProfiles &&
+      !dataStudents
+    ) {
       return dataDocuments.length === 0 ? (
         <CircularProgress />
       ) : (
-        dataDocuments.map(({ document_id, name, link }) => {
+        dataDocuments.map((data) => {
           return (
-            <ListItem key={document_id} sx={listItem}>
-              <ListItemButton
-                sx={{
-                  width: "70%",
-                }}
-                onClick={() => {}}
-                dense={true}
-              >
-                <Typography variant="h6" component="p">
-                  {name}
-                </Typography>
-              </ListItemButton>
-
-              <ButtonGroup
-                variant="contained"
-                aria-label="outlined primary button group"
-              >
-                <Button onClick={() => {}}>Ver</Button>
-                <Button
-                  onClick={() => handleDelete({ document_id, name, link })}
-                >
-                  ELIMINAR
-                </Button>
-              </ButtonGroup>
-            </ListItem>
+            <ListItemDocument
+              data={data}
+              handleSeeDocumentOrExam={handleSeeDocumentOrExam}
+              handleDelete={handleDelete}
+            />
+          );
+        })
+      );
+    } else if (
+      dataStudents &&
+      !dataCourses &&
+      !dataProfiles &&
+      !dataDocuments
+    ) {
+      return dataStudents.length === 0 ? (
+        <CircularProgress />
+      ) : (
+        dataStudents.map((data) => {
+          return (
+            <ListItemStudent
+              data={data}
+              handleEvaluateStudent={handleEvaluateStudent}
+              handleReportStudent={handleReportStudent}
+              handleDelete={handleDelete}
+            />
           );
         })
       );
@@ -247,9 +150,29 @@ Page.propTypes = {
   ),
   dataDocuments: PropTypes.arrayOf(
     PropTypes.shape({
+      id: PropTypes.number,
+      exam_id: PropTypes.number,
       document_id: PropTypes.number,
       name: PropTypes.string,
       link: PropTypes.string,
+      type: PropTypes.number,
+      is_pendient: PropTypes.number,
+      score: PropTypes.string,
+      num_of_questions: PropTypes.number,
+      init_date: PropTypes.string,
+      finish_date: PropTypes.string,
+      createdAt: PropTypes.string,
+      updatedAt: PropTypes.string,
+      course_id: PropTypes.number,
+    })
+  ),
+  dataStudents: PropTypes.arrayOf(
+    PropTypes.shape({
+      student_id: PropTypes.number,
+      email: PropTypes.string,
+      name: PropTypes.string,
+      rut: PropTypes.string,
+      rol: PropTypes.number,
     })
   ),
   paragraphBtnAdd: PropTypes.string.isRequired,
@@ -258,4 +181,8 @@ Page.propTypes = {
   handleCreate: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired,
   handleSeeMaterial: PropTypes.func,
+  handleSeeDocumentOrExam: PropTypes.func,
+  handleEvaluateStudent: PropTypes.func,
+  handleReportStudent: PropTypes.func,
+  handleSeeStudents: PropTypes.func,
 };

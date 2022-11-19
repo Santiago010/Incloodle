@@ -6,11 +6,12 @@ import {
   BoxContainer,
   ModalStyle,
   BoxButton,
+  titleModal,
 } from "./styles/stylesModals";
 import { useDispatch, useSelector } from "react-redux";
 import { StartDeleteProfile } from "../redux/actions/profileActions";
 
-const ModalDelete = ({ isOpen, handleOnClose, profile }) => {
+const ModalDeleteProfile = ({ isOpen, handleOnClose, profile }) => {
   const { jwt } = useSelector((s) => s?.authReducer);
   const dispatch = useDispatch();
 
@@ -34,20 +35,20 @@ const ModalDelete = ({ isOpen, handleOnClose, profile }) => {
             variant="h6"
             component="h6"
             textAlign="center"
-            sx={{ color: "#fff" }}
+            sx={titleModal}
           >
             ¿Está seguro que desea eliminar el usuario?
           </Typography>
           <Box sx={{ ...BoxButton, marginY: "50px" }}>
             <Button
-              sx={{ backgroundColor: "#fff" }}
+              sx={{ marginX: "10px", backgroundColor: "#fff" }}
               variant="outlined"
               onClick={handleOnDelete}
             >
               Confirmar
             </Button>
             <Button
-              sx={{ backgroundColor: "#fff" }}
+              sx={{ marginX: "10px", backgroundColor: "#fff" }}
               variant="outlined"
               onClick={handleOnClose}
             >
@@ -60,4 +61,4 @@ const ModalDelete = ({ isOpen, handleOnClose, profile }) => {
   );
 };
 
-export default ModalDelete;
+export default ModalDeleteProfile;

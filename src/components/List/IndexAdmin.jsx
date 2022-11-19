@@ -8,7 +8,7 @@ import {
   ChoosenProfile,
 } from "../../redux/actions/profileActions";
 import ModalEditProfile from "../ModalEditProfile";
-import ModalDelete from "../ModalDelete";
+import ModalDeleteProfile from "../ModalDeleteProfile";
 import ModalCreateProfile from "../ModalCreateProfile";
 
 export const IndexAdmin = () => {
@@ -62,7 +62,7 @@ export const IndexAdmin = () => {
             handleOnClose={handleCloseModalCreate}
             profile={profile}
           />
-          <ModalDelete
+          <ModalDeleteProfile
             isOpen={isOpenModalDelete}
             handleOnClose={handleCloseModalDelete}
             profile={profile}

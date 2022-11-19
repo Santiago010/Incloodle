@@ -11,10 +11,18 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import React, { useEffect, useState } from "react";
-import { BoxContainer, BoxPrincipal, ModalStyle } from "./styles/stylesModals";
+import {
+  BoxButton,
+  BoxContainer,
+  BoxPrincipal,
+  ModalStyle,
+  titleModal,
+  textFields,
+} from "./styles/stylesModals";
 import { useDispatch, useSelector } from "react-redux";
 import useForm from "../hooks/useForm";
 import { StartEditProfile } from "../redux/actions/profileActions";
+import { TextFields } from "@mui/icons-material";
 
 const ModalEditProfile = ({ isOpen, handleOnClose }) => {
   const dispatch = useDispatch();
@@ -78,7 +86,7 @@ const ModalEditProfile = ({ isOpen, handleOnClose }) => {
             variant="h6"
             component="h6"
             textAlign="center"
-            sx={{ color: "#fff" }}
+            sx={titleModal}
           >
             Editar Perfil
           </Typography>
@@ -105,8 +113,9 @@ const ModalEditProfile = ({ isOpen, handleOnClose }) => {
                 Nombre
               </Typography>
               <TextField
+                size="small"
                 required
-                sx={{ backgroundColor: "#fff", borderRadius: "5px" }}
+                sx={textFields}
                 id="outlined-basic"
                 label="Nombre"
                 variant="outlined"
@@ -134,7 +143,8 @@ const ModalEditProfile = ({ isOpen, handleOnClose }) => {
               <TextField
                 required
                 name="rut"
-                sx={{ backgroundColor: "#fff", borderRadius: "5px" }}
+                size="small"
+                sx={textFields}
                 id="outlined-basic"
                 label="Rut"
                 variant="outlined"
@@ -160,8 +170,9 @@ const ModalEditProfile = ({ isOpen, handleOnClose }) => {
               </Typography>
               <TextField
                 required
+                size="small"
                 name="password"
-                sx={{ backgroundColor: "#fff", borderRadius: "5px" }}
+                sx={textFields}
                 id="outlined-basic"
                 label="Password"
                 variant="outlined"
@@ -170,13 +181,7 @@ const ModalEditProfile = ({ isOpen, handleOnClose }) => {
                 onChange={handleChange}
               />
             </Box>
-            <ButtonGroup
-              sx={{
-                alignSelf: "center",
-                display: "flex",
-                justifyContent: "space-around",
-              }}
-            >
+            <Box sx={BoxButton}>
               <Button
                 type="submit"
                 sx={{ backgroundColor: "#fff", marginX: "10px" }}
@@ -191,7 +196,7 @@ const ModalEditProfile = ({ isOpen, handleOnClose }) => {
               >
                 Cancelar
               </Button>
-            </ButtonGroup>
+            </Box>
           </form>
         </Box>
       </Box>

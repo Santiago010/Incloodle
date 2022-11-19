@@ -13,11 +13,7 @@ const initialState = {
     createdAt: "",
     updatedAt: null,
   },
-  document: {
-    document_id: 0,
-    name: "",
-    link: "",
-  },
+  document: {},
   listShow: "Courses",
 };
 
@@ -48,6 +44,14 @@ export const teacherReducer = (state = initialState, action) => {
       return {
         ...state,
         document: action.payload,
+      };
+    case types.teacherGetStudentByCourse:
+      return {
+        ...state,
+        err: false,
+        message: "found succesfully",
+        data: action.payload,
+        listShow: "Students",
       };
     default:
       return state;

@@ -16,5 +16,16 @@ export const BoxContainer = { display: "flex", flexDirection: "column" };
 export const BoxButton = {
   alignSelf: "center",
   display: "flex",
-  justifyContent: "space-around",
+  justifyContent: "center",
+};
+
+export const titleModal = {
+  color: "#fff",
+  fontSize: "2em",
+};
+
+export const textFields = {
+  backgroundColor: "#fff",
+  borderRadius: "5px",
+  marginLeft: "10px",
 };

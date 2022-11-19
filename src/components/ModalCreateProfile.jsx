@@ -11,7 +11,13 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import React, { useEffect, useState } from "react";
-import { BoxContainer, BoxPrincipal, ModalStyle } from "./styles/stylesModals";
+import {
+  BoxContainer,
+  BoxPrincipal,
+  ModalStyle,
+  titleModal,
+  textFields,
+} from "./styles/stylesModals";
 import { useDispatch, useSelector } from "react-redux";
 import useForm from "../hooks/useForm";
 import { StartAddProfile } from "../redux/actions/profileActions";
@@ -50,7 +56,7 @@ const ModalCreateProfile = ({ isOpen, handleOnClose }) => {
             variant="h6"
             component="h6"
             textAlign="center"
-            sx={{ color: "#fff" }}
+            sx={titleModal}
           >
             Agregar Perfil
           </Typography>
@@ -78,7 +84,8 @@ const ModalCreateProfile = ({ isOpen, handleOnClose }) => {
               </Typography>
               <TextField
                 required
-                sx={{ backgroundColor: "#fff", borderRadius: "5px" }}
+                size="small"
+                sx={textFields}
                 id="outlined-basic"
                 label="Nombre"
                 variant="outlined"
@@ -106,12 +113,8 @@ const ModalCreateProfile = ({ isOpen, handleOnClose }) => {
               <Select
                 required
                 name="rol"
-                fullWidth
-                sx={{
-                  marginLeft: "30px",
-                  backgroundColor: "#fff",
-                  width: "30%",
-                }}
+                //fullWidth
+                sx={textFields}
                 labelId="demo-simple-select-helper-label"
                 id="demo-simple-select-helper"
                 label="Filtrar Por"
@@ -142,9 +145,10 @@ const ModalCreateProfile = ({ isOpen, handleOnClose }) => {
                 Rut
               </Typography>
               <TextField
+                size="small"
                 required
                 name="rut"
-                sx={{ backgroundColor: "#fff", borderRadius: "5px" }}
+                sx={textFields}
                 id="outlined-basic"
                 label="Rut"
                 variant="outlined"
@@ -169,9 +173,10 @@ const ModalCreateProfile = ({ isOpen, handleOnClose }) => {
                 Contraseña
               </Typography>
               <TextField
+                size="small"
                 required
                 name="password"
-                sx={{ backgroundColor: "#fff", borderRadius: "5px" }}
+                sx={textFields}
                 id="outlined-basic"
                 label="Contraseña"
                 variant="outlined"
@@ -199,7 +204,8 @@ const ModalCreateProfile = ({ isOpen, handleOnClose }) => {
               <TextField
                 required
                 name="email"
-                sx={{ backgroundColor: "#fff", borderRadius: "5px" }}
+                sx={textFields}
+                size="small"
                 id="outlined-basic"
                 label="Email"
                 variant="outlined"
@@ -208,11 +214,11 @@ const ModalCreateProfile = ({ isOpen, handleOnClose }) => {
                 onChange={handleInputChange}
               />
             </Box>
-            <ButtonGroup
+            <Box
               sx={{
                 alignSelf: "center",
                 display: "flex",
-                justifyContent: "space-around",
+                justifyContent: "center",
               }}
             >
               <Button
@@ -229,7 +235,7 @@ const ModalCreateProfile = ({ isOpen, handleOnClose }) => {
               >
                 Cancelar
               </Button>
-            </ButtonGroup>
+            </Box>
           </form>
         </Box>
       </Box>

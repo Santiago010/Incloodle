@@ -2,13 +2,22 @@ import {
   Button,
   ButtonGroup,
   IconButton,
+  MenuItem,
   Modal,
+  Select,
   TextField,
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
-import { BoxContainer, BoxPrincipal, ModalStyle } from "./styles/stylesModals";
+import {
+  BoxButton,
+  BoxContainer,
+  BoxPrincipal,
+  ModalStyle,
+  titleModal,
+  textFields,
+} from "./styles/stylesModals";
 import CloseIcon from "@mui/icons-material/Close";
 import useForm from "../hooks/useForm";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,19 +25,27 @@ import { StartAddDocumentsByCourse } from "../redux/actions/teacherActions";
 
 const ModalCreateDocument = ({ isOpen, handleOnClose }) => {
   const dispatch = useDispatch();
+  const [type, setType] = useState(0);
   const [document, setDocument] = useState(null);
   const { jwt } = useSelector((s) => s?.authReducer);
   const { course } = useSelector((s) => s?.teacherReducer);
   const [values, handleInputChange, resetValues] = useForm({
     name: "",
+    numberQuestions: 0,
   });
-  const { name } = values;
+  const { name, numberQuestions } = values;
 
   const handleOnSubmit = (ev) => {
     ev.preventDefault();
     const formData = new FormData();
-    formData.append("document", document);
-    dispatch(StartAddDocumentsByCourse(jwt, formData, name, course.course_id));
+    if (type === 0) {
+      formData.append("document", document);
+    } else if (type === 1) {
+      formData.append("exam", document);
+    }
+    dispatch(
+      StartAddDocumentsByCourse(jwt, formData, type, values, course.course_id)
+    );
     handleOnClose();
   };
 
@@ -52,7 +69,7 @@ const ModalCreateDocument = ({ isOpen, handleOnClose }) => {
             variant="h6"
             component="h6"
             textAlign="center"
-            sx={{ color: "#fff" }}
+            sx={titleModal}
           >
             Agregar Material
           </Typography>
@@ -77,8 +94,9 @@ const ModalCreateDocument = ({ isOpen, handleOnClose }) => {
                 Nombre
               </Typography>
               <TextField
+                size="small"
                 required
-                sx={{ backgroundColor: "#fff", borderRadius: "5px" }}
+                sx={textFields}
                 id="outlined-basic"
                 label="Nombre"
                 variant="outlined"
@@ -101,25 +119,85 @@ const ModalCreateDocument = ({ isOpen, handleOnClose }) => {
                 textAlign="center"
                 sx={{ color: "#fff" }}
               >
+                Tipo
+              </Typography>
+              <Select
+                required
+                name="type"
+                //fullWidth
+                sx={textFields}
+                labelId="demo-simple-select-helper-label"
+                id="demo-simple-select-helper"
+                label="Filtrar Por"
+                onChange={(ev) => setType(ev.target.value)}
+                value={type}
+              >
+                <MenuItem value="">
+                  <em></em>
+                </MenuItem>
+                <MenuItem value={0}>Documento</MenuItem>
+                <MenuItem value={1}>Examen</MenuItem>
+              </Select>
+            </Box>
+            {type === 1 && (
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  marginY: "20px",
+                }}
+              >
+                <Typography
+                  variant="h6"
+                  component="h6"
+                  textAlign="center"
+                  sx={{ color: "#fff" }}
+                >
+                  # preguntas
+                </Typography>
+                <TextField
+                  size="small"
+                  required
+                  type="number"
+                  sx={textFields}
+                  id="outlined-basic"
+                  variant="outlined"
+                  name="numberQuestions"
+                  value={numberQuestions}
+                  onChange={handleInputChange}
+                />
+              </Box>
+            )}
+
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                marginY: "20px",
+              }}
+            >
+              <Typography
+                variant="h6"
+                component="h6"
+                textAlign="center"
+                sx={{ color: "#fff" }}
+              >
                 Archivo
               </Typography>
               <TextField
+                size="small"
                 required
                 type="file"
-                sx={{ backgroundColor: "#fff", borderRadius: "5px" }}
+                sx={textFields}
                 id="outlined-basic"
                 variant="outlined"
                 name="period"
                 onChange={(ev) => handleFileSelect(ev)}
               />
             </Box>
-            <ButtonGroup
-              sx={{
-                alignSelf: "center",
-                display: "flex",
-                justifyContent: "space-around",
-              }}
-            >
+            <Box sx={BoxButton}>
               <Button
                 type="submit"
                 sx={{ backgroundColor: "#fff", marginX: "10px" }}
@@ -134,7 +212,7 @@ const ModalCreateDocument = ({ isOpen, handleOnClose }) => {
               >
                 Cancelar
               </Button>
-            </ButtonGroup>
+            </Box>
           </form>
         </Box>
       </Box>

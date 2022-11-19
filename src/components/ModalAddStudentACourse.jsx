@@ -1,64 +1,40 @@
 import {
-  Box,
   Button,
   IconButton,
-  Modal,
-  TextField,
-  Typography,
   MenuItem,
+  Modal,
   Select,
-  ButtonGroup,
+  Typography,
 } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
-import React, { useEffect, useState } from "react";
+import { Box } from "@mui/system";
+import React from "react";
 import {
   BoxButton,
   BoxContainer,
   BoxPrincipal,
   ModalStyle,
-  textFields,
   titleModal,
+  textFields,
 } from "./styles/stylesModals";
-import { useDispatch, useSelector } from "react-redux";
+import CloseIcon from "@mui/icons-material/Close";
 import useForm from "../hooks/useForm";
-import { StartEditCourse } from "../redux/actions/teacherActions";
+import { useDispatch, useSelector } from "react-redux";
+import { StartAddDocumentsByCourse } from "../redux/actions/teacherActions";
 
-const ModalEditCourse = ({ isOpen, handleOnClose }) => {
+const ModalAddStudentACourse = ({ isOpen, handleOnClose }) => {
   const dispatch = useDispatch();
   const { jwt } = useSelector((s) => s?.authReducer);
   const { course } = useSelector((s) => s?.teacherReducer);
-
-  // const [values, handleInputChange] = useForm(profile); TODO:implementar
-
-  useEffect(() => {
-    // console.log(course);
-    setState({ ...state, ...course });
-  }, [course]);
-
-  useEffect(() => {
-    if (!isOpen) {
-      setState({
-        name: "",
-        period: "",
-      });
-    }
-  }, [isOpen]);
-
-  const [state, setState] = useState({
-    name: "",
-    period: "",
+  const [values, handleInputChange, resetValues] = useForm({
+    studentId: 0,
+    courseId: course.course_id,
   });
 
-  const handleChange = ({ target }) => {
-    setState({
-      ...state,
-      [target.name]: target.value,
-    });
-  };
+  const { studentId } = values;
 
   const handleOnSubmit = (ev) => {
     ev.preventDefault();
-    dispatch(StartEditCourse(jwt, state));
+    console.log(values);
     handleOnClose();
   };
 
@@ -80,13 +56,11 @@ const ModalEditCourse = ({ isOpen, handleOnClose }) => {
             textAlign="center"
             sx={titleModal}
           >
-            Editar Curso
+            Agregar Estudiante al curso
           </Typography>
           <form
             onSubmit={(ev) => handleOnSubmit(ev)}
-            style={{
-              alignSelf: "center",
-            }}
+            style={{ alignSelf: "center" }}
           >
             <Box
               sx={{
@@ -102,48 +76,27 @@ const ModalEditCourse = ({ isOpen, handleOnClose }) => {
                 textAlign="center"
                 sx={{ color: "#fff" }}
               >
-                Nombre Curso
+                Estudiante
               </Typography>
-              <TextField
+              <Select
                 required
-                size="small"
+                name="studentId"
+                //fullWidth
                 sx={textFields}
-                id="outlined-basic"
-                label="Nombre"
-                variant="outlined"
-                name="name"
-                value={state?.name}
-                onChange={handleChange}
-              />
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                marginY: "20px",
-              }}
-            >
-              <Typography
-                variant="h6"
-                component="h6"
-                textAlign="center"
-                sx={{ color: "#fff" }}
+                labelId="demo-simple-select-helper-label"
+                id="demo-simple-select-helper"
+                label="Filtrar Por"
+                onChange={handleInputChange}
+                value={studentId}
               >
-                Periodo Curso
-              </Typography>
-              <TextField
-                required
-                name="period"
-                size="small"
-                sx={textFields}
-                id="outlined-basic"
-                label="Rut"
-                variant="outlined"
-                value={state?.period}
-                onChange={handleChange}
-              />
+                <MenuItem value="">
+                  <em></em>
+                </MenuItem>
+                <MenuItem value={0}>Documento</MenuItem>
+                <MenuItem value={1}>Examen</MenuItem>
+              </Select>
             </Box>
+
             <Box sx={BoxButton}>
               <Button
                 type="submit"
@@ -167,4 +120,4 @@ const ModalEditCourse = ({ isOpen, handleOnClose }) => {
   );
 };
 
-export default ModalEditCourse;
+export default ModalAddStudentACourse;

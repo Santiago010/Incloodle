@@ -3,11 +3,14 @@ import { types } from "../types/types";
 
 export const StartGetCourses = (jwt) => {
   return async (dispatch) => {
+    let dataJwt = JSON.parse(atob(jwt.split(".")[1]));
     try {
-      const { data } = await api.get("/api/course", {
-        headers: { Authorization: `Bearer ${jwt}` },
-      });
-      console.log(data);
+      const { data } = await api.get(
+        `/api/course/${dataJwt.teacher_id}/teacher`,
+        {
+          headers: { Authorization: `Bearer ${jwt}` },
+        }
+      );
       dispatch(GetCourses(data.data));
     } catch (error) {
       console.error(error);
@@ -81,11 +84,28 @@ export const StartDeleteCourse = (jwt, idCourse) => {
 export const startGetDocumentsByCourse = (jwt, courseId) => {
   return async (dispatch) => {
     try {
-      let { data } = await api.get(`/api/document/${courseId}/course`, {
+      const documentsByCourse = api.get(`/api/document/${courseId}/course`, {
         headers: { Authorization: `Bearer ${jwt}` },
       });
-      console.log(data);
-      dispatch(GetDocumentsByCourse(data.data));
+      const examByCourse = api.get(`/api/exam/${courseId}/course`, {
+        headers: { Authorization: `Bearer ${jwt}` },
+      });
+      const [documentsByCourseRes, examByCourseRes] = await Promise.all([
+        documentsByCourse,
+        examByCourse,
+      ]);
+
+      const newDocumentsByCourse = documentsByCourseRes.data.data.map((el) => ({
+        id: el.document_id,
+        ...el,
+      }));
+      const newExamByCourse = examByCourseRes.data.data.map((el) => ({
+        id: el.exam_id,
+        ...el,
+      }));
+      dispatch(
+        GetDocumentsByCourse([...newDocumentsByCourse, ...newExamByCourse])
+      );
     } catch (error) {
       console.error(error);
     }
@@ -102,13 +122,25 @@ export const ChooseDocument = (document) => ({
   payload: document,
 });
 
-export const StartDeleteDocumentByCourse = (jwt, documentId, courseId) => {
+export const StartDeleteDocumentByCourse = (
+  jwt,
+  documentType,
+  documentId,
+  courseId
+) => {
   return async (dispatch) => {
     try {
-      let { data } = await api.delete(`/api/document/${documentId}`, {
-        headers: { Authorization: `Bearer ${jwt}` },
-      });
-      console.log(data);
+      if (documentType === 0) {
+        let { data } = await api.delete(`/api/document/${documentId}`, {
+          headers: { Authorization: `Bearer ${jwt}` },
+        });
+        console.log(data);
+      } else if (documentType === 1) {
+        let { data } = await api.delete(`/api/exam/${documentId}`, {
+          headers: { Authorization: `Bearer ${jwt}` },
+        });
+        console.log(data);
+      }
       dispatch(startGetDocumentsByCourse(jwt, courseId));
     } catch (error) {
       console.error(error);
@@ -119,25 +151,63 @@ export const StartDeleteDocumentByCourse = (jwt, documentId, courseId) => {
 export const StartAddDocumentsByCourse = (
   jwt,
   formData,
-  nameNewDocument,
+  type,
+  values,
   courseId
 ) => {
   return async (dispatch) => {
     try {
-      let { data } = await api.post("/api/document", formData, {
-        params: {
-          name: nameNewDocument,
-          course_id: courseId,
-        },
-        headers: {
-          Authorization: `Bearer ${jwt}`,
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      console.log(data);
+      if (type === 0) {
+        let { data } = await api.post("/api/document", formData, {
+          params: {
+            name: values.name,
+            course_id: courseId,
+          },
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        console.log(data);
+      } else if (type === 1) {
+        let { data } = await api.post("/api/exam", formData, {
+          params: {
+            name: values.name,
+            course_id: courseId,
+            num_of_questions: values.numberQuestions,
+          },
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        console.log(data);
+      }
       dispatch(startGetDocumentsByCourse(jwt, courseId));
     } catch (error) {
       console.error(error);
     }
   };
 };
+
+export const StartGetStudentByCourse = (jwt, courseId) => {
+  return async (dispatch) => {
+    try {
+      let { data } = await api.get("api/enrollment/studentByCourse", {
+        params: {
+          course_id: courseId,
+        },
+        headers: { Authorization: `Bearer ${jwt}` },
+      });
+      console.log(data);
+      dispatch(GetStudentByCourse(data.data));
+    } catch (error) {}
+  };
+};
+
+const GetStudentByCourse = (students) => ({
+  type: types.teacherGetStudentByCourse,
+  payload: students,
+});
+
+export const StartAddStudentsByCourse = (jwt) => {};

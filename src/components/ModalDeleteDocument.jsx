@@ -6,6 +6,7 @@ import {
   BoxContainer,
   ModalStyle,
   BoxButton,
+  titleModal,
 } from "./styles/stylesModals";
 import { useDispatch, useSelector } from "react-redux";
 import { StartDeleteDocumentByCourse } from "../redux/actions/teacherActions";
@@ -17,7 +18,12 @@ const ModalDeleteDocument = ({ isOpen, handleOnClose, document }) => {
 
   const handleOnDelete = () => {
     dispatch(
-      StartDeleteDocumentByCourse(jwt, document.document_id, course.course_id)
+      StartDeleteDocumentByCourse(
+        jwt,
+        document.type,
+        document.id,
+        course.course_id
+      )
     );
     handleOnClose();
   };
@@ -37,7 +43,7 @@ const ModalDeleteDocument = ({ isOpen, handleOnClose, document }) => {
             variant="h6"
             component="h6"
             textAlign="center"
-            sx={{ color: "#fff" }}
+            sx={titleModal}
           >
             ¿Está seguro que desea eliminar el Material?
           </Typography>

@@ -8,7 +8,14 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
-import { BoxContainer, BoxPrincipal, ModalStyle } from "./styles/stylesModals";
+import {
+  BoxButton,
+  BoxContainer,
+  BoxPrincipal,
+  ModalStyle,
+  textFields,
+  titleModal,
+} from "./styles/stylesModals";
 import CloseIcon from "@mui/icons-material/Close";
 import useForm from "../hooks/useForm";
 import { useDispatch, useSelector } from "react-redux";
@@ -44,7 +51,7 @@ const ModalCreateCourse = ({ isOpen, handleOnClose, teacher }) => {
             variant="h6"
             component="h6"
             textAlign="center"
-            sx={{ color: "#fff" }}
+            sx={titleModal}
           >
             Agregar Curso
           </Typography>
@@ -70,7 +77,8 @@ const ModalCreateCourse = ({ isOpen, handleOnClose, teacher }) => {
               </Typography>
               <TextField
                 required
-                sx={{ backgroundColor: "#fff", borderRadius: "5px" }}
+                size="small"
+                sx={textFields}
                 id="outlined-basic"
                 label="Nombre"
                 variant="outlined"
@@ -97,7 +105,8 @@ const ModalCreateCourse = ({ isOpen, handleOnClose, teacher }) => {
               </Typography>
               <TextField
                 required
-                sx={{ backgroundColor: "#fff", borderRadius: "5px" }}
+                size="small"
+                sx={textFields}
                 id="outlined-basic"
                 label="Periodo"
                 variant="outlined"
@@ -106,13 +115,7 @@ const ModalCreateCourse = ({ isOpen, handleOnClose, teacher }) => {
                 onChange={handleInputChange}
               />
             </Box>
-            <ButtonGroup
-              sx={{
-                alignSelf: "center",
-                display: "flex",
-                justifyContent: "space-around",
-              }}
-            >
+            <Box sx={BoxButton}>
               <Button
                 type="submit"
                 sx={{ backgroundColor: "#fff", marginX: "10px" }}
@@ -127,7 +130,7 @@ const ModalCreateCourse = ({ isOpen, handleOnClose, teacher }) => {
               >
                 Cancelar
               </Button>
-            </ButtonGroup>
+            </Box>
           </form>
         </Box>
       </Box>

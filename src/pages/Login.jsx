@@ -11,7 +11,6 @@ import { useDispatch } from "react-redux";
 import { StartLogin } from "../redux/actions/authActions";
 
 const Login = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [values, handleInputChange, resetValues] = useForm({
     email: "",
@@ -23,15 +22,10 @@ const Login = () => {
 
   const handleOnSubmit = async (ev) => {
     ev.preventDefault();
-    // console.log(values);
     dispatch(StartLogin(values));
   };
 
-  useEffect(() => {
-    // const token = window.localStorage.getItem("jwt");
-    // if (!token) return;
-    // navigate("/");
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <Box
@@ -42,31 +36,34 @@ const Login = () => {
         height: "100vh",
         background:
           "linear-gradient(180deg, rgba(75,70,184,1) 34%, rgba(3,167,192,1) 66%, rgba(255,255,255,1) 90%)",
+        justifyContent: "space-evenly",
       }}
     >
-      <Typography
-        variant="h3"
-        component="h3"
-        textAlign={"center"}
-        sx={{
-          marginTop: "60px",
-          color: "#ffffff",
-          fontWeight: 700,
-        }}
-      >
-        Bienvenid@ a Incloodle
-      </Typography>
-      <Typography
-        variant="h6"
-        component="h6"
-        textAlign={"center"}
-        sx={{
-          color: "#ffffff",
-          fontWeight: 300,
-        }}
-      >
-        Plataforma para toma de evaluaciones
-      </Typography>
+      <Box>
+        <Typography
+          variant="h3"
+          component="h3"
+          textAlign={"center"}
+          sx={{
+            marginBotton: "60px",
+            color: "#ffffff",
+            fontWeight: 700,
+          }}
+        >
+          Bienvenid@ a Incloodle
+        </Typography>
+        <Typography
+          variant="h6"
+          component="h6"
+          textAlign={"center"}
+          sx={{
+            color: "#ffffff",
+            fontWeight: 300,
+          }}
+        >
+          Plataforma para toma de evaluaciones
+        </Typography>
+      </Box>
       <form
         style={{
           width: "30%",
@@ -105,7 +102,7 @@ const Login = () => {
           required
           type="email"
           fullWidth
-          label="email"
+          label="Email"
           id="fullWidth"
           variant="outlined"
           sx={{
@@ -143,7 +140,13 @@ const Login = () => {
           label="Recordar mis datos"
           value={checked}
         />
-        <Button type="submit" variant="contained">
+        <Button
+          sx={{
+            marginTop: "10px",
+          }}
+          type="submit"
+          variant="contained"
+        >
           INGRESAR
         </Button>
       </form>

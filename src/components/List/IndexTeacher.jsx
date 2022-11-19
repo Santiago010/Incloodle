@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../hooks/useModal";
+import { StartGetAllStudents } from "../../redux/actions/studentsActions";
 import {
   StartGetCourses,
   ChoosenCourse,
   startGetDocumentsByCourse,
   ChooseDocument,
+  StartGetStudentByCourse,
 } from "../../redux/actions/teacherActions";
 import {
   FiltersByCourses,
   FiltersByDocuments,
+  FiltersByStudents,
 } from "../ContainersFiltersForTeacher";
+import ModalAddStudentACourse from "../ModalAddStudentACourse";
 import ModalCreateCourse from "../ModalCreateCourse";
 import ModalCreateDocument from "../ModalCreateDocument";
 import ModalDeleteCourse from "../ModalDeleteCourse";
@@ -35,6 +39,11 @@ export const IndexTeacher = () => {
     handleCloseModal: handleCloseModalCreateDocument,
   } = useModal(false);
   const {
+    isOpen: isOpenModalAddStudentACourse,
+    handleOpenModal: handleOpenModalAddStudentACourse,
+    handleCloseModal: handleCloseModalAddStudentACourse,
+  } = useModal(false);
+  const {
     isOpen: isOpenModalDeleteCourse,
     handleOpenModal: handleOpenModalDeleteCourse,
     handleCloseModal: handleCloseModalDeleteCourse,
@@ -52,7 +61,6 @@ export const IndexTeacher = () => {
   const [teacher, setTeacher] = useState({});
 
   const handleEditCourse = (course) => {
-    console.log(course);
     dispatch(ChoosenCourse(course));
     handleOpenModalEdit();
   };
@@ -84,6 +92,20 @@ export const IndexTeacher = () => {
     dispatch(startGetDocumentsByCourse(jwt, course.course_id));
   };
 
+  const handleSeeDocumentOrExam = (link) => {
+    console.log(link);
+  };
+
+  const handleSeeStudents = (course) => {
+    dispatch(ChoosenCourse(course));
+    dispatch(StartGetStudentByCourse(jwt, course.course_id));
+  };
+
+  const handleAddStudentACourse = () => {
+    dispatch(StartGetAllStudents(jwt));
+    handleOpenModalAddStudentACourse();
+  };
+
   const Content = () => {
     if (listShow === "Courses") {
       return (
@@ -112,6 +134,7 @@ export const IndexTeacher = () => {
           handleCreate={handleOpenModalCreateCourse}
           handleDelete={handleDeleteCourse}
           handleSeeMaterial={handleSeeMaterial}
+          handleSeeStudents={handleSeeStudents}
           paragraphBtnAdd={"Agregar Curso"}
         />
       );
@@ -137,7 +160,28 @@ export const IndexTeacher = () => {
           handleCreate={handleOpenModalCreateDocument}
           handleDelete={handleDeleteDocument}
           handleSeeMaterial={handleSeeMaterial}
+          handleSeeDocumentOrExam={handleSeeDocumentOrExam}
           paragraphBtnAdd={"Agregar Material"}
+        />
+      );
+    } else if (listShow === "Students") {
+      return (
+        <Page
+          containerFilters={<FiltersByStudents />}
+          dataStudents={data}
+          fragmentModals={
+            <>
+              <ModalAddStudentACourse
+                isOpen={isOpenModalAddStudentACourse}
+                handleOnClose={handleCloseModalAddStudentACourse}
+              />
+            </>
+          }
+          handleCreate={handleAddStudentACourse}
+          handleDelete={() => {}}
+          handleEvaluateStudent={() => {}}
+          handleReportStudent={() => {}}
+          paragraphBtnAdd={"Agregar Estudiante"}
         />
       );
     }
