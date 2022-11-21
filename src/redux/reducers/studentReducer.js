@@ -1,9 +1,11 @@
 import { types } from "../types/types";
 
 const initialState = {
-  err: null,
-  message: null,
+  err: false,
+  message: "",
   studentsAll: [],
+  data: [],
+  listShow: "Courses",
 };
 
 export const studentReducer = (state = initialState, action) => {
@@ -15,7 +17,22 @@ export const studentReducer = (state = initialState, action) => {
         message: "found succesfully",
         studentsAll: action.payload,
       };
-
+    case types.studentGetMyCourses:
+      return {
+        ...state,
+        err: action.payload.err,
+        message: action.payload.message,
+        data: action.payload.data,
+        listShow: "Courses",
+      };
+    case types.studentGetDocumentsByCourse:
+      return {
+        ...state,
+        err: action.payload.err,
+        message: action.payload.message,
+        data: action.payload.data,
+        listShow: "Documents",
+      };
     default:
       return state;
   }

@@ -11,10 +11,10 @@ import {
 import { Box } from "@mui/system";
 import React, { useState } from "react";
 import {
-  BoxButton,
-  BoxContainer,
-  BoxPrincipal,
-  ModalStyle,
+  boxButton,
+  boxContainer,
+  boxPrincipal,
+  modalStyle,
   titleModal,
   textFields,
 } from "./styles/stylesModals";
@@ -54,9 +54,9 @@ const ModalCreateDocument = ({ isOpen, handleOnClose }) => {
   };
 
   return (
-    <Modal open={isOpen} onClose={handleOnClose} sx={ModalStyle}>
-      <Box sx={BoxPrincipal}>
-        <Box sx={BoxContainer}>
+    <Modal open={isOpen} onClose={handleOnClose} sx={modalStyle}>
+      <Box sx={boxPrincipal}>
+        <Box sx={boxContainer}>
           <IconButton
             aria-label="delete"
             size="small"
@@ -197,7 +197,7 @@ const ModalCreateDocument = ({ isOpen, handleOnClose }) => {
                 onChange={(ev) => handleFileSelect(ev)}
               />
             </Box>
-            <Box sx={BoxButton}>
+            <Box sx={boxButton}>
               <Button
                 type="submit"
                 sx={{ backgroundColor: "#fff", marginX: "10px" }}

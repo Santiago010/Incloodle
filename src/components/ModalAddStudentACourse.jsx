@@ -10,10 +10,10 @@ import {
 import { Box } from "@mui/system";
 import React from "react";
 import {
-  BoxButton,
-  BoxContainer,
-  BoxPrincipal,
-  ModalStyle,
+  boxButton,
+  boxContainer,
+  boxPrincipal,
+  modalStyle,
   titleModal,
   textFields,
 } from "./styles/stylesModals";
@@ -41,9 +41,9 @@ const ModalAddStudentACourse = ({ isOpen, handleOnClose }) => {
   };
 
   return (
-    <Modal open={isOpen} onClose={handleOnClose} sx={ModalStyle}>
-      <Box sx={BoxPrincipal}>
-        <Box sx={BoxContainer}>
+    <Modal open={isOpen} onClose={handleOnClose} sx={modalStyle}>
+      <Box sx={boxPrincipal}>
+        <Box sx={boxContainer}>
           <IconButton
             aria-label="delete"
             size="small"
@@ -103,7 +103,7 @@ const ModalAddStudentACourse = ({ isOpen, handleOnClose }) => {
               )}
             </Box>
 
-            <Box sx={BoxButton}>
+            <Box sx={boxButton}>
               <Button
                 type="submit"
                 sx={{ backgroundColor: "#fff", marginX: "10px" }}

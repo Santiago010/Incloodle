@@ -1,4 +1,4 @@
-export const BoxPrincipal = {
+export const boxPrincipal = {
   height: "calc(100vh - 80px)",
   paddingX: "50px",
   paddingY: "30px",

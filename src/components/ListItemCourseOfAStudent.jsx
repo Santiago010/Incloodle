@@ -9,18 +9,13 @@ import React from "react";
 import { listItem } from "./styles/stylesList";
 import PropTypes from "prop-types";
 
-const ListItemCourse = ({
-  data,
-  handleSeeMaterial,
-  handleEdit,
-  handleDelete,
-  handleSeeStudents,
-}) => {
+const ListItemCourseOfAStudent = ({ data, handleSeeMaterial }) => {
   return (
     <ListItem sx={listItem}>
       <ListItemButton
         sx={{
-          width: "50px",
+          minWidth: "35%",
+          maxWidth: "70%",
         }}
         dense={true}
       >
@@ -28,7 +23,13 @@ const ListItemCourse = ({
           {data.name}
         </Typography>
       </ListItemButton>
-      <ListItemButton dense={true}>
+      <ListItemButton
+        sx={{
+          minWidth: "35%",
+          maxWidth: "70%",
+        }}
+        dense={true}
+      >
         <Typography variant="h6" component="p">
           {data.period}
         </Typography>
@@ -37,29 +38,25 @@ const ListItemCourse = ({
         variant="contained"
         aria-label="outlined primary button group"
       >
-        <Button onClick={() => handleSeeStudents(data)}>VER ESTUDIANTES</Button>
         <Button onClick={() => handleSeeMaterial(data)}>INGRESAR</Button>
-        <Button onClick={() => handleEdit(data)}>EDITAR</Button>
-        <Button onClick={() => handleDelete(data)}>ELIMINAR</Button>
       </ButtonGroup>
     </ListItem>
   );
 };
 
-export default ListItemCourse;
+export default ListItemCourseOfAStudent;
 
-ListItemCourse.propTypes = {
+ListItemCourseOfAStudent.propTypes = {
   data: PropTypes.shape({
+    enrollment_id: PropTypes.number,
     course_id: PropTypes.number,
+    student_id: PropTypes.number,
     name: PropTypes.string,
     period: PropTypes.string,
-    final_score: PropTypes.number,
+    final_score: PropTypes.string,
     teacher_id: PropTypes.number,
     createdAt: PropTypes.string,
     updatedAt: PropTypes.string,
-  }).isRequired,
+  }),
   handleSeeMaterial: PropTypes.func.isRequired,
-  handleEdit: PropTypes.func.isRequired,
-  handleDelete: PropTypes.func.isRequired,
-  handleSeeStudents: PropTypes.func.isRequired,
 };

@@ -12,10 +12,10 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import React, { useEffect, useState } from "react";
 import {
-  BoxButton,
-  BoxContainer,
-  BoxPrincipal,
-  ModalStyle,
+  boxButton,
+  boxContainer,
+  boxPrincipal,
+  modalStyle,
   titleModal,
   textFields,
 } from "./styles/stylesModals";
@@ -31,7 +31,6 @@ const ModalEditProfile = ({ isOpen, handleOnClose }) => {
   // const [values, handleInputChange] = useForm(profile); TODO:implementar
 
   useEffect(() => {
-    console.log(profile);
     setState({ ...state, ...profile });
   }, [profile]);
 
@@ -71,9 +70,9 @@ const ModalEditProfile = ({ isOpen, handleOnClose }) => {
   };
 
   return (
-    <Modal open={isOpen} onClose={handleOnClose} sx={ModalStyle}>
-      <Box sx={BoxPrincipal}>
-        <Box sx={BoxContainer}>
+    <Modal open={isOpen} onClose={handleOnClose} sx={modalStyle}>
+      <Box sx={boxPrincipal}>
+        <Box sx={boxContainer}>
           <IconButton
             aria-label="delete"
             size="small"
@@ -181,7 +180,7 @@ const ModalEditProfile = ({ isOpen, handleOnClose }) => {
                 onChange={handleChange}
               />
             </Box>
-            <Box sx={BoxButton}>
+            <Box sx={boxButton}>
               <Button
                 type="submit"
                 sx={{ backgroundColor: "#fff", marginX: "10px" }}

@@ -1,17 +1,17 @@
-import { Box } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Box, CircularProgress } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
-import React, { useEffect } from "react";
+import React from "react";
 import useForm from "../hooks/useForm";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { StartLogin } from "../redux/actions/authActions";
 
 const Login = () => {
   const dispatch = useDispatch();
+  const { loading } = useSelector((s) => s?.uiReducer);
   const [values, handleInputChange, resetValues] = useForm({
     email: "",
     password: "",
@@ -24,8 +24,6 @@ const Login = () => {
     ev.preventDefault();
     dispatch(StartLogin(values));
   };
-
-  useEffect(() => {}, []);
 
   return (
     <Box
@@ -146,9 +144,11 @@ const Login = () => {
           }}
           type="submit"
           variant="contained"
+          disabled={loading}
         >
           INGRESAR
         </Button>
+        {loading && <CircularProgress />}
       </form>
       <Typography
         variant="h6"

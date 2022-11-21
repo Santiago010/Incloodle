@@ -1,8 +1,10 @@
 import api from "../../api/api";
 import { types } from "../types/types";
+import { StartLoading, StopLoading } from "../actions/uiActions";
 
 export const StartGetCourses = (jwt) => {
   return async (dispatch) => {
+    dispatch(StartLoading());
     let dataJwt = JSON.parse(atob(jwt.split(".")[1]));
     try {
       const { data } = await api.get(
@@ -11,16 +13,17 @@ export const StartGetCourses = (jwt) => {
           headers: { Authorization: `Bearer ${jwt}` },
         }
       );
-      dispatch(GetCourses(data.data));
+      dispatch(GetCourses(data));
+      dispatch(StopLoading());
     } catch (error) {
       console.error(error);
     }
   };
 };
 
-const GetCourses = (courses) => ({
+const GetCourses = (data) => ({
   type: types.teacherGetCourse,
-  payload: courses,
+  payload: data,
 });
 
 export const ChoosenCourse = (course) => ({
@@ -104,17 +107,22 @@ export const startGetDocumentsByCourse = (jwt, courseId) => {
         ...el,
       }));
       dispatch(
-        GetDocumentsByCourse([...newDocumentsByCourse, ...newExamByCourse])
+        GetDocumentsByCourse({
+          err: false,
+          message: "Documents and Exam found succesfully!",
+          data: [...newDocumentsByCourse, ...newExamByCourse],
+        })
       );
+      dispatch(StopLoading());
     } catch (error) {
       console.error(error);
     }
   };
 };
 
-const GetDocumentsByCourse = (documents) => ({
+const GetDocumentsByCourse = (data) => ({
   type: types.teacherGetDocumentsByCourse,
-  payload: documents,
+  payload: data,
 });
 
 export const ChooseDocument = (document) => ({
@@ -193,6 +201,7 @@ export const StartAddDocumentsByCourse = (
 export const StartGetStudentByCourse = (jwt, courseId) => {
   return async (dispatch) => {
     try {
+      dispatch(StartLoading());
       let { data } = await api.get("api/enrollment/studentByCourse", {
         params: {
           course_id: courseId,
@@ -200,14 +209,15 @@ export const StartGetStudentByCourse = (jwt, courseId) => {
         headers: { Authorization: `Bearer ${jwt}` },
       });
       console.log(data);
-      dispatch(GetStudentByCourse(data.data));
+      dispatch(GetStudentByCourse(data));
+      dispatch(StopLoading());
     } catch (error) {}
   };
 };
 
-const GetStudentByCourse = (students) => ({
+const GetStudentByCourse = (data) => ({
   type: types.teacherGetStudentByCourse,
-  payload: students,
+  payload: data,
 });
 
 export const ChooseStudent = (student) => ({
@@ -253,3 +263,17 @@ export const StartDeleteStudentFromACourse = (jwt, student) => {
     }
   };
 };
+
+export const StartFilterCourse = (jwt, name) => {
+  return (dispatch) => {
+    if (name === "") {
+      dispatch(StartGetCourses(jwt));
+    } else {
+      dispatch(FilterCourse(name));
+    }
+  };
+};
+const FilterCourse = (name) => ({
+  type: types.teacherFilterCourse,
+  payload: name,
+});

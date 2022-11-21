@@ -1,12 +1,15 @@
 import { Box, Button, CircularProgress, List } from "@mui/material";
 import React from "react";
 import PropTypes from "prop-types";
-import { BoxBtnAdd, BoxPrincipal, listData } from "../styles/stylesList";
+import { BoxBtnAdd, boxPrincipal, listData } from "../styles/stylesList";
 import AddIcon from "@mui/icons-material/Add";
 import ListItemProfile from "../ListItemProfile";
 import ListItemCourse from "../ListItemCourse";
 import ListItemDocument from "../ListItemDocument";
 import ListItemStudent from "../ListItemStudent";
+import { useSelector } from "react-redux";
+import ListItemCourseOfAStudent from "../ListItemCourseOfAStudent";
+import EmptyListParagraph from "../EmptyListParagraph";
 
 const Page = ({
   containerFilters,
@@ -14,6 +17,7 @@ const Page = ({
   dataCourses,
   dataDocuments,
   dataStudents,
+  dataCourseByStudent,
   paragraphBtnAdd,
   fragmentModals,
   handleEdit,
@@ -24,11 +28,15 @@ const Page = ({
   handleEvaluateStudent,
   handleReportStudent,
   handleSeeStudents,
+  showButtonDeleteDocument,
 }) => {
+  const { loading } = useSelector((s) => s?.uiReducer);
   const ChooseList = () => {
-    if (dataProfiles && !dataCourses && !dataDocuments && !dataStudents) {
-      return dataProfiles.length === 0 ? (
+    if (dataProfiles) {
+      return loading ? (
         <CircularProgress />
+      ) : dataProfiles.length === 0 ? (
+        <EmptyListParagraph emptyList={"Perfiles"} />
       ) : (
         dataProfiles.map((data) => {
           return (
@@ -41,14 +49,11 @@ const Page = ({
           );
         })
       );
-    } else if (
-      dataCourses &&
-      !dataProfiles &&
-      !dataDocuments &&
-      !dataStudents
-    ) {
-      return dataCourses.length === 0 ? (
+    } else if (dataCourses) {
+      return loading ? (
         <CircularProgress />
+      ) : dataCourses.length === 0 ? (
+        <EmptyListParagraph emptyList={"Cursos"} />
       ) : (
         dataCourses.map((data) => {
           return (
@@ -63,34 +68,29 @@ const Page = ({
           );
         })
       );
-    } else if (
-      dataDocuments &&
-      !dataCourses &&
-      !dataProfiles &&
-      !dataStudents
-    ) {
-      return dataDocuments.length === 0 ? (
+    } else if (dataDocuments) {
+      return loading ? (
         <CircularProgress />
+      ) : dataDocuments.length === 0 ? (
+        <EmptyListParagraph emptyList={"Documentos"} />
       ) : (
         dataDocuments.map((data) => {
           return (
             <ListItemDocument
-              key={`${data.id}-${data.name}`}
+              key={data.id}
               data={data}
-              handleSeeDocumentOrExam={handleSeeDocumentOrExam}
               handleDelete={handleDelete}
+              handleSeeDocumentOrExam={handleSeeDocumentOrExam}
+              showButtonDelete={showButtonDeleteDocument}
             />
           );
         })
       );
-    } else if (
-      dataStudents &&
-      !dataCourses &&
-      !dataProfiles &&
-      !dataDocuments
-    ) {
-      return dataStudents.length === 0 ? (
+    } else if (dataStudents) {
+      return loading ? (
         <CircularProgress />
+      ) : dataStudents.length === 0 ? (
+        <EmptyListParagraph emptyList={"Estudiantes"} />
       ) : (
         dataStudents.map((data) => {
           return (
@@ -104,23 +104,42 @@ const Page = ({
           );
         })
       );
+    } else if (dataCourseByStudent) {
+      return loading ? (
+        <CircularProgress />
+      ) : dataCourseByStudent.length === 0 ? (
+        <EmptyListParagraph emptyList={"Cursos"} />
+      ) : (
+        dataCourseByStudent.map((data) => {
+          return (
+            <ListItemCourseOfAStudent
+              key={data.course_id}
+              data={data}
+              handleSeeMaterial={handleSeeMaterial}
+            />
+          );
+        })
+      );
     }
   };
   return (
-    <Box sx={BoxPrincipal}>
+    <Box sx={boxPrincipal}>
       {containerFilters}
       <List sx={listData}>
         <ChooseList />
       </List>
-      <Box sx={BoxBtnAdd}>
-        <Button
-          startIcon={<AddIcon />}
-          variant="contained"
-          onClick={() => handleCreate()}
-        >
-          {paragraphBtnAdd}
-        </Button>
-      </Box>
+      {paragraphBtnAdd && (
+        <Box sx={BoxBtnAdd}>
+          <Button
+            startIcon={<AddIcon />}
+            variant="contained"
+            onClick={() => handleCreate()}
+          >
+            {paragraphBtnAdd}
+          </Button>
+        </Box>
+      )}
+
       {fragmentModals}
     </Box>
   );
@@ -129,7 +148,7 @@ const Page = ({
 export default Page;
 
 Page.propTypes = {
-  containerFilters: PropTypes.node.isRequired,
+  containerFilters: PropTypes.node,
   dataProfiles: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,
@@ -179,14 +198,28 @@ Page.propTypes = {
       rol: PropTypes.number,
     })
   ),
-  paragraphBtnAdd: PropTypes.string.isRequired,
-  fragmentModals: PropTypes.node.isRequired,
+  dataCourseByStudent: PropTypes.arrayOf(
+    PropTypes.shape({
+      enrollment_id: PropTypes.number,
+      course_id: PropTypes.number,
+      student_id: PropTypes.number,
+      name: PropTypes.string,
+      period: PropTypes.string,
+      final_score: PropTypes.string,
+      teacher_id: PropTypes.number,
+      createdAt: PropTypes.string,
+      updatedAt: PropTypes.string,
+    })
+  ),
+  paragraphBtnAdd: PropTypes.string,
+  fragmentModals: PropTypes.node,
   handleEdit: PropTypes.func,
-  handleCreate: PropTypes.func.isRequired,
-  handleDelete: PropTypes.func.isRequired,
+  handleCreate: PropTypes.func,
+  handleDelete: PropTypes.func,
   handleSeeMaterial: PropTypes.func,
   handleSeeDocumentOrExam: PropTypes.func,
   handleEvaluateStudent: PropTypes.func,
   handleReportStudent: PropTypes.func,
   handleSeeStudents: PropTypes.func,
+  showButtonDeleteDocument: PropTypes.bool,
 };

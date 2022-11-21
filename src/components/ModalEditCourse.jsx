@@ -12,10 +12,10 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import React, { useEffect, useState } from "react";
 import {
-  BoxButton,
-  BoxContainer,
-  BoxPrincipal,
-  ModalStyle,
+  boxButton,
+  boxContainer,
+  boxPrincipal,
+  modalStyle,
   textFields,
   titleModal,
 } from "./styles/stylesModals";
@@ -63,9 +63,9 @@ const ModalEditCourse = ({ isOpen, handleOnClose }) => {
   };
 
   return (
-    <Modal open={isOpen} onClose={handleOnClose} sx={ModalStyle}>
-      <Box sx={BoxPrincipal}>
-        <Box sx={BoxContainer}>
+    <Modal open={isOpen} onClose={handleOnClose} sx={modalStyle}>
+      <Box sx={boxPrincipal}>
+        <Box sx={boxContainer}>
           <IconButton
             aria-label="delete"
             size="small"
@@ -144,7 +144,7 @@ const ModalEditCourse = ({ isOpen, handleOnClose }) => {
                 onChange={handleChange}
               />
             </Box>
-            <Box sx={BoxButton}>
+            <Box sx={boxButton}>
               <Button
                 type="submit"
                 sx={{ backgroundColor: "#fff", marginX: "10px" }}

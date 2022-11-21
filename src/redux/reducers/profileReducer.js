@@ -19,16 +19,27 @@ export const profileReducer = (state = intialState, action) => {
     case types.profileGet:
       return {
         ...state,
-        err: false,
-        message: "found succesfully",
-        data: action.payload,
+        err: action.payload.err,
+        message: action.payload.message,
+        data: action.payload.data,
       };
     case types.profileChoose:
       return {
         ...state,
         profile: action.payload,
       };
-
+    case types.profileFilterByRol:
+      return {
+        ...state,
+        data: state.data.filter((profile) => profile.rol === action.payload),
+      };
+    case types.profileFilterByName:
+      return {
+        ...state,
+        data: state.data.filter((profile) =>
+          profile.name.includes(action.payload)
+        ),
+      };
     default:
       return state;
   }

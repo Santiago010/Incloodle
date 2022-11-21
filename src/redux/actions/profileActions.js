@@ -1,9 +1,11 @@
 import api from "../../api/api";
 import { types } from "../types/types";
+import { StartLoading, StopLoading } from "../actions/uiActions";
 
 export const StartGetProfile = (jwt) => {
   return async (dispatch) => {
     try {
+      dispatch(StartLoading());
       const profilesTeachers = api.get("/api/teacher", {
         headers: { Authorization: `Bearer ${jwt}` },
       });
@@ -24,14 +26,21 @@ export const StartGetProfile = (jwt) => {
         ...el,
       }));
 
-      dispatch(GetProfile([...newStudents, ...newTeachers]));
+      dispatch(
+        GetProfile({
+          err: false,
+          message: "Teachers and Students found succesfully",
+          data: [...newStudents, ...newTeachers],
+        })
+      );
+      dispatch(StopLoading());
     } catch (err) {}
   };
 };
 
-const GetProfile = (profiles) => ({
+const GetProfile = (data) => ({
   type: types.profileGet,
-  payload: profiles,
+  payload: data,
 });
 
 export const ChoosenProfile = (profile) => ({
@@ -120,3 +129,33 @@ export const StartDeleteProfile = (jwt, id, rol) => {
     }
   };
 };
+
+export const StartFilterProfileByRol = (jwt, rol) => {
+  return (dispatch) => {
+    if (rol === 3) {
+      dispatch(StartGetProfile(jwt));
+    } else {
+      dispatch(FilterProfileByRol(rol));
+    }
+  };
+};
+
+const FilterProfileByRol = (rol) => ({
+  type: types.profileFilterByRol,
+  payload: rol,
+});
+
+export const StartFilterProfileByName = (jwt, name) => {
+  return (dispatch) => {
+    if (name === "") {
+      dispatch(StartGetProfile(jwt));
+    } else {
+      dispatch(FilterProfileByName(name));
+    }
+  };
+};
+
+const FilterProfileByName = (name) => ({
+  type: types.profileFilterByName,
+  payload: name,
+});

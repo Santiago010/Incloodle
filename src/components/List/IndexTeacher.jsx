@@ -174,6 +174,7 @@ export const IndexTeacher = () => {
           handleSeeMaterial={handleSeeMaterial}
           handleSeeDocumentOrExam={handleSeeDocumentOrExam}
           paragraphBtnAdd={"Agregar Material"}
+          showButtonDeleteDocument={true}
         />
       );
     } else if (listShow === "Students") {

@@ -1,9 +1,9 @@
 import { Avatar, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
-import OptionsAdmin from "./OptionsAdmin";
+import PropTypes from "prop-types";
 
-const Header = ({ children }) => {
+const Header = ({ name, children }) => {
   return (
     <Box
       sx={{
@@ -22,8 +22,7 @@ const Header = ({ children }) => {
         }}
       >
         <Avatar
-          alt="Dominique"
-          src="../assets/profileImg.png"
+          alt="name"
           sx={{
             marginRight: "10px",
           }}
@@ -41,7 +40,7 @@ const Header = ({ children }) => {
             WebkitBackgroundClip: "text",
           }}
         >
-          Dominique
+          {name}
         </Typography>
       </Box>
       <Box>{children}</Box>
@@ -50,3 +49,8 @@ const Header = ({ children }) => {
 };
 
 export default Header;
+
+Header.propTypes = {
+  name: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+};

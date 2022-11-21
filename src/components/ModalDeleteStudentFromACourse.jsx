@@ -2,10 +2,10 @@ import { Box, Button, IconButton, Modal, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import React from "react";
 import {
-  BoxPrincipal,
-  BoxContainer,
-  ModalStyle,
-  BoxButton,
+  boxPrincipal,
+  boxContainer,
+  modalStyle,
+  boxButton,
   titleModal,
 } from "./styles/stylesModals";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,9 +22,9 @@ const ModalDeleteStudentFromACourse = ({ isOpen, handleOnClose }) => {
     dispatch(StartDeleteStudentFromACourse(jwt, student));
   };
   return (
-    <Modal open={isOpen} onClose={handleOnClose} sx={ModalStyle}>
-      <Box sx={BoxPrincipal}>
-        <Box sx={BoxContainer}>
+    <Modal open={isOpen} onClose={handleOnClose} sx={modalStyle}>
+      <Box sx={boxPrincipal}>
+        <Box sx={boxContainer}>
           <IconButton
             aria-label="delete"
             size="small"
@@ -41,7 +41,7 @@ const ModalDeleteStudentFromACourse = ({ isOpen, handleOnClose }) => {
           >
             ¿Está seguro que desea eliminar el Studiante del curso?
           </Typography>
-          <Box sx={{ ...BoxButton, marginY: "50px" }}>
+          <Box sx={{ ...boxButton, marginY: "50px" }}>
             <Button
               sx={{ marginX: "10px", backgroundColor: "#fff" }}
               variant="outlined"

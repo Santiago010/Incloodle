@@ -12,9 +12,9 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import React, { useEffect, useState } from "react";
 import {
-  BoxContainer,
-  BoxPrincipal,
-  ModalStyle,
+  boxContainer,
+  boxPrincipal,
+  modalStyle,
   titleModal,
   textFields,
 } from "./styles/stylesModals";
@@ -40,10 +40,14 @@ const ModalCreateProfile = ({ isOpen, handleOnClose }) => {
     handleOnClose();
   };
 
+  useEffect(() => {
+    resetValues();
+  }, [isOpen]);
+
   return (
-    <Modal open={isOpen} onClose={handleOnClose} sx={ModalStyle}>
-      <Box sx={BoxPrincipal}>
-        <Box sx={BoxContainer}>
+    <Modal open={isOpen} onClose={handleOnClose} sx={modalStyle}>
+      <Box sx={boxPrincipal}>
+        <Box sx={boxContainer}>
           <IconButton
             aria-label="delete"
             size="small"

@@ -15,7 +15,13 @@ export const authReducer = (state = initialState, action) => {
         jwt: action.payload.jwt,
         message: action.payload.message,
       };
-
+    case types.authLogout:
+      return {
+        ...state,
+        err: null,
+        jwt: null,
+        message: null,
+      };
     default:
       return state;
   }

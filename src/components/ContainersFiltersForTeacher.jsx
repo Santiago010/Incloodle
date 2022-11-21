@@ -2,10 +2,25 @@ import { FormControl, TextField, Typography } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
 import { Box } from "@mui/system";
-import React from "react";
+import React, { useEffect } from "react";
 import { BoxFields, formFilters } from "./styles/stylesList";
+import useForm from "../hooks/useForm";
+import { useDispatch, useSelector } from "react-redux";
+import { StartFilterCourse } from "../redux/actions/teacherActions";
 
 export const FiltersByCourses = () => {
+  const { jwt } = useSelector((s) => s?.authReducer);
+  const dispatch = useDispatch();
+  const [values, handleInputChange] = useForm({
+    name: "a",
+  });
+
+  const { name } = values;
+
+  // useEffect(() => {
+  //   dispatch(StartFilterCourse(jwt, name));
+  // }, [name]);
+
   return (
     <Box sx={BoxFields}>
       <Typography
@@ -29,10 +44,13 @@ export const FiltersByCourses = () => {
         >
           <SearchIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
           <TextField
+            value={name}
+            name="name"
             fullWidth
             id="input-with-sx"
             label="Ingrese nombre del curso"
             variant="standard"
+            onChange={handleInputChange}
           />
         </Box>
       </FormControl>

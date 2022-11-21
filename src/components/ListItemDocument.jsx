@@ -9,7 +9,12 @@ import React from "react";
 import { listItem } from "./styles/stylesList";
 import PropTypes from "prop-types";
 
-const ListItemDocument = ({ data, handleSeeDocumentOrExam, handleDelete }) => {
+const ListItemDocument = ({
+  data,
+  handleSeeDocumentOrExam,
+  handleDelete,
+  showButtonDelete,
+}) => {
   return (
     <ListItem sx={listItem}>
       <ListItemButton
@@ -29,7 +34,9 @@ const ListItemDocument = ({ data, handleSeeDocumentOrExam, handleDelete }) => {
         aria-label="outlined primary button group"
       >
         <Button onClick={() => handleSeeDocumentOrExam(data.link)}>Ver</Button>
-        <Button onClick={() => handleDelete(data)}>ELIMINAR</Button>
+        {showButtonDelete && (
+          <Button onClick={() => handleDelete(data)}>ELIMINAR</Button>
+        )}
       </ButtonGroup>
     </ListItem>
   );
@@ -55,5 +62,6 @@ ListItemDocument.propTypes = {
     course_id: PropTypes.number,
   }).isRequired,
   handleSeeDocumentOrExam: PropTypes.func.isRequired,
-  handleDelete: PropTypes.func.isRequired,
+  handleDelete: PropTypes.func,
+  showButtonDelete: PropTypes.bool,
 };
