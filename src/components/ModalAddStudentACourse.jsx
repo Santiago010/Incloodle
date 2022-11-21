@@ -1,5 +1,6 @@
 import {
   Button,
+  CircularProgress,
   IconButton,
   MenuItem,
   Modal,
@@ -19,12 +20,13 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import useForm from "../hooks/useForm";
 import { useDispatch, useSelector } from "react-redux";
-import { StartAddDocumentsByCourse } from "../redux/actions/teacherActions";
+import { StartAddStudentToACourse } from "../redux/actions/teacherActions";
 
 const ModalAddStudentACourse = ({ isOpen, handleOnClose }) => {
   const dispatch = useDispatch();
   const { jwt } = useSelector((s) => s?.authReducer);
   const { course } = useSelector((s) => s?.teacherReducer);
+  const { studentsAll } = useSelector((s) => s?.studentReducer);
   const [values, handleInputChange, resetValues] = useForm({
     studentId: 0,
     courseId: course.course_id,
@@ -34,7 +36,7 @@ const ModalAddStudentACourse = ({ isOpen, handleOnClose }) => {
 
   const handleOnSubmit = (ev) => {
     ev.preventDefault();
-    console.log(values);
+    dispatch(StartAddStudentToACourse(jwt, values));
     handleOnClose();
   };
 
@@ -78,23 +80,27 @@ const ModalAddStudentACourse = ({ isOpen, handleOnClose }) => {
               >
                 Estudiante
               </Typography>
-              <Select
-                required
-                name="studentId"
-                //fullWidth
-                sx={textFields}
-                labelId="demo-simple-select-helper-label"
-                id="demo-simple-select-helper"
-                label="Filtrar Por"
-                onChange={handleInputChange}
-                value={studentId}
-              >
-                <MenuItem value="">
-                  <em></em>
-                </MenuItem>
-                <MenuItem value={0}>Documento</MenuItem>
-                <MenuItem value={1}>Examen</MenuItem>
-              </Select>
+              {studentsAll.length === 0 ? (
+                <CircularProgress />
+              ) : (
+                <Select
+                  required
+                  name="studentId"
+                  //fullWidth
+                  sx={textFields}
+                  labelId="demo-simple-select-helper-label"
+                  id="demo-simple-select-helper"
+                  label="Filtrar Por"
+                  onChange={handleInputChange}
+                  value={studentId}
+                >
+                  {studentsAll.map((student) => (
+                    <MenuItem key={student.rut} value={student.student_id}>
+                      {student.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              )}
             </Box>
 
             <Box sx={BoxButton}>

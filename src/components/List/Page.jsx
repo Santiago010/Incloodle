@@ -33,6 +33,7 @@ const Page = ({
         dataProfiles.map((data) => {
           return (
             <ListItemProfile
+              key={data.rut}
               data={data}
               handleEdit={handleEdit}
               handleDelete={handleDelete}
@@ -52,6 +53,7 @@ const Page = ({
         dataCourses.map((data) => {
           return (
             <ListItemCourse
+              key={data.course_id}
               data={data}
               handleSeeMaterial={handleSeeMaterial}
               handleEdit={handleEdit}
@@ -73,6 +75,7 @@ const Page = ({
         dataDocuments.map((data) => {
           return (
             <ListItemDocument
+              key={`${data.id}-${data.name}`}
               data={data}
               handleSeeDocumentOrExam={handleSeeDocumentOrExam}
               handleDelete={handleDelete}
@@ -92,6 +95,7 @@ const Page = ({
         dataStudents.map((data) => {
           return (
             <ListItemStudent
+              key={`${data.student_id}-${data.name}`}
               data={data}
               handleEvaluateStudent={handleEvaluateStudent}
               handleReportStudent={handleReportStudent}

@@ -16,7 +16,7 @@ const ListItemStudent = ({
   handleDelete,
 }) => {
   return (
-    <ListItem key={`${data.student_id}-${data.name}`} sx={listItem}>
+    <ListItem sx={listItem}>
       <ListItemButton
         sx={{
           width: "70%",

@@ -11,7 +11,7 @@ import PropTypes from "prop-types";
 
 const ListItemProfile = ({ data, handleEdit, handleDelete }) => {
   return (
-    <ListItem key={data.rut} sx={listItem}>
+    <ListItem sx={listItem}>
       <ListItemButton
         sx={{
           width: "70%",

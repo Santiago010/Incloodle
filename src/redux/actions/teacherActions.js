@@ -210,4 +210,46 @@ const GetStudentByCourse = (students) => ({
   payload: students,
 });
 
-export const StartAddStudentsByCourse = (jwt) => {};
+export const ChooseStudent = (student) => ({
+  type: types.teacherChooseStudent,
+  payload: student,
+});
+
+export const StartAddStudentToACourse = (jwt, values) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await api.post(
+        "/api/enrollment",
+        {
+          course_id: values.courseId,
+          student_id: values.studentId,
+        },
+        {
+          headers: { Authorization: `Bearer ${jwt}` },
+        }
+      );
+      console.log(data);
+      dispatch(StartGetStudentByCourse(jwt, values.courseId));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+export const StartDeleteStudentFromACourse = (jwt, student) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await api.delete("/api/enrollment", {
+        params: {
+          course_id: student.course_id,
+          student_id: student.student_id,
+        },
+        headers: { Authorization: `Bearer ${jwt}` },
+      });
+      console.log(data);
+      dispatch(StartGetStudentByCourse(jwt, student.course_id));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};

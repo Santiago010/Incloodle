@@ -6,6 +6,7 @@ import OptionsAdmin from "../components/OptionsAdmin";
 import OptionsTeacher from "../components/OptionsTeacher";
 import { IndexTeacher } from "../components/List/IndexTeacher";
 import { IndexAdmin } from "../components/List/IndexAdmin";
+import OptionsStudents from "../components/OptionsStudents";
 
 const Dashboard = () => {
   const [rol, setRol] = useState(null);
@@ -34,6 +35,12 @@ const Dashboard = () => {
           <IndexTeacher />
         </>
       );
+    } else if (rol === 2) {
+      <>
+        <Header>
+          <OptionsStudents />
+        </Header>
+      </>;
     }
   };
   return (

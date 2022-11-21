@@ -11,7 +11,7 @@ import PropTypes from "prop-types";
 
 const ListItemDocument = ({ data, handleSeeDocumentOrExam, handleDelete }) => {
   return (
-    <ListItem key={`${data.id}-${data.name}`} sx={listItem}>
+    <ListItem sx={listItem}>
       <ListItemButton
         sx={{
           width: "70%",

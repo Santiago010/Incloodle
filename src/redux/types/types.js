@@ -11,6 +11,7 @@ export const types = {
   teacherGetDocumentsByCourse: "[TEACHER] GetDocumentsByCourse",
   teacherChooseDocument: "[TEACHER] ChooseDocument",
   teacherGetStudentByCourse: "[TEACHER] GetStudentByCourse",
+  teacherChooseStudent: "[TEACHER] ChooseStudent",
   //TODO: STUDENT
   studentGetAllStudents: "[STUDENT] GetAllStudents",
 };

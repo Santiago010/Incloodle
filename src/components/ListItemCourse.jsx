@@ -17,7 +17,7 @@ const ListItemCourse = ({
   handleSeeStudents,
 }) => {
   return (
-    <ListItem key={`${data.course_id}-${data.name}`} sx={listItem}>
+    <ListItem sx={listItem}>
       <ListItemButton
         sx={{
           minWidth: "35%",

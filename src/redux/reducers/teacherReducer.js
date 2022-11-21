@@ -13,6 +13,17 @@ const initialState = {
     createdAt: "",
     updatedAt: null,
   },
+  student: {
+    enrollment_id: null,
+    course_id: null,
+    student_id: null,
+    name: "",
+    period: "",
+    final_score: null,
+    teacher_id: null,
+    createdAt: "",
+    updatedAt: null,
+  },
   document: {},
   listShow: "Courses",
 };
@@ -52,6 +63,11 @@ export const teacherReducer = (state = initialState, action) => {
         message: "found succesfully",
         data: action.payload,
         listShow: "Students",
+      };
+    case types.teacherChooseStudent:
+      return {
+        ...state,
+        student: action.payload,
       };
     default:
       return state;

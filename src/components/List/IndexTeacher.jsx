@@ -8,6 +8,7 @@ import {
   startGetDocumentsByCourse,
   ChooseDocument,
   StartGetStudentByCourse,
+  ChooseStudent,
 } from "../../redux/actions/teacherActions";
 import {
   FiltersByCourses,
@@ -19,6 +20,7 @@ import ModalCreateCourse from "../ModalCreateCourse";
 import ModalCreateDocument from "../ModalCreateDocument";
 import ModalDeleteCourse from "../ModalDeleteCourse";
 import ModalDeleteDocument from "../ModalDeleteDocument";
+import ModalDeleteStudentFromACourse from "../ModalDeleteStudentFromACourse";
 import ModalEditCourse from "../ModalEditCourse";
 import Page from "./Page";
 
@@ -47,6 +49,11 @@ export const IndexTeacher = () => {
     isOpen: isOpenModalDeleteCourse,
     handleOpenModal: handleOpenModalDeleteCourse,
     handleCloseModal: handleCloseModalDeleteCourse,
+  } = useModal(false);
+  const {
+    isOpen: isOpenModalDeleteStudent,
+    handleOpenModal: handleOpenModalDeleteStudent,
+    handleCloseModal: handleCloseModalDeleteStudent,
   } = useModal(false);
   const {
     isOpen: isOpenModalDeleteDocument,
@@ -104,6 +111,11 @@ export const IndexTeacher = () => {
   const handleAddStudentACourse = () => {
     dispatch(StartGetAllStudents(jwt));
     handleOpenModalAddStudentACourse();
+  };
+
+  const handleDeleteStudentFromACourse = (student) => {
+    dispatch(ChooseStudent(student));
+    handleOpenModalDeleteStudent();
   };
 
   const Content = () => {
@@ -175,10 +187,14 @@ export const IndexTeacher = () => {
                 isOpen={isOpenModalAddStudentACourse}
                 handleOnClose={handleCloseModalAddStudentACourse}
               />
+              <ModalDeleteStudentFromACourse
+                isOpen={isOpenModalDeleteStudent}
+                handleOnClose={handleCloseModalDeleteStudent}
+              />
             </>
           }
           handleCreate={handleAddStudentACourse}
-          handleDelete={() => {}}
+          handleDelete={handleDeleteStudentFromACourse}
           handleEvaluateStudent={() => {}}
           handleReportStudent={() => {}}
           paragraphBtnAdd={"Agregar Estudiante"}
