@@ -14,6 +14,7 @@ export const formFilters = {
   display: "flex",
   flexDirection: "row",
   width: "85%",
+  alignItems: "center",
   justifyContent: "space-between",
 };
 

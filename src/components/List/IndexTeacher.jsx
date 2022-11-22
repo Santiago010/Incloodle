@@ -101,6 +101,7 @@ export const IndexTeacher = () => {
 
   const handleSeeDocumentOrExam = (link) => {
     console.log(link);
+    window.open(link);
   };
 
   const handleSeeStudents = (course) => {

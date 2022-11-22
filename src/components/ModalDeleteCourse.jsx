@@ -22,7 +22,7 @@ const ModalDeleteCourse = ({ isOpen, handleOnClose, course }) => {
   };
   return (
     <Modal open={isOpen} onClose={handleOnClose} sx={modalStyle}>
-      <Box sx={boxPrincipal}>
+      <Box sx={{ ...boxPrincipal, width: "720px" }}>
         <Box sx={boxContainer}>
           <IconButton
             aria-label="delete"
@@ -33,14 +33,14 @@ const ModalDeleteCourse = ({ isOpen, handleOnClose, course }) => {
             <CloseIcon fontSize="inherit" />
           </IconButton>
           <Typography
-            variant="h6"
-            component="h6"
+            variant="h5"
+            component="span"
             textAlign="center"
             sx={titleModal}
           >
             ¿Está seguro que desea eliminar el Curso?
           </Typography>
-          <Box sx={{ ...boxButton, marginY: "50px" }}>
+          <Box mt={4} mb={3} sx={{ ...boxButton, columnGap: "24px" }}>
             <Button
               sx={{ backgroundColor: "#fff" }}
               variant="outlined"

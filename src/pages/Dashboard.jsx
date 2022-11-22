@@ -1,47 +1,41 @@
 import { Box } from "@mui/material";
-import { useEffect, useState } from "react";
-
 import Header from "../components/Header";
+import { IndexTeacher } from "../components/List/IndexTeacher";
+import { IndexAdmin } from "../components/List/IndexAdmin";
+import { IndexStudent } from "../components/List/IndexStudent";
 import {
   OptionsAdmin,
   OptionsTeacher,
   OptionsStudents,
 } from "../components/OptionsHeader";
-import { IndexTeacher } from "../components/List/IndexTeacher";
-import { IndexAdmin } from "../components/List/IndexAdmin";
-import { IndexStudent } from "../components/List/IndexStudent";
+import { jwtToObject } from "../utils/jwt";
 
 const Dashboard = () => {
-  const [dataJwt, setDataJwt] = useState({});
-  useEffect(() => {
-    let jwt = localStorage.getItem("jwt");
-    let dataJwt = JSON.parse(atob(jwt.split(".")[1]));
-    setDataJwt(dataJwt);
-  }, []);
+  const jwtPayload = jwtToObject();
 
   const Content = () => {
-    if (dataJwt.rol === 0) {
+    if (jwtPayload?.rol === 0) {
       return (
         <>
-          <Header name={dataJwt.name}>
+          <Header name={jwtPayload?.name}>
             <OptionsAdmin />
           </Header>
           <IndexAdmin />
         </>
       );
-    } else if (dataJwt.rol === 1) {
+    } else if (jwtPayload?.rol === 1) {
       return (
         <>
-          <Header name={dataJwt.name}>
+          <Header name={jwtPayload?.name}>
             <OptionsTeacher />
           </Header>
           <IndexTeacher />
         </>
       );
-    } else if (dataJwt.rol === 2) {
+    } else if (jwtPayload?.rol === 2) {
       return (
         <>
-          <Header name={dataJwt.name}>
+          <Header name={jwtPayload?.name}>
             <OptionsStudents />
           </Header>
           <IndexStudent />

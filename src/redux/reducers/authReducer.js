@@ -4,6 +4,7 @@ const initialState = {
   err: null,
   jwt: null,
   message: null,
+  isAuth: false,
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -21,6 +22,11 @@ export const authReducer = (state = initialState, action) => {
         err: null,
         jwt: null,
         message: null,
+      };
+    case types.isAuth:
+      return {
+        ...state,
+        isAuth: action.isAuth,
       };
     default:
       return state;

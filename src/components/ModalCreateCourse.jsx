@@ -115,7 +115,7 @@ const ModalCreateCourse = ({ isOpen, handleOnClose, teacher }) => {
                 onChange={handleInputChange}
               />
             </Box>
-            <Box sx={boxButton}>
+            <Box mt={5} sx={boxButton}>
               <Button
                 type="submit"
                 sx={{ backgroundColor: "#fff", marginX: "10px" }}

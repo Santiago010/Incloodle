@@ -2,6 +2,7 @@ export const types = {
   // TODO: AUTH
   authLogin: "[AUTH] Login",
   authLogout: "[AUTH] Logout",
+  isAuth: "[AUTH] isAuth",
   //TODO: PROFILE
   profileGet: "[PROFILE] Get",
   profileChoose: "[PROFILE] Choose",
@@ -22,4 +23,6 @@ export const types = {
   //TODO: UI
   uiStartLoading: "[UI] StartLoading",
   uiStopLoading: "[UI] StopLoading",
+  uiStartLoginLoader: "[UI] Start Login Loader",
+  uiStopLoginLoader: "[UI] Stop Login Loader",
 };

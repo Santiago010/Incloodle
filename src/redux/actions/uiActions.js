@@ -7,3 +7,11 @@ export const StartLoading = () => ({
 export const StopLoading = () => ({
   type: types.uiStopLoading,
 });
+
+export const startLoginLoader = () => ({
+  type: types.uiStartLoginLoader,
+});
+
+export const stopLoginLoader = () => ({
+  type: types.uiStopLoginLoader,
+});

@@ -21,25 +21,32 @@ const ModalDeleteProfile = ({ isOpen, handleOnClose, profile }) => {
   };
   return (
     <Modal open={isOpen} onClose={handleOnClose} sx={modalStyle}>
-      <Box sx={boxPrincipal}>
+      <Box sx={{ ...boxPrincipal, width: "720px" }}>
         <Box sx={boxContainer}>
           <IconButton
             aria-label="delete"
             size="small"
-            sx={{ alignSelf: "flex-end" }}
+            sx={{
+              alignSelf: "flex-end",
+              position: "absolute",
+              top: "-16px",
+              right: "-10px",
+            }}
             onClick={handleOnClose}
           >
             <CloseIcon fontSize="inherit" />
           </IconButton>
-          <Typography
-            variant="h6"
-            component="h6"
-            textAlign="center"
-            sx={titleModal}
-          >
-            ¿Está seguro que desea eliminar el usuario?
-          </Typography>
-          <Box sx={{ ...boxButton, marginY: "50px" }}>
+          <Box mt={3} display="flex" justifyContent="center">
+            <Typography
+              variant="h4"
+              component="span"
+              textAlign="center"
+              sx={titleModal}
+            >
+              ¿Está seguro que desea eliminar el usuario?
+            </Typography>
+          </Box>
+          <Box mt={4} mb={3} sx={boxButton}>
             <Button
               sx={{ marginX: "10px", backgroundColor: "#fff" }}
               variant="outlined"

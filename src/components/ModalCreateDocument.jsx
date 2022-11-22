@@ -189,6 +189,7 @@ const ModalCreateDocument = ({ isOpen, handleOnClose }) => {
               <TextField
                 size="small"
                 required
+                accept=".doc, .png, .docx, .pdf, .jpg, .docx"
                 type="file"
                 sx={textFields}
                 id="outlined-basic"
