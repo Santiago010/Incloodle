@@ -40,7 +40,7 @@ const ModalDeleteCourse = ({ isOpen, handleOnClose, course }) => {
           >
             ¿Está seguro que desea eliminar el Curso?
           </Typography>
-          <Box mt={4} mb={3} sx={{ ...boxButton, columnGap: "24px" }}>
+          <Box mt={4} mb={3} sx={boxButton}>
             <Button
               sx={{ backgroundColor: "#fff" }}
               variant="outlined"

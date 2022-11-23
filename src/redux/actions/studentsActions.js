@@ -83,3 +83,8 @@ const GetDocumentsByCourse = (data) => ({
   type: types.studentGetDocumentsByCourse,
   payload: data,
 });
+
+export const ChoosenExam = (data) => ({
+  type: types.studentChooseExam,
+  payload: data,
+});

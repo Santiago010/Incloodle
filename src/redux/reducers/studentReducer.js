@@ -5,6 +5,21 @@ const initialState = {
   message: "",
   studentsAll: [],
   data: [],
+  exam: {
+    course_id: 0,
+    createdAt: "",
+    exam_id: 0,
+    finish_date: null,
+    id: 0,
+    init_date: null,
+    is_pendient: 0,
+    link: "",
+    name: "Examen Libro LVAAL",
+    num_of_questions: 0,
+    score: null,
+    type: 0,
+    updatedAt: null,
+  },
   listShow: "Courses",
 };
 
@@ -32,6 +47,11 @@ export const studentReducer = (state = initialState, action) => {
         message: action.payload.message,
         data: action.payload.data,
         listShow: "Documents",
+      };
+    case types.studentChooseExam:
+      return {
+        ...state,
+        exam: action.payload,
       };
     default:
       return state;

@@ -1,8 +1,12 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Layout from "../components/Layout";
+import IndexContenByCourse from "../pages/ContensByCourse/Index";
+import IndexCourseTeacher from "../pages/CourseTeacher/Index";
 import Dashboard from "../pages/Dashboard";
 import Login from "../pages/Login";
 import NotFound from "../pages/NotFound";
+import IndexStudentsByCourse from "../pages/StudentsByCourse/Index";
 import { PrivateRoute } from "./PrivateRoute";
 import { PublicRoute } from "./PublicRoute";
 
@@ -21,7 +25,39 @@ const AppRouter = () => (
         path="/"
         element={
           <PrivateRoute>
-            <Dashboard />
+            <Layout>
+              <Dashboard />
+            </Layout>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/course/:id"
+        element={
+          <PrivateRoute>
+            <Layout>
+              <IndexCourseTeacher />
+            </Layout>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/students/:id"
+        element={
+          <PrivateRoute>
+            <Layout>
+              <IndexStudentsByCourse />
+            </Layout>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/contens/:id"
+        element={
+          <PrivateRoute>
+            <Layout>
+              <IndexContenByCourse />
+            </Layout>
           </PrivateRoute>
         }
       />

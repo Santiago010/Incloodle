@@ -7,8 +7,7 @@ import {
   Select,
   Typography,
 } from "@mui/material";
-import { Box } from "@mui/system";
-import React, { useEffect } from "react";
+import React from "react";
 import {
   boxButton,
   boxContainer,
@@ -16,35 +15,18 @@ import {
   modalStyle,
   titleModal,
   textFields,
-} from "./styles/stylesModals";
+} from "../styles/stylesModals";
 import CloseIcon from "@mui/icons-material/Close";
-import useForm from "../hooks/useForm";
-import { useDispatch, useSelector } from "react-redux";
-import { StartAddStudentToACourse } from "../redux/actions/teacherActions";
-import { StartGetAllStudents } from "../redux/actions/studentsActions";
+import { Box } from "@mui/system";
 
-const ModalAddStudentACourse = ({ isOpen, handleOnClose }) => {
-  const dispatch = useDispatch();
-  const { jwt } = useSelector((s) => s?.authReducer);
-  const { course } = useSelector((s) => s?.teacherReducer);
-  const { studentsAll } = useSelector((s) => s?.studentReducer);
-  const [values, handleInputChange, resetValues] = useForm({
-    studentId: 0,
-    courseId: course.course_id,
-  });
-
-  const { studentId } = values;
-
-  const handleOnSubmit = (ev) => {
-    ev.preventDefault();
-    dispatch(StartAddStudentToACourse(jwt, values));
-    handleOnClose();
-  };
-
-  useEffect(() => {
-    dispatch(StartGetAllStudents(jwt));
-  }, []);
-
+const Page = ({
+  courses,
+  state,
+  isOpen,
+  handleOnClose,
+  handleOnSubmit,
+  handleChange,
+}) => {
   return (
     <Modal open={isOpen} onClose={handleOnClose} sx={modalStyle}>
       <Box sx={boxPrincipal}>
@@ -63,11 +45,13 @@ const ModalAddStudentACourse = ({ isOpen, handleOnClose }) => {
             textAlign="center"
             sx={titleModal}
           >
-            Agregar Estudiante al curso
+            Buscar Estudiantes
           </Typography>
           <form
-            onSubmit={(ev) => handleOnSubmit(ev)}
-            style={{ alignSelf: "center" }}
+            onSubmit={handleOnSubmit}
+            style={{
+              alignSelf: "center",
+            }}
           >
             <Box
               sx={{
@@ -83,38 +67,40 @@ const ModalAddStudentACourse = ({ isOpen, handleOnClose }) => {
                 textAlign="center"
                 sx={{ color: "#fff" }}
               >
-                Estudiante
+                Curso
               </Typography>
-              {studentsAll.length === 0 ? (
+              {courses.length === 0 ? (
                 <CircularProgress />
               ) : (
                 <Select
                   required
-                  name="studentId"
-                  //fullWidth
-                  sx={textFields}
+                  name="course"
+                  size="small"
+                  value={state?.course}
+                  displayEmpty
                   labelId="demo-simple-select-helper-label"
                   id="demo-simple-select-helper"
                   label="Filtrar Por"
-                  onChange={handleInputChange}
-                  value={studentId}
+                  onChange={handleChange}
+                  sx={{
+                    ...textFields,
+                    minWidth: 230,
+                    backgroundColor: "#ffffff",
+                  }}
                 >
-                  {studentsAll.map((student) => (
-                    <MenuItem key={student.rut} value={student.student_id}>
-                      {student.name}
-                    </MenuItem>
+                  {courses.map((course) => (
+                    <MenuItem value={course.course_id}>{course.name}</MenuItem>
                   ))}
                 </Select>
               )}
             </Box>
-
-            <Box mt={4} mb={3} sx={boxButton}>
+            <Box mt={5} sx={boxButton}>
               <Button
                 type="submit"
                 sx={{ backgroundColor: "#fff", marginX: "10px" }}
                 variant="outlined"
               >
-                Guardar
+                Buscar
               </Button>
               <Button
                 sx={{ backgroundColor: "#fff", marginX: "10px" }}
@@ -131,4 +117,4 @@ const ModalAddStudentACourse = ({ isOpen, handleOnClose }) => {
   );
 };
 
-export default ModalAddStudentACourse;
+export default Page;

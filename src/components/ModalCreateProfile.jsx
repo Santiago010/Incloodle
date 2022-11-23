@@ -16,6 +16,7 @@ import {
   modalStyle,
   titleModal,
   textFields,
+  boxButton,
 } from "./styles/stylesModals";
 import { useDispatch, useSelector } from "react-redux";
 import useForm from "../hooks/useForm";
@@ -219,14 +220,7 @@ const ModalCreateProfile = ({ isOpen, handleOnClose }) => {
                 onChange={handleInputChange}
               />
             </Box>
-            <Box
-              mt={5}
-              sx={{
-                alignSelf: "center",
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
+            <Box mt={4} mb={3} sx={boxButton}>
               <Button
                 type="submit"
                 sx={{ backgroundColor: "#fff", marginX: "10px" }}

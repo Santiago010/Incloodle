@@ -19,7 +19,7 @@ export const useIsLogged = () => {
         );
       }
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 

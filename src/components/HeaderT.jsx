@@ -1,9 +1,18 @@
 import { Avatar, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
-import PropTypes from "prop-types";
+import { OptionsAdmin, OptionsStudents, OptionsTeacher } from "./OptionsHeader";
 
-const Header = ({ name, children }) => {
+const HeaderT = ({ dataRol }) => {
+  const OptionsRol = () => {
+    if (dataRol.rol === 0) {
+      return <OptionsAdmin />;
+    } else if (dataRol.rol === 1) {
+      return <OptionsTeacher />;
+    } else if (dataRol.rol === 2) {
+      return <OptionsStudents />;
+    }
+  };
   return (
     <Box
       sx={{
@@ -22,7 +31,7 @@ const Header = ({ name, children }) => {
         }}
       >
         <Avatar
-          alt="name"
+          alt={dataRol?.name}
           sx={{
             marginRight: "10px",
           }}
@@ -40,17 +49,14 @@ const Header = ({ name, children }) => {
             WebkitBackgroundClip: "text",
           }}
         >
-          {name}
+          {dataRol?.name}
         </Typography>
       </Box>
-      <Box>{children}</Box>
+      <Box>
+        <OptionsRol />
+      </Box>
     </Box>
   );
 };
 
-export default Header;
-
-Header.propTypes = {
-  name: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired,
-};
+export default HeaderT;

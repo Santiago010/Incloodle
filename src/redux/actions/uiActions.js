@@ -15,3 +15,21 @@ export const startLoginLoader = () => ({
 export const stopLoginLoader = () => ({
   type: types.uiStopLoginLoader,
 });
+
+export const openModalSearchStudent = () => ({
+  type: types.uiShowModalSearchStudent,
+  payload: true,
+});
+export const closeModalSearchStudent = () => ({
+  type: types.uiShowModalSearchStudent,
+  payload: false,
+});
+
+export const openModalSearchContens = () => ({
+  type: types.uiShowModalSearchContens,
+  payload: true,
+});
+export const closeModalSearchContens = () => ({
+  type: types.uiShowModalSearchContens,
+  payload: false,
+});

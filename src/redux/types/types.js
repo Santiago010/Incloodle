@@ -20,9 +20,12 @@ export const types = {
   studentGetAllStudents: "[STUDENT] GetAllStudents",
   studentGetMyCourses: "[STUDENT] GetMyCourse",
   studentGetDocumentsByCourse: "[STUDENT] GetMaterialOfCourse",
+  studentChooseExam: "[STUDENT] ChoosenExam",
   //TODO: UI
   uiStartLoading: "[UI] StartLoading",
   uiStopLoading: "[UI] StopLoading",
   uiStartLoginLoader: "[UI] Start Login Loader",
   uiStopLoginLoader: "[UI] Stop Login Loader",
+  uiShowModalSearchStudent: "[UI] ShowModalSearchStudent",
+  uiShowModalSearchContens: "[UI] ShowModalSearchCotens",
 };

@@ -186,7 +186,7 @@ const ModalCreateDocument = ({ isOpen, handleOnClose }) => {
               >
                 Archivo
               </Typography>
-              <TextField
+              {/* <TextField
                 size="small"
                 required
                 accept=".doc, .png, .docx, .pdf, .jpg, .docx"
@@ -196,9 +196,20 @@ const ModalCreateDocument = ({ isOpen, handleOnClose }) => {
                 variant="outlined"
                 name="period"
                 onChange={(ev) => handleFileSelect(ev)}
-              />
+              /> */}
+              <Button variant="contained" component="label">
+                Upload File
+                <input
+                  required
+                  accept=".pdf"
+                  name="document"
+                  onChange={(ev) => handleFileSelect(ev)}
+                  type="file"
+                  hidden
+                />
+              </Button>
             </Box>
-            <Box sx={boxButton}>
+            <Box mt={4} mb={3} sx={boxButton}>
               <Button
                 type="submit"
                 sx={{ backgroundColor: "#fff", marginX: "10px" }}

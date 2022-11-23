@@ -1,17 +1,16 @@
 import React, { useEffect } from "react";
-import ContainerFiltersForAdmin from "../ContainerFiltersForAdmin";
-import Page from "./Page";
-import { useModal } from "../../hooks/useModal";
 import { useDispatch, useSelector } from "react-redux";
+import ModalCreateProfile from "../../components/ModalCreateProfile";
+import ModalDeleteProfile from "../../components/ModalDeleteProfile";
+import ModalEditProfile from "../../components/ModalEditProfile";
+import { useModal } from "../../hooks/useModal";
 import {
-  StartGetProfile,
   ChoosenProfile,
+  StartGetProfile,
 } from "../../redux/actions/profileActions";
-import ModalEditProfile from "../ModalEditProfile";
-import ModalDeleteProfile from "../ModalDeleteProfile";
-import ModalCreateProfile from "../ModalCreateProfile";
+import Page from "./Page";
 
-export const IndexAdmin = () => {
+const IndexAdmin = () => {
   const {
     isOpen: isOpenModalEdit,
     handleOpenModal: handleOpenModalEdit,
@@ -31,12 +30,12 @@ export const IndexAdmin = () => {
   const { jwt } = useSelector((s) => s?.authReducer);
   const { data, profile } = useSelector((s) => s?.profileReducer);
 
-  const handleEditProfile = (profile) => {
+  const handleEdit = (profile) => {
     dispatch(ChoosenProfile(profile));
     handleOpenModalEdit();
   };
 
-  const handleDeleteProfile = (profile) => {
+  const handleDelete = (profile) => {
     dispatch(ChoosenProfile(profile));
     handleOpenModalDelete();
   };
@@ -47,9 +46,10 @@ export const IndexAdmin = () => {
 
   return (
     <Page
-      containerFilters={<ContainerFiltersForAdmin />}
-      dataProfiles={data}
-      paragraphBtnAdd={"Agregar Usuario"}
+      data={data}
+      handleEdit={handleEdit}
+      handleDelete={handleDelete}
+      handleCreate={handleOpenModalCreate}
       fragmentModals={
         <>
           <ModalEditProfile
@@ -69,9 +69,8 @@ export const IndexAdmin = () => {
           />
         </>
       }
-      handleEdit={handleEditProfile}
-      handleCreate={handleOpenModalCreate}
-      handleDelete={handleDeleteProfile}
     />
   );
 };
+
+export default IndexAdmin;

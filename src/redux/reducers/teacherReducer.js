@@ -25,7 +25,6 @@ const initialState = {
     updatedAt: null,
   },
   document: {},
-  listShow: "",
 };
 
 export const teacherReducer = (state = initialState, action) => {
@@ -36,7 +35,6 @@ export const teacherReducer = (state = initialState, action) => {
         err: action.payload.err,
         message: action.payload.message,
         data: action.payload.data,
-        listShow: "Courses",
       };
     case types.teacherChooseCourse:
       return {
@@ -49,7 +47,6 @@ export const teacherReducer = (state = initialState, action) => {
         err: action.payload.err,
         message: action.payload.message,
         data: action.payload.data,
-        listShow: "Documents",
       };
     case types.teacherChooseDocument:
       return {
@@ -62,7 +59,6 @@ export const teacherReducer = (state = initialState, action) => {
         err: action.payload.err,
         message: action.payload.message,
         data: action.payload.data,
-        listShow: "Students",
       };
     case types.teacherChooseStudent:
       return {

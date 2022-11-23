@@ -3,6 +3,8 @@ import { types } from "../types/types";
 const initialState = {
   loading: false,
   showLoginLoader: false,
+  showModalSearchStudent: false,
+  showModalSearchContens: false,
 };
 
 export const uiReducer = (state = initialState, action) => {
@@ -26,6 +28,16 @@ export const uiReducer = (state = initialState, action) => {
       return {
         ...state,
         showLoginLoader: false,
+      };
+    case types.uiShowModalSearchStudent:
+      return {
+        ...state,
+        showModalSearchStudent: action.payload,
+      };
+    case types.uiShowModalSearchContens:
+      return {
+        ...state,
+        showModalSearchContens: action.payload,
       };
     default:
       return state;

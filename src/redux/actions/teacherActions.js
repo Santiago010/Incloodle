@@ -87,6 +87,7 @@ export const StartDeleteCourse = (jwt, idCourse) => {
 export const startGetDocumentsByCourse = (jwt, courseId) => {
   return async (dispatch) => {
     try {
+      dispatch(StartLoading());
       const documentsByCourse = api.get(`/api/document/${courseId}/course`, {
         headers: { Authorization: `Bearer ${jwt}` },
       });

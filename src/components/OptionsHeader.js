@@ -1,9 +1,13 @@
 import React from "react";
 import { Button } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { StartGetCourses } from "../redux/actions/teacherActions";
-import { StartGetMyCourses } from "../redux/actions/studentsActions";
+import { useDispatch } from "react-redux";
+
 import { StartLogout } from "../redux/actions/authActions";
+import { useNavigate } from "react-router-dom";
+import {
+  openModalSearchContens,
+  openModalSearchStudent,
+} from "../redux/actions/uiActions";
 
 export const OptionsAdmin = () => {
   const dispatch = useDispatch();
@@ -22,12 +26,20 @@ export const OptionsAdmin = () => {
 };
 
 export const OptionsTeacher = () => {
-  const { jwt } = useSelector((s) => s?.authReducer);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   return (
     <>
-      <Button onClick={() => dispatch(StartGetCourses(jwt))}>Cursos</Button>
+      <Button onClick={() => navigate("/")}>Cursos</Button>
+      <Button onClick={() => dispatch(openModalSearchStudent())}>
+        Estudiantes
+      </Button>
+      <Button onClick={() => dispatch(openModalSearchContens())}>
+        Contenido
+      </Button>
+      <Button onClick={() => {}}>Corregir</Button>
+      <Button onClick={() => {}}>Instructivo</Button>
       <Button
         sx={{ marginLeft: "10px" }}
         variant="contained"
@@ -40,14 +52,13 @@ export const OptionsTeacher = () => {
 };
 
 export const OptionsStudents = () => {
-  const { jwt } = useSelector((s) => s?.authReducer);
   const dispatch = useDispatch();
 
   return (
     <>
-      <Button onClick={() => dispatch(StartGetMyCourses(jwt))}>
-        Mis Curso
-      </Button>
+      <Button onClick={() => {}}>Material</Button>
+      <Button onClick={() => {}}>Evaluación</Button>
+      <Button onClick={() => {}}>Correción</Button>
       <Button
         sx={{ marginLeft: "10px" }}
         variant="contained"

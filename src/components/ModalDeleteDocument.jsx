@@ -11,9 +11,9 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { StartDeleteDocumentByCourse } from "../redux/actions/teacherActions";
 
-const ModalDeleteDocument = ({ isOpen, handleOnClose, document }) => {
+const ModalDeleteDocument = ({ isOpen, handleOnClose }) => {
   const { jwt } = useSelector((s) => s?.authReducer);
-  const { course } = useSelector((s) => s?.teacherReducer);
+  const { course, document } = useSelector((s) => s?.teacherReducer);
   const dispatch = useDispatch();
 
   const handleOnDelete = () => {
@@ -47,7 +47,7 @@ const ModalDeleteDocument = ({ isOpen, handleOnClose, document }) => {
           >
             ¿Está seguro que desea eliminar el Material?
           </Typography>
-          <Box sx={{ ...boxButton, marginY: "50px" }}>
+          <Box mt={4} mb={3} sx={boxButton}>
             <Button
               sx={{ backgroundColor: "#fff" }}
               variant="outlined"

@@ -22,6 +22,7 @@ export const boxButton = {
   alignSelf: "center",
   display: "flex",
   justifyContent: "center",
+  columnGap: "24px",
 };
 
 export const titleModal = {

@@ -17,9 +17,8 @@ const ModalDeleteStudentFromACourse = ({ isOpen, handleOnClose }) => {
   const dispatch = useDispatch();
 
   const handleOnDelete = () => {
-    handleOnClose();
-    console.log({ jwt });
     dispatch(StartDeleteStudentFromACourse(jwt, student));
+    handleOnClose();
   };
   return (
     <Modal open={isOpen} onClose={handleOnClose} sx={modalStyle}>
@@ -41,7 +40,7 @@ const ModalDeleteStudentFromACourse = ({ isOpen, handleOnClose }) => {
           >
             ¿Está seguro que desea eliminar el Studiante del curso?
           </Typography>
-          <Box sx={{ ...boxButton, marginY: "50px" }}>
+          <Box mt={4} mb={3} sx={boxButton}>
             <Button
               sx={{ marginX: "10px", backgroundColor: "#fff" }}
               variant="outlined"
