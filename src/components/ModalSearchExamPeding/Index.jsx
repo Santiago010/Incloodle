@@ -6,12 +6,12 @@ import {
   ChoosenCourse,
   StartGetCourses,
 } from "../../redux/actions/teacherActions";
-import { closeModalSearchContens } from "../../redux/actions/uiActions";
+import { closeModalSearchExamPeding } from "../../redux/actions/uiActions";
 import Page from "./Page";
 
 const IndexSearchExamPeding = ({ isOpen }) => {
   const { jwt } = useSelector((s) => s?.authReducer);
-  const { data } = useSelector((s) => s?.teacherReducer);
+  const { dataCourses } = useSelector((s) => s?.teacherReducer);
   const [values, handleInputChange, resetValues] = useForm({
     course: 0,
   });
@@ -20,10 +20,11 @@ const IndexSearchExamPeding = ({ isOpen }) => {
 
   const handleOnSubmit = (ev) => {
     ev.preventDefault();
-    dispatch(closeModalSearchContens());
-    let chosenCourse = data.filter((data) => data.course_id === values.course);
+    dispatch(closeModalSearchExamPeding());
+    let chosenCourse = dataCourses.filter(
+      (data) => data.course_id === values.course
+    );
     dispatch(ChoosenCourse(chosenCourse[0]));
-    console.log(chosenCourse);
     navigate(`/pedingExam/${values.course}`);
   };
 
@@ -34,10 +35,10 @@ const IndexSearchExamPeding = ({ isOpen }) => {
   return (
     <Page
       isOpen={isOpen}
-      courses={data}
+      courses={dataCourses}
       state={values}
       handleChange={handleInputChange}
-      handleOnClose={() => dispatch(closeModalSearchContens())}
+      handleOnClose={() => dispatch(closeModalSearchExamPeding())}
       handleOnSubmit={handleOnSubmit}
     />
   );

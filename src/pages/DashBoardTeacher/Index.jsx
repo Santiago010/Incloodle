@@ -33,12 +33,8 @@ const IndexTeacher = () => {
   } = useModal(false);
   const jwtPayload = jwtToObject();
   const { jwt } = useSelector((s) => s?.authReducer);
-  const { data, course } = useSelector((s) => s?.teacherReducer);
-  const {
-    showModalSearchStudent,
-    showModalSearchContens,
-    showModalSearchPedingExam,
-  } = useSelector((s) => s?.uiReducer);
+  const { dataCourses, course } = useSelector((s) => s?.teacherReducer);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [teacher, setTeacher] = useState({});
@@ -65,7 +61,7 @@ const IndexTeacher = () => {
 
   return (
     <Page
-      data={data}
+      data={dataCourses}
       handleEdit={handleEdit}
       handleDelete={handleDelete}
       handleCreate={handleOpenModalCreate}
@@ -86,9 +82,6 @@ const IndexTeacher = () => {
             handleOnClose={handleCloseModalCreate}
             teacher={teacher}
           />
-          <IndexSearchStudents isOpen={showModalSearchStudent} />
-          <IndexSearchContens isOpen={showModalSearchContens} />
-          <IndexSearchExamPeding isOpen={showModalSearchPedingExam} />
         </>
       }
     />

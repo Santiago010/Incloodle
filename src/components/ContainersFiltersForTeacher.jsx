@@ -124,3 +124,38 @@ export const FiltersByStudents = () => {
     </Box>
   );
 };
+
+export const FiltersByPedingExam = () => {
+  return (
+    <Box sx={BoxFields}>
+      <Typography
+        sx={{
+          color: "#fff",
+        }}
+        variant="h5"
+        component="h5"
+      >
+        Listado Examenes Pendientes
+      </Typography>
+      <FormControl sx={formFilters} size="small">
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "flex-end",
+            width: "50%",
+            backgroundColor: "#fff",
+            borderRadius: "10px",
+          }}
+        >
+          <SearchIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+          <TextField
+            fullWidth
+            id="input-with-sx"
+            label="Ingrese nombre del material"
+            variant="standard"
+          />
+        </Box>
+      </FormControl>
+    </Box>
+  );
+};

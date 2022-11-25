@@ -108,3 +108,23 @@ export const StartSendExamAnswers = (exam_id, answers, jwt) => {
     }
   };
 };
+
+export const StartResetPassStudent = (jwt, values) => {
+  return async () => {
+    try {
+      let { data } = await api.post(
+        "/api/student/reset-password",
+        {
+          currentPassword: values.passCurrent,
+          newPassword: values.passNew,
+        },
+        {
+          headers: { Authorization: `Bearer ${jwt}` },
+        }
+      );
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};

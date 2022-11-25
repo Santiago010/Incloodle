@@ -22,7 +22,9 @@ const IndexCourseTeacher = () => {
     handleCloseModal: handleCloseModalDelete,
   } = useModal(false);
   const { id } = useParams();
-  const { data, course, document } = useSelector((s) => s?.teacherReducer);
+  const { dataDocuments, course, document } = useSelector(
+    (s) => s?.teacherReducer
+  );
   const { jwt } = useSelector((s) => s?.authReducer);
   const dispatch = useDispatch();
 
@@ -42,7 +44,7 @@ const IndexCourseTeacher = () => {
 
   return (
     <Page
-      data={data}
+      data={dataDocuments}
       handleCreate={handleOpenModalCreate}
       handleDelete={handleDelete}
       handleSeeMaterial={handleSeeMaterial}

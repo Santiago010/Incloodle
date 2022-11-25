@@ -3,7 +3,6 @@ import { types } from "../types/types";
 const initialState = {
   err: null,
   message: null,
-  data: [],
   course: {
     course_id: 0,
     name: "",
@@ -24,7 +23,12 @@ const initialState = {
     createdAt: "",
     updatedAt: null,
   },
-  document: {},
+  conten: {},
+  dataCourses: [],
+  dataDocuments: [],
+  dataStudentsByCourse: [],
+  dataPedingExam: [],
+  dataAnswerExam: [],
 };
 
 export const teacherReducer = (state = initialState, action) => {
@@ -34,7 +38,7 @@ export const teacherReducer = (state = initialState, action) => {
         ...state,
         err: action.payload.err,
         message: action.payload.message,
-        data: action.payload.data,
+        dataCourses: action.payload.data,
       };
     case types.teacherChooseCourse:
       return {
@@ -46,19 +50,19 @@ export const teacherReducer = (state = initialState, action) => {
         ...state,
         err: action.payload.err,
         message: action.payload.message,
-        data: action.payload.data,
+        dataDocuments: action.payload.data,
       };
     case types.teacherChooseDocument:
       return {
         ...state,
-        document: action.payload,
+        conten: action.payload,
       };
     case types.teacherGetStudentByCourse:
       return {
         ...state,
         err: action.payload.err,
         message: action.payload.message,
-        data: action.payload.data,
+        dataStudentsByCourse: action.payload.data,
       };
     case types.teacherChooseStudent:
       return {
@@ -68,7 +72,7 @@ export const teacherReducer = (state = initialState, action) => {
     case types.teacherFilterCourse:
       return {
         ...state,
-        data: state.data.filter((course) =>
+        dataCourses: state.dataCourses.filter((course) =>
           course.name.includes(action.payload)
         ),
       };
@@ -77,7 +81,14 @@ export const teacherReducer = (state = initialState, action) => {
         ...state,
         err: action.payload.err,
         message: action.payload.message,
-        data: action.payload.data,
+        dataPedingExam: action.payload.data,
+      };
+    case types.teacherGetAnswerExam:
+      return {
+        ...state,
+        err: action.payload.err,
+        message: action.payload.message,
+        dataAnswerExam: action.payload.data,
       };
     default:
       return state;

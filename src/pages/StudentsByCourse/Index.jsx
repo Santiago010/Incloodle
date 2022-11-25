@@ -22,7 +22,7 @@ const IndexStudentsByCourse = () => {
     handleCloseModal: handleCloseModalDelete,
   } = useModal(false);
   const { jwt } = useSelector((s) => s?.authReducer);
-  const { data } = useSelector((s) => s?.teacherReducer);
+  const { dataStudentsByCourse } = useSelector((s) => s?.teacherReducer);
   const { id } = useParams();
   const dispatch = useDispatch();
 
@@ -45,7 +45,7 @@ const IndexStudentsByCourse = () => {
 
   return (
     <Page
-      data={data}
+      data={dataStudentsByCourse}
       handleEvaluateStudent={handleEvaluateStudent}
       handleReportStudent={handleReportStudent}
       handleDelete={handleDelete}

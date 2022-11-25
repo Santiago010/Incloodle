@@ -1,6 +1,5 @@
 import {
   Button,
-  ButtonGroup,
   IconButton,
   MenuItem,
   Modal,
@@ -47,6 +46,8 @@ const ModalCreateDocument = ({ isOpen, handleOnClose }) => {
       StartAddDocumentsByCourse(jwt, formData, type, values, course.course_id)
     );
     handleOnClose();
+    resetValues();
+    setType(0);
   };
 
   const handleFileSelect = (ev) => {

@@ -20,6 +20,8 @@ const initialState = {
     type: 0,
     updatedAt: null,
   },
+  dataCourses: [],
+  dataDocuments: [],
 };
 
 export const studentReducer = (state = initialState, action) => {
@@ -36,14 +38,14 @@ export const studentReducer = (state = initialState, action) => {
         ...state,
         err: action.payload.err,
         message: action.payload.message,
-        data: action.payload.data,
+        dataCourses: action.payload.data,
       };
     case types.studentGetDocumentsByCourse:
       return {
         ...state,
         err: action.payload.err,
         message: action.payload.message,
-        data: action.payload.data,
+        dataDocuments: action.payload.data,
       };
     case types.studentChooseExam:
       return {

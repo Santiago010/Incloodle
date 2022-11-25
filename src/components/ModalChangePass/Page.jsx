@@ -1,41 +1,29 @@
 import {
+  Box,
   Button,
-  ButtonGroup,
   IconButton,
   Modal,
   TextField,
   Typography,
 } from "@mui/material";
-import { Box } from "@mui/system";
+import CloseIcon from "@mui/icons-material/Close";
 import React from "react";
 import {
-  boxButton,
-  boxContainer,
-  boxPrincipal,
   modalStyle,
-  textFields,
+  boxPrincipal,
+  boxContainer,
   titleModal,
-} from "./styles/stylesModals";
-import CloseIcon from "@mui/icons-material/Close";
-import useForm from "../hooks/useForm";
-import { useDispatch, useSelector } from "react-redux";
-import { StartAddCourse } from "../redux/actions/teacherActions";
-
-const ModalCreateCourse = ({ isOpen, handleOnClose, teacher }) => {
-  const dispatch = useDispatch();
-  const { jwt } = useSelector((s) => s?.authReducer);
-  const [values, handleInputChange, resetValues] = useForm({
-    name: "",
-    period: "",
-  });
-  const { name, period } = values;
-
-  const handleOnSubmit = (ev) => {
-    ev.preventDefault();
-    dispatch(StartAddCourse(jwt, values, teacher.teacher_id));
-    handleOnClose();
-    resetValues();
-  };
+  textFields,
+  boxButton,
+} from "../styles/stylesModals";
+const Page = ({
+  values,
+  isOpen,
+  handleOnClose,
+  handleOnSubmit,
+  handleChange,
+  changeSuccess,
+}) => {
   return (
     <Modal open={isOpen} onClose={handleOnClose} sx={modalStyle}>
       <Box sx={boxPrincipal}>
@@ -54,11 +42,13 @@ const ModalCreateCourse = ({ isOpen, handleOnClose, teacher }) => {
             textAlign="center"
             sx={titleModal}
           >
-            Agregar Curso
+            Cambiar Contraseña
           </Typography>
           <form
             onSubmit={(ev) => handleOnSubmit(ev)}
-            style={{ alignSelf: "center" }}
+            style={{
+              alignSelf: "center",
+            }}
           >
             <Box
               sx={{
@@ -74,18 +64,19 @@ const ModalCreateCourse = ({ isOpen, handleOnClose, teacher }) => {
                 textAlign="center"
                 sx={{ color: "#fff" }}
               >
-                Nombre curso
+                Contraseña Actual
               </Typography>
               <TextField
+                type="password"
                 required
                 size="small"
                 sx={textFields}
                 id="outlined-basic"
-                label="Nombre"
+                label="Contraseña Actual"
                 variant="outlined"
-                name="name"
-                value={name}
-                onChange={handleInputChange}
+                name="passCurrent"
+                value={values?.passCurrent}
+                onChange={handleChange}
               />
             </Box>
             <Box
@@ -102,21 +93,22 @@ const ModalCreateCourse = ({ isOpen, handleOnClose, teacher }) => {
                 textAlign="center"
                 sx={{ color: "#fff" }}
               >
-                Periodo curso
+                Contraseña Nueva
               </Typography>
               <TextField
+                type="password"
                 required
+                name="passNew"
                 size="small"
                 sx={textFields}
                 id="outlined-basic"
-                label="Periodo"
+                label="Contraseña Nueva"
                 variant="outlined"
-                name="period"
-                value={period}
-                onChange={handleInputChange}
+                value={values?.passNew}
+                onChange={handleChange}
               />
             </Box>
-            <Box mt={4} mb={3} sx={boxButton}>
+            <Box sx={boxButton}>
               <Button
                 type="submit"
                 sx={{ backgroundColor: "#fff", marginX: "10px" }}
@@ -133,10 +125,15 @@ const ModalCreateCourse = ({ isOpen, handleOnClose, teacher }) => {
               </Button>
             </Box>
           </form>
+          {changeSuccess && (
+            <Typography variant="h4" component="h4">
+              ¡Contraseña cambiada con exito!
+            </Typography>
+          )}
         </Box>
       </Box>
     </Modal>
   );
 };
 
-export default ModalCreateCourse;
+export default Page;

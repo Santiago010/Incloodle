@@ -7,7 +7,7 @@ import Page from "./Page";
 const IndexStudent = () => {
   const dispatch = useDispatch();
   const { jwt } = useSelector((s) => s?.authReducer);
-  const { data } = useSelector((s) => s?.studentReducer);
+  const { dataCourses } = useSelector((s) => s?.studentReducer);
   const navigate = useNavigate();
 
   const handleSeeMaterial = (data) => {
@@ -18,7 +18,7 @@ const IndexStudent = () => {
     dispatch(StartGetMyCourses(jwt));
   }, []);
 
-  return <Page data={data} handleSeeMaterial={handleSeeMaterial} />;
+  return <Page data={dataCourses} handleSeeMaterial={handleSeeMaterial} />;
 };
 
 export default IndexStudent;

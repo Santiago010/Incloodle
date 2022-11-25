@@ -298,7 +298,86 @@ export const StartGetPedingExam = (jwt, courseId) => {
   };
 };
 
-const GetPedingExam = (data) => ({
+export const GetPedingExam = (data) => ({
   type: types.teacherGetPedingExam,
   payload: data,
 });
+
+export const StartGetAnswerExam = (jwt, studentExamId) => {
+  return async (dispatch) => {
+    try {
+      dispatch(StartLoading());
+      let { data } = await api.get(`/api/answer/${studentExamId}`, {
+        headers: { Authorization: `Bearer ${jwt}` },
+      });
+      console.log(data);
+      dispatch(GetAnswerExam(data));
+      dispatch(StopLoading());
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+const GetAnswerExam = (data) => ({
+  type: types.teacherGetAnswerExam,
+  payload: data,
+});
+
+export const StartEvaluatingAnswer = (jwt, answerId, isCorrect) => {
+  return async (dispatch) => {
+    console.log({ answerId, isCorrect });
+    try {
+      let { data } = await api.put(
+        "/api/answer",
+        { answer_id: answerId, is_correct: isCorrect },
+        {
+          headers: { Authorization: `Bearer ${jwt}` },
+        }
+      );
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+export const StartQualification = (jwt, score, studentExam_id) => {
+  return async () => {
+    try {
+      let { data } = await api.post(
+        `/api/answer/rate-exam`,
+        {
+          score,
+          studentExam_id,
+        },
+        {
+          headers: { Authorization: `Bearer ${jwt}` },
+        }
+      );
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+export const StartResetPassTeacher = (jwt, values) => {
+  return async () => {
+    try {
+      let { data } = await api.post(
+        "/api/teacher/reset-password",
+        {
+          currentPassword: values.passCurrent,
+          newPassword: values.passNew,
+        },
+        {
+          headers: { Authorization: `Bearer ${jwt}` },
+        }
+      );
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};

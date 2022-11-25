@@ -8,6 +8,7 @@ import Dashboard from "../pages/Dashboard";
 import IndexExamsPedingTeacher from "../pages/ExamsPedingTeacher/Index";
 import Login from "../pages/Login";
 import NotFound from "../pages/NotFound";
+import IndexStudentExam from "../pages/StudentExam/Index";
 import IndexStudentsByCourse from "../pages/StudentsByCourse/Index";
 import IndexTakeExam from "../pages/TakeExam/Index";
 import { PrivateRoute } from "./PrivateRoute";
@@ -90,6 +91,16 @@ const AppRouter = () => (
           <PrivateRoute>
             <Layout>
               <IndexExamsPedingTeacher />
+            </Layout>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/studentExam/:id"
+        element={
+          <PrivateRoute>
+            <Layout>
+              <IndexStudentExam />
             </Layout>
           </PrivateRoute>
         }

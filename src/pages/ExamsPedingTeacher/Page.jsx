@@ -9,14 +9,15 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
+import { FiltersByPedingExam } from "../../components/ContainersFiltersForTeacher";
 import EmptyListParagraph from "../../components/EmptyListParagraph";
 
-const Page = ({ data, handleExamcorrected }) => {
+const Page = ({ data, handleExamcorrected, fragementModals }) => {
   const { loading } = useSelector((s) => s?.uiReducer);
-
+  console.log(data);
   return (
     <>
-      <p>Aca va el filtro mai</p>
+      <FiltersByPedingExam />
       <List
         sx={{
           backgroundColor: "#fff",
@@ -44,12 +45,12 @@ const Page = ({ data, handleExamcorrected }) => {
               >
                 <ListItemButton
                   sx={{
-                    width: "70%",
+                    width: "50px",
                   }}
                   dense={true}
                 >
                   <Typography variant="h6" component="p">
-                    Nombre del estudiante : {data.name}
+                    {data.name}
                   </Typography>
                 </ListItemButton>
 
@@ -66,6 +67,7 @@ const Page = ({ data, handleExamcorrected }) => {
           })
         )}
       </List>
+      {fragementModals}
     </>
   );
 };

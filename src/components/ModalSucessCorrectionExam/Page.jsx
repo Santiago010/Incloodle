@@ -10,7 +10,7 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import successImg from "../../assets/undraw_done_re_oak4.svg";
 
-const Page = ({ isOpen, handleOnClose, nameExam }) => {
+const Page = ({ isOpen, handleOnClose, name }) => {
   return (
     <Modal open={isOpen} onClose={handleOnClose} sx={modalStyle}>
       <Box sx={boxPrincipal}>
@@ -28,7 +28,7 @@ const Page = ({ isOpen, handleOnClose, nameExam }) => {
             textAlign="center"
             sx={titleModal}
           >
-            Examen de {nameExam} respondido con exito
+            Examen de {name} corregido con exito
           </Typography>
           <img src={successImg}></img>
         </Box>

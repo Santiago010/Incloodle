@@ -11,7 +11,7 @@ import Page from "./Page";
 
 const IndexSearchContens = ({ isOpen }) => {
   const { jwt } = useSelector((s) => s?.authReducer);
-  const { data } = useSelector((s) => s?.teacherReducer);
+  const { dataCourses } = useSelector((s) => s?.teacherReducer);
   const [values, handleInputChange, resetValues] = useForm({
     course: 0,
   });
@@ -21,7 +21,9 @@ const IndexSearchContens = ({ isOpen }) => {
   const handleOnSubmit = (ev) => {
     ev.preventDefault();
     dispatch(closeModalSearchContens());
-    let chosenCourse = data.filter((data) => data.course_id === values.course);
+    let chosenCourse = dataCourses.filter(
+      (data) => data.course_id === values.course
+    );
     dispatch(ChoosenCourse(chosenCourse[0]));
     console.log(chosenCourse);
     navigate(`/contens/${values.course}`);
@@ -34,7 +36,7 @@ const IndexSearchContens = ({ isOpen }) => {
   return (
     <Page
       isOpen={isOpen}
-      courses={data}
+      courses={dataCourses}
       state={values}
       handleChange={handleInputChange}
       handleOnClose={() => dispatch(closeModalSearchContens())}

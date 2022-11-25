@@ -8,6 +8,7 @@ import {
   openModalSearchContens,
   openModalSearchStudent,
   openModalSearchExamPeding,
+  openModalChangePass,
 } from "../redux/actions/uiActions";
 
 export const OptionsAdmin = () => {
@@ -29,7 +30,6 @@ export const OptionsAdmin = () => {
 export const OptionsTeacher = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { course } = useSelector((s) => s?.teacherReducer);
 
   return (
     <>
@@ -44,6 +44,9 @@ export const OptionsTeacher = () => {
         Corregir
       </Button>
       <Button onClick={() => {}}>Instructivo</Button>
+      <Button onClick={() => dispatch(openModalChangePass())}>
+        Cambiar Contraseña
+      </Button>
       <Button
         sx={{ marginLeft: "10px" }}
         variant="contained"
@@ -63,6 +66,9 @@ export const OptionsStudents = () => {
       <Button onClick={() => {}}>Material</Button>
       <Button onClick={() => {}}>Evaluación</Button>
       <Button onClick={() => {}}>Correción</Button>
+      <Button onClick={() => dispatch(openModalChangePass())}>
+        Cambiar Contraseña
+      </Button>
       <Button
         sx={{ marginLeft: "10px" }}
         variant="contained"

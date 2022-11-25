@@ -1,10 +1,21 @@
 import { Box } from "@mui/system";
 import React from "react";
+import { useSelector } from "react-redux";
 import { jwtToObject } from "../utils/jwt";
 import HeaderT from "./HeaderT";
+import IndexChangePass from "./ModalChangePass/Index";
+import IndexSearchStudents from "./ModalSeachStudents";
+import IndexSearchContens from "./ModalSearchContens/Index";
+import IndexSearchExamPeding from "./ModalSearchExamPeding/Index";
 
 const Layout = ({ children }) => {
   const jwtPayload = jwtToObject();
+  const {
+    showModalSearchStudent,
+    showModalSearchContens,
+    showModalSearchPedingExam,
+    showModalChangePass,
+  } = useSelector((s) => s?.uiReducer);
   return (
     <Box
       sx={{
@@ -23,6 +34,17 @@ const Layout = ({ children }) => {
       >
         {children}
       </Box>
+      <>
+        {jwtPayload.rol === 1 && (
+          <>
+            <IndexSearchStudents isOpen={showModalSearchStudent} />
+            <IndexSearchContens isOpen={showModalSearchContens} />
+            <IndexSearchExamPeding isOpen={showModalSearchPedingExam} />
+          </>
+        )}
+
+        <IndexChangePass isOpen={showModalChangePass} />
+      </>
     </Box>
   );
 };

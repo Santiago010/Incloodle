@@ -31,7 +31,6 @@ const ModalEditCourse = ({ isOpen, handleOnClose }) => {
   // const [values, handleInputChange] = useForm(profile); TODO:implementar
 
   useEffect(() => {
-    // console.log(course);
     setState({ ...state, ...course });
   }, [course]);
 

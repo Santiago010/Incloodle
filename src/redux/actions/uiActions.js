@@ -39,7 +39,16 @@ export const openModalSearchExamPeding = () => ({
   payload: true,
 });
 
-export const ModalSearchExamPeding = () => ({
+export const closeModalSearchExamPeding = () => ({
   type: types.uiShowModalSearchExamPeding,
+  payload: false,
+});
+
+export const openModalChangePass = () => ({
+  type: types.uiShowModalChangePass,
+  payload: true,
+});
+export const closeModalChangePass = () => ({
+  type: types.uiShowModalChangePass,
   payload: false,
 });
