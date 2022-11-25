@@ -72,6 +72,13 @@ export const teacherReducer = (state = initialState, action) => {
           course.name.includes(action.payload)
         ),
       };
+    case types.teacherGetPedingExam:
+      return {
+        ...state,
+        err: action.payload.err,
+        message: action.payload.message,
+        data: action.payload.data,
+      };
     default:
       return state;
   }

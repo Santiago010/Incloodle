@@ -11,7 +11,7 @@ const IndexStudent = () => {
   const navigate = useNavigate();
 
   const handleSeeMaterial = (data) => {
-    console.log(data);
+    navigate(`/courseContent/${data.course_id}`);
   };
 
   useEffect(() => {

@@ -33,3 +33,13 @@ export const closeModalSearchContens = () => ({
   type: types.uiShowModalSearchContens,
   payload: false,
 });
+
+export const openModalSearchExamPeding = () => ({
+  type: types.uiShowModalSearchExamPeding,
+  payload: true,
+});
+
+export const ModalSearchExamPeding = () => ({
+  type: types.uiShowModalSearchExamPeding,
+  payload: false,
+});

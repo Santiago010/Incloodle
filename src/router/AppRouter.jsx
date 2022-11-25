@@ -2,11 +2,14 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Layout from "../components/Layout";
 import IndexContenByCourse from "../pages/ContensByCourse/Index";
+import IndexContensByCourseOfStudent from "../pages/ContentByCourseOfStudent/Index";
 import IndexCourseTeacher from "../pages/CourseTeacher/Index";
 import Dashboard from "../pages/Dashboard";
+import IndexExamsPedingTeacher from "../pages/ExamsPedingTeacher/Index";
 import Login from "../pages/Login";
 import NotFound from "../pages/NotFound";
 import IndexStudentsByCourse from "../pages/StudentsByCourse/Index";
+import IndexTakeExam from "../pages/TakeExam/Index";
 import { PrivateRoute } from "./PrivateRoute";
 import { PublicRoute } from "./PublicRoute";
 
@@ -57,6 +60,36 @@ const AppRouter = () => (
           <PrivateRoute>
             <Layout>
               <IndexContenByCourse />
+            </Layout>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/courseContent/:id"
+        element={
+          <PrivateRoute>
+            <Layout>
+              <IndexContensByCourseOfStudent />
+            </Layout>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/takeExam/:id"
+        element={
+          <PrivateRoute>
+            <Layout>
+              <IndexTakeExam />
+            </Layout>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/pedingExam/:id"
+        element={
+          <PrivateRoute>
+            <Layout>
+              <IndexExamsPedingTeacher />
             </Layout>
           </PrivateRoute>
         }

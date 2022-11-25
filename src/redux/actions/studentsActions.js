@@ -88,3 +88,23 @@ export const ChoosenExam = (data) => ({
   type: types.studentChooseExam,
   payload: data,
 });
+
+export const StartSendExamAnswers = (exam_id, answers, jwt) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await api.post(
+        `api/answer`,
+        {
+          exam_id,
+          answers,
+        },
+        {
+          headers: { Authorization: `Bearer ${jwt}` },
+        }
+      );
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};

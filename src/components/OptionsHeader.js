@@ -1,12 +1,13 @@
 import React from "react";
 import { Button } from "@mui/material";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { StartLogout } from "../redux/actions/authActions";
 import { useNavigate } from "react-router-dom";
 import {
   openModalSearchContens,
   openModalSearchStudent,
+  openModalSearchExamPeding,
 } from "../redux/actions/uiActions";
 
 export const OptionsAdmin = () => {
@@ -28,6 +29,7 @@ export const OptionsAdmin = () => {
 export const OptionsTeacher = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { course } = useSelector((s) => s?.teacherReducer);
 
   return (
     <>
@@ -38,7 +40,9 @@ export const OptionsTeacher = () => {
       <Button onClick={() => dispatch(openModalSearchContens())}>
         Contenido
       </Button>
-      <Button onClick={() => {}}>Corregir</Button>
+      <Button onClick={() => dispatch(openModalSearchExamPeding())}>
+        Corregir
+      </Button>
       <Button onClick={() => {}}>Instructivo</Button>
       <Button
         sx={{ marginLeft: "10px" }}

@@ -6,6 +6,7 @@ import ModalDeleteCourse from "../../components/ModalDeleteCourse";
 import ModalEditCourse from "../../components/ModalEditCourse";
 import IndexSearchStudents from "../../components/ModalSeachStudents";
 import IndexSearchContens from "../../components/ModalSearchContens/Index";
+import IndexSearchExamPeding from "../../components/ModalSearchExamPeding/Index";
 import { useModal } from "../../hooks/useModal";
 import {
   ChoosenCourse,
@@ -33,9 +34,11 @@ const IndexTeacher = () => {
   const jwtPayload = jwtToObject();
   const { jwt } = useSelector((s) => s?.authReducer);
   const { data, course } = useSelector((s) => s?.teacherReducer);
-  const { showModalSearchStudent, showModalSearchContens } = useSelector(
-    (s) => s?.uiReducer
-  );
+  const {
+    showModalSearchStudent,
+    showModalSearchContens,
+    showModalSearchPedingExam,
+  } = useSelector((s) => s?.uiReducer);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [teacher, setTeacher] = useState({});
@@ -85,6 +88,7 @@ const IndexTeacher = () => {
           />
           <IndexSearchStudents isOpen={showModalSearchStudent} />
           <IndexSearchContens isOpen={showModalSearchContens} />
+          <IndexSearchExamPeding isOpen={showModalSearchPedingExam} />
         </>
       }
     />

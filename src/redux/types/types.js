@@ -16,6 +16,8 @@ export const types = {
   teacherGetStudentByCourse: "[TEACHER] GetStudentByCourse",
   teacherChooseStudent: "[TEACHER] ChooseStudent",
   teacherFilterCourse: "[TEACHER] FilterCourse",
+  teacherGetPedingExam: "[TEACHER] GetPedingExam",
+
   //TODO: STUDENT
   studentGetAllStudents: "[STUDENT] GetAllStudents",
   studentGetMyCourses: "[STUDENT] GetMyCourse",
@@ -28,4 +30,5 @@ export const types = {
   uiStopLoginLoader: "[UI] Stop Login Loader",
   uiShowModalSearchStudent: "[UI] ShowModalSearchStudent",
   uiShowModalSearchContens: "[UI] ShowModalSearchCotens",
+  uiShowModalSearchExamPeding: "[UI] ShowModalSearchExamPeding",
 };

@@ -14,13 +14,12 @@ const initialState = {
     init_date: null,
     is_pendient: 0,
     link: "",
-    name: "Examen Libro LVAAL",
+    name: "",
     num_of_questions: 0,
     score: null,
     type: 0,
     updatedAt: null,
   },
-  listShow: "Courses",
 };
 
 export const studentReducer = (state = initialState, action) => {
@@ -38,7 +37,6 @@ export const studentReducer = (state = initialState, action) => {
         err: action.payload.err,
         message: action.payload.message,
         data: action.payload.data,
-        listShow: "Courses",
       };
     case types.studentGetDocumentsByCourse:
       return {
@@ -46,7 +44,6 @@ export const studentReducer = (state = initialState, action) => {
         err: action.payload.err,
         message: action.payload.message,
         data: action.payload.data,
-        listShow: "Documents",
       };
     case types.studentChooseExam:
       return {

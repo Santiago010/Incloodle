@@ -278,3 +278,27 @@ const FilterCourse = (name) => ({
   type: types.teacherFilterCourse,
   payload: name,
 });
+
+export const StartGetPedingExam = (jwt, courseId) => {
+  return async (dispatch) => {
+    try {
+      dispatch(StartLoading());
+      let { data } = await api.get(`api/answer/${courseId}/exam`, {
+        params: {
+          course_id: courseId,
+        },
+        headers: { Authorization: `Bearer ${jwt}` },
+      });
+      console.log(data);
+      dispatch(GetPedingExam(data));
+      dispatch(StopLoading());
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+const GetPedingExam = (data) => ({
+  type: types.teacherGetPedingExam,
+  payload: data,
+});
