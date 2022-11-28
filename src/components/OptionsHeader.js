@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import {
   openModalSearchContens,
   openModalSearchStudent,
-  openModalSearchExamPeding,
+  openModalSearchExampending,
   openModalChangePass,
 } from "../redux/actions/uiActions";
 
@@ -40,7 +40,7 @@ export const OptionsTeacher = () => {
       <Button onClick={() => dispatch(openModalSearchContens())}>
         Contenido
       </Button>
-      <Button onClick={() => dispatch(openModalSearchExamPeding())}>
+      <Button onClick={() => dispatch(openModalSearchExampending())}>
         Corregir
       </Button>
       <Button onClick={() => {}}>Instructivo</Button>

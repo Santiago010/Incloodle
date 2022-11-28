@@ -1,10 +1,12 @@
 import api from "../../api/api";
 import { types } from "../types/types";
 import { StartLoading, StopLoading } from "../actions/uiActions";
+import { FiltersEmptyFilter } from "../../helpers/FiltersEmptyFilter";
 
 export const StartGetProfile = (jwt) => {
   return async (dispatch) => {
     try {
+      dispatch(FiltersEmptyFilter());
       dispatch(StartLoading());
       const profilesTeachers = api.get("/api/teacher", {
         headers: { Authorization: `Bearer ${jwt}` },
@@ -132,7 +134,8 @@ export const StartDeleteProfile = (jwt, id, rol) => {
 
 export const StartFilterProfileByRol = (jwt, rol) => {
   return (dispatch) => {
-    if (rol === 3) {
+    if (rol === "") {
+      dispatch(FiltersEmptyFilter());
       dispatch(StartGetProfile(jwt));
     } else {
       dispatch(FilterProfileByRol(rol));

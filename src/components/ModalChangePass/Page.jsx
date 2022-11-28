@@ -16,6 +16,7 @@ import {
   textFields,
   boxButton,
 } from "../styles/stylesModals";
+import { useSelector } from "react-redux";
 const Page = ({
   values,
   isOpen,
@@ -24,6 +25,7 @@ const Page = ({
   handleChange,
   changeSuccess,
 }) => {
+  const { messageResetPass } = useSelector((s) => s?.uiReducer);
   return (
     <Modal open={isOpen} onClose={handleOnClose} sx={modalStyle}>
       <Box sx={boxPrincipal}>
@@ -125,11 +127,9 @@ const Page = ({
               </Button>
             </Box>
           </form>
-          {changeSuccess && (
-            <Typography variant="h4" component="h4">
-              ¡Contraseña cambiada con exito!
-            </Typography>
-          )}
+          <Typography align="center" variant="h5" component="h5">
+            {messageResetPass}
+          </Typography>
         </Box>
       </Box>
     </Modal>

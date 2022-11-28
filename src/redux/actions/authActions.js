@@ -1,12 +1,12 @@
 import swal from "sweetalert";
 import api from "../../api/api";
 import { types } from "../types/types";
-import { startLoginLoader, stopLoginLoader } from "../actions/uiActions";
+import { StartLoading, StopLoading } from "../actions/uiActions";
 
 export const StartLogin = (values) => {
   return async (dispatch) => {
     try {
-      dispatch(startLoginLoader());
+      dispatch(StartLoading());
       const { data } = await api.post("/auth", values);
       if (data?.err) {
         swal({
@@ -22,7 +22,7 @@ export const StartLogin = (values) => {
     } catch (error) {
       console.error(error);
     } finally {
-      dispatch(stopLoginLoader());
+      dispatch(StopLoading());
     }
   };
 };

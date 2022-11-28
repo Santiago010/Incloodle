@@ -5,8 +5,9 @@ const initialState = {
   showLoginLoader: false,
   showModalSearchStudent: false,
   showModalSearchContens: false,
-  showModalSearchPedingExam: false,
+  showModalSearchpendingExam: false,
   showModalChangePass: false,
+  messageResetPass: "",
 };
 
 export const uiReducer = (state = initialState, action) => {
@@ -21,16 +22,6 @@ export const uiReducer = (state = initialState, action) => {
         ...state,
         loading: false,
       };
-    case types.uiStartLoginLoader:
-      return {
-        ...state,
-        showLoginLoader: true,
-      };
-    case types.uiStopLoginLoader:
-      return {
-        ...state,
-        showLoginLoader: false,
-      };
     case types.uiShowModalSearchStudent:
       return {
         ...state,
@@ -41,15 +32,20 @@ export const uiReducer = (state = initialState, action) => {
         ...state,
         showModalSearchContens: action.payload,
       };
-    case types.uiShowModalSearchExamPeding:
+    case types.uiShowModalSearchExampending:
       return {
         ...state,
-        showModalSearchPedingExam: action.payload,
+        showModalSearchpendingExam: action.payload,
       };
     case types.uiShowModalChangePass:
       return {
         ...state,
         showModalChangePass: action.payload,
+      };
+    case types.uiResetPass:
+      return {
+        ...state,
+        messageResetPass: action.payload,
       };
     default:
       return state;

@@ -2,7 +2,7 @@ import { types } from "../types/types";
 
 const initialState = {
   err: null,
-  message: null,
+  message: "",
   course: {
     course_id: 0,
     name: "",
@@ -27,8 +27,9 @@ const initialState = {
   dataCourses: [],
   dataDocuments: [],
   dataStudentsByCourse: [],
-  dataPedingExam: [],
+  datapendingExam: [],
   dataAnswerExam: [],
+  dataFiltered: [],
 };
 
 export const teacherReducer = (state = initialState, action) => {
@@ -69,19 +70,12 @@ export const teacherReducer = (state = initialState, action) => {
         ...state,
         student: action.payload,
       };
-    case types.teacherFilterCourse:
-      return {
-        ...state,
-        dataCourses: state.dataCourses.filter((course) =>
-          course.name.includes(action.payload)
-        ),
-      };
-    case types.teacherGetPedingExam:
+    case types.teacherGetpendingExam:
       return {
         ...state,
         err: action.payload.err,
         message: action.payload.message,
-        dataPedingExam: action.payload.data,
+        datapendingExam: action.payload.data,
       };
     case types.teacherGetAnswerExam:
       return {
@@ -89,6 +83,39 @@ export const teacherReducer = (state = initialState, action) => {
         err: action.payload.err,
         message: action.payload.message,
         dataAnswerExam: action.payload.data,
+      };
+    case types.teacherFilterCourse:
+      return {
+        ...state,
+        dataFiltered: state.dataCourses.filter((course) =>
+          course.name.toLowerCase().includes(action.payload)
+        ),
+      };
+    case types.teacherFilterMaterial:
+      return {
+        ...state,
+        dataFiltered: state.dataDocuments.filter((document) =>
+          document.name.toLowerCase().includes(action.payload)
+        ),
+      };
+    case types.teacherFilterStudent:
+      return {
+        ...state,
+        dataFiltered: state.dataStudentsByCourse.filter((student) =>
+          student.name.toLowerCase().includes(action.payload)
+        ),
+      };
+    case types.teacherFilterExamPending:
+      return {
+        ...state,
+        dataFiltered: state.datapendingExam.filter((exam) =>
+          exam.exam_name.toLowerCase().includes(action.payload)
+        ),
+      };
+    case types.filtersEmptyFilter:
+      return {
+        ...state,
+        dataFiltered: [],
       };
     default:
       return state;

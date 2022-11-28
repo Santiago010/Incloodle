@@ -22,7 +22,7 @@ const IndexCourseTeacher = () => {
     handleCloseModal: handleCloseModalDelete,
   } = useModal(false);
   const { id } = useParams();
-  const { dataDocuments, course, document } = useSelector(
+  const { dataDocuments, course, document, dataFiltered } = useSelector(
     (s) => s?.teacherReducer
   );
   const { jwt } = useSelector((s) => s?.authReducer);
@@ -44,7 +44,7 @@ const IndexCourseTeacher = () => {
 
   return (
     <Page
-      data={dataDocuments}
+      data={dataFiltered.length === 0 ? dataDocuments : dataFiltered}
       handleCreate={handleOpenModalCreate}
       handleDelete={handleDelete}
       handleSeeMaterial={handleSeeMaterial}

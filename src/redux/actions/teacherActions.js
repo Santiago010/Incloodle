@@ -1,9 +1,17 @@
 import api from "../../api/api";
 import { types } from "../types/types";
-import { StartLoading, StopLoading } from "../actions/uiActions";
+import swal from "sweetalert";
+import {
+  closeModalChangePass,
+  ResetPass,
+  StartLoading,
+  StopLoading,
+} from "../actions/uiActions";
+import { FiltersEmptyFilter } from "../../helpers/FiltersEmptyFilter";
 
 export const StartGetCourses = (jwt) => {
   return async (dispatch) => {
+    dispatch(FiltersEmptyFilter());
     dispatch(StartLoading());
     let dataJwt = JSON.parse(atob(jwt.split(".")[1]));
     try {
@@ -87,6 +95,7 @@ export const StartDeleteCourse = (jwt, idCourse) => {
 export const startGetDocumentsByCourse = (jwt, courseId) => {
   return async (dispatch) => {
     try {
+      dispatch(FiltersEmptyFilter());
       dispatch(StartLoading());
       const documentsByCourse = api.get(`/api/document/${courseId}/course`, {
         headers: { Authorization: `Bearer ${jwt}` },
@@ -202,6 +211,7 @@ export const StartAddDocumentsByCourse = (
 export const StartGetStudentByCourse = (jwt, courseId) => {
   return async (dispatch) => {
     try {
+      dispatch(FiltersEmptyFilter());
       dispatch(StartLoading());
       let { data } = await api.get("api/enrollment/studentByCourse", {
         params: {
@@ -265,23 +275,10 @@ export const StartDeleteStudentFromACourse = (jwt, student) => {
   };
 };
 
-export const StartFilterCourse = (jwt, name) => {
-  return (dispatch) => {
-    if (name === "") {
-      dispatch(StartGetCourses(jwt));
-    } else {
-      dispatch(FilterCourse(name));
-    }
-  };
-};
-const FilterCourse = (name) => ({
-  type: types.teacherFilterCourse,
-  payload: name,
-});
-
-export const StartGetPedingExam = (jwt, courseId) => {
+export const StartGetpendingExam = (jwt, courseId) => {
   return async (dispatch) => {
     try {
+      dispatch(FiltersEmptyFilter());
       dispatch(StartLoading());
       let { data } = await api.get(`api/answer/${courseId}/exam`, {
         params: {
@@ -290,7 +287,7 @@ export const StartGetPedingExam = (jwt, courseId) => {
         headers: { Authorization: `Bearer ${jwt}` },
       });
       console.log(data);
-      dispatch(GetPedingExam(data));
+      dispatch(GetpendingExam(data));
       dispatch(StopLoading());
     } catch (error) {
       console.error(error);
@@ -298,8 +295,8 @@ export const StartGetPedingExam = (jwt, courseId) => {
   };
 };
 
-export const GetPedingExam = (data) => ({
-  type: types.teacherGetPedingExam,
+export const GetpendingExam = (data) => ({
+  type: types.teacherGetpendingExam,
   payload: data,
 });
 
@@ -363,7 +360,7 @@ export const StartQualification = (jwt, score, studentExam_id) => {
 };
 
 export const StartResetPassTeacher = (jwt, values) => {
-  return async () => {
+  return async (dispatch) => {
     try {
       let { data } = await api.post(
         "/api/teacher/reset-password",
@@ -375,9 +372,93 @@ export const StartResetPassTeacher = (jwt, values) => {
           headers: { Authorization: `Bearer ${jwt}` },
         }
       );
+      dispatch(ResetPass(data.message));
+      setTimeout(() => {
+        dispatch(closeModalChangePass());
+      }, 4000);
+    } catch (error) {
+      dispatch(ResetPass(error.response.data.message));
+    }
+  };
+};
+
+export const StartSetFinalScore = (jwt, course_id, student_id, final_score) => {
+  return async (dispatch) => {
+    try {
+      let { data } = await api.post(
+        "/api/course/final-score",
+        {
+          course_id,
+          student_id,
+          final_score,
+        },
+        {
+          headers: { Authorization: `Bearer ${jwt}` },
+        }
+      );
       console.log(data);
     } catch (error) {
       console.error(error);
     }
   };
 };
+
+export const StartFilterCourseByName = (jwt, name) => {
+  return (dispatch) => {
+    if (name === "") {
+      dispatch(StartGetCourses(jwt));
+    } else {
+      dispatch(FilterCourseByName(name));
+    }
+  };
+};
+
+const FilterCourseByName = (name) => ({
+  type: types.teacherFilterCourse,
+  payload: name,
+});
+
+export const StartFilterMaterialByName = (jwt, name, id) => {
+  return (dispatch) => {
+    if (name === "") {
+      dispatch(startGetDocumentsByCourse(jwt, id));
+    } else {
+      dispatch(FilterMaterialByName(name));
+    }
+  };
+};
+
+const FilterMaterialByName = (name) => ({
+  type: types.teacherFilterMaterial,
+  payload: name,
+});
+
+export const StartFilterStudentByName = (jwt, name, id) => {
+  return (dispatch) => {
+    if (name === "") {
+      dispatch(StartGetStudentByCourse(jwt, id));
+    } else {
+      dispatch(FilterStudentByName(name));
+    }
+  };
+};
+
+const FilterStudentByName = (name) => ({
+  type: types.teacherFilterStudent,
+  payload: name,
+});
+
+export const StartFilterExamByName = (jwt, name, id) => {
+  return (dispatch) => {
+    if (name === "") {
+      dispatch(StartGetpendingExam(jwt, id));
+    } else {
+      dispatch(FilterExamByName(name));
+    }
+  };
+};
+
+const FilterExamByName = (name) => ({
+  type: types.teacherFilterExamPending,
+  payload: name,
+});

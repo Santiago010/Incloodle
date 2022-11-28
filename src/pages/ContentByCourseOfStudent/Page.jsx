@@ -9,14 +9,14 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
-import { FiltersByStudents } from "../../components/ContainersFiltersForTeacher";
+import { FiltersByDocuments } from "../../components/ContainersFiltersForTeacher";
 import EmptyListParagraph from "../../components/EmptyListParagraph";
 
 const Page = ({ data, handleSeeContens, handleTakeExam }) => {
   const { loading } = useSelector((s) => s?.uiReducer);
   return (
     <>
-      <FiltersByStudents />
+      <FiltersByDocuments />
       <List
         sx={{
           backgroundColor: "#fff",

@@ -47,6 +47,7 @@ const ModalCreateDocument = ({ isOpen, handleOnClose }) => {
     );
     handleOnClose();
     resetValues();
+    setDocument(null);
     setType(0);
   };
 
@@ -125,8 +126,12 @@ const ModalCreateDocument = ({ isOpen, handleOnClose }) => {
               <Select
                 required
                 name="type"
-                //fullWidth
-                sx={textFields}
+                size="small"
+                sx={{
+                  ...textFields,
+                  minWidth: 230,
+                  backgroundColor: "#ffffff",
+                }}
                 labelId="demo-simple-select-helper-label"
                 id="demo-simple-select-helper"
                 label="Filtrar Por"
@@ -187,19 +192,14 @@ const ModalCreateDocument = ({ isOpen, handleOnClose }) => {
               >
                 Archivo
               </Typography>
-              {/* <TextField
-                size="small"
-                required
-                accept=".doc, .png, .docx, .pdf, .jpg, .docx"
-                type="file"
-                sx={textFields}
-                id="outlined-basic"
-                variant="outlined"
-                name="period"
-                onChange={(ev) => handleFileSelect(ev)}
-              /> */}
-              <Button variant="contained" component="label">
-                Upload File
+              <Button
+                sx={{
+                  minWidth: 230,
+                }}
+                variant="contained"
+                component="label"
+              >
+                {!document ? "Upload File" : document.name}
                 <input
                   required
                   accept=".pdf"

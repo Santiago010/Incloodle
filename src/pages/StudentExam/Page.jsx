@@ -36,6 +36,9 @@ const Page = ({
           overflowX: "hidden",
           overflowY: "scroll",
           height: "80%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
         }}
       >
         {loading ? (

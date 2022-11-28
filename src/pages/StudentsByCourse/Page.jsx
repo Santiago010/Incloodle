@@ -66,7 +66,7 @@ const Page = ({
                   variant="contained"
                   aria-label="outlined primary button group"
                 >
-                  <Button onClick={() => handleEvaluateStudent()}>
+                  <Button onClick={() => handleEvaluateStudent(data)}>
                     EVALUAR
                   </Button>
                   <Button onClick={() => handleReportStudent()}>

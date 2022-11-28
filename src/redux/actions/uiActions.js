@@ -8,14 +8,6 @@ export const StopLoading = () => ({
   type: types.uiStopLoading,
 });
 
-export const startLoginLoader = () => ({
-  type: types.uiStartLoginLoader,
-});
-
-export const stopLoginLoader = () => ({
-  type: types.uiStopLoginLoader,
-});
-
 export const openModalSearchStudent = () => ({
   type: types.uiShowModalSearchStudent,
   payload: true,
@@ -34,13 +26,13 @@ export const closeModalSearchContens = () => ({
   payload: false,
 });
 
-export const openModalSearchExamPeding = () => ({
-  type: types.uiShowModalSearchExamPeding,
+export const openModalSearchExampending = () => ({
+  type: types.uiShowModalSearchExampending,
   payload: true,
 });
 
-export const closeModalSearchExamPeding = () => ({
-  type: types.uiShowModalSearchExamPeding,
+export const closeModalSearchExampending = () => ({
+  type: types.uiShowModalSearchExampending,
   payload: false,
 });
 
@@ -51,4 +43,8 @@ export const openModalChangePass = () => ({
 export const closeModalChangePass = () => ({
   type: types.uiShowModalChangePass,
   payload: false,
+});
+export const ResetPass = (data) => ({
+  type: types.uiResetPass,
+  payload: data,
 });

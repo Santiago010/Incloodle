@@ -12,6 +12,7 @@ const intialState = {
     id: 0,
     rol: 0,
   },
+  dataFiltered: [],
 };
 
 export const profileReducer = (state = intialState, action) => {
@@ -31,14 +32,21 @@ export const profileReducer = (state = intialState, action) => {
     case types.profileFilterByRol:
       return {
         ...state,
-        data: state.data.filter((profile) => profile.rol === action.payload),
+        dataFiltered: state.data.filter(
+          (profile) => profile.rol === action.payload
+        ),
       };
     case types.profileFilterByName:
       return {
         ...state,
-        data: state.data.filter((profile) =>
-          profile.name.includes(action.payload)
+        dataFiltered: state.data.filter((profile) =>
+          profile.name.toLowerCase().includes(action.payload)
         ),
+      };
+    case types.filtersEmptyFilter:
+      return {
+        ...state,
+        dataFiltered: [],
       };
     default:
       return state;

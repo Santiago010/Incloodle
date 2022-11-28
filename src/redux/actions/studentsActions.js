@@ -1,6 +1,11 @@
 import api from "../../api/api";
 import { types } from "../types/types";
-import { StartLoading, StopLoading } from "./uiActions";
+import {
+  closeModalChangePass,
+  ResetPass,
+  StartLoading,
+  StopLoading,
+} from "./uiActions";
 
 export const StartGetAllStudents = (jwt) => {
   return async (dispatch) => {
@@ -49,7 +54,7 @@ export const startGetDocumentsByCourse = (jwt, courseId) => {
       const documentsByCourse = api.get(`/api/document/${courseId}/course`, {
         headers: { Authorization: `Bearer ${jwt}` },
       });
-      const examByCourse = api.get(`/api/exam/${courseId}/course`, {
+      const examByCourse = api.get(`/api/student/${courseId}/exams-pendient`, {
         headers: { Authorization: `Bearer ${jwt}` },
       });
       const [documentsByCourseRes, examByCourseRes] = await Promise.all([
@@ -110,7 +115,7 @@ export const StartSendExamAnswers = (exam_id, answers, jwt) => {
 };
 
 export const StartResetPassStudent = (jwt, values) => {
-  return async () => {
+  return async (dispatch) => {
     try {
       let { data } = await api.post(
         "/api/student/reset-password",
@@ -122,9 +127,12 @@ export const StartResetPassStudent = (jwt, values) => {
           headers: { Authorization: `Bearer ${jwt}` },
         }
       );
-      console.log(data);
+      dispatch(ResetPass(data.message));
+      setTimeout(() => {
+        dispatch(closeModalChangePass());
+      }, 4000);
     } catch (error) {
-      console.error(error);
+      dispatch(ResetPass(error.response.data.message));
     }
   };
 };

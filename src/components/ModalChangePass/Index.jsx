@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useForm from "../../hooks/useForm";
 import { StartResetPassStudent } from "../../redux/actions/studentsActions";
@@ -15,7 +15,6 @@ const IndexChangePass = ({ isOpen }) => {
     passCurrent: "",
     passNew: "",
   });
-  const [changeSuccess, setChangeSuccess] = useState(false);
   const handleOnSubmit = (ev) => {
     ev.preventDefault();
     if (jwtPayload.rol === 1) {
@@ -23,10 +22,6 @@ const IndexChangePass = ({ isOpen }) => {
     } else if (jwtPayload.rol === 2) {
       dispatch(StartResetPassStudent(jwt, values));
     }
-    setChangeSuccess(true);
-    setTimeout(() => {
-      dispatch(closeModalChangePass());
-    }, 4000);
   };
 
   return (
@@ -36,7 +31,6 @@ const IndexChangePass = ({ isOpen }) => {
       handleOnClose={() => dispatch(closeModalChangePass())}
       handleOnSubmit={handleOnSubmit}
       handleChange={handleInputChange}
-      changeSuccess={changeSuccess}
     />
   );
 };

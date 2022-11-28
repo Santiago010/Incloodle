@@ -13,17 +13,12 @@ import { StartDeleteDocumentByCourse } from "../redux/actions/teacherActions";
 
 const ModalDeleteDocument = ({ isOpen, handleOnClose }) => {
   const { jwt } = useSelector((s) => s?.authReducer);
-  const { course, document } = useSelector((s) => s?.teacherReducer);
+  const { course, conten } = useSelector((s) => s?.teacherReducer);
   const dispatch = useDispatch();
 
   const handleOnDelete = () => {
     dispatch(
-      StartDeleteDocumentByCourse(
-        jwt,
-        document.type,
-        document.id,
-        course.course_id
-      )
+      StartDeleteDocumentByCourse(jwt, conten.type, conten.id, course.course_id)
     );
     handleOnClose();
   };

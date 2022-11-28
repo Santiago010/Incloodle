@@ -41,10 +41,10 @@ const Page = ({
         ) : data.length === 0 ? (
           <EmptyListParagraph emptyList={"cursos"} />
         ) : (
-          data.map((data) => {
+          data.map((data, index) => {
             return (
               <ListItem
-                key={`${data.course_id}-${data.name}`}
+                key={`${index}`}
                 sx={{
                   borderBottom: "2px solid #DFDFDF",
                   display: "flex",

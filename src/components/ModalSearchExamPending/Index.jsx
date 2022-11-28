@@ -6,10 +6,10 @@ import {
   ChoosenCourse,
   StartGetCourses,
 } from "../../redux/actions/teacherActions";
-import { closeModalSearchExamPeding } from "../../redux/actions/uiActions";
+import { closeModalSearchExampending } from "../../redux/actions/uiActions";
 import Page from "./Page";
 
-const IndexSearchExamPeding = ({ isOpen }) => {
+const IndexSearchExampending = ({ isOpen }) => {
   const { jwt } = useSelector((s) => s?.authReducer);
   const { dataCourses } = useSelector((s) => s?.teacherReducer);
   const [values, handleInputChange, resetValues] = useForm({
@@ -20,12 +20,12 @@ const IndexSearchExamPeding = ({ isOpen }) => {
 
   const handleOnSubmit = (ev) => {
     ev.preventDefault();
-    dispatch(closeModalSearchExamPeding());
+    dispatch(closeModalSearchExampending());
     let chosenCourse = dataCourses.filter(
       (data) => data.course_id === values.course
     );
     dispatch(ChoosenCourse(chosenCourse[0]));
-    navigate(`/pedingExam/${values.course}`);
+    navigate(`/pendingExam/${values.course}`);
   };
 
   useEffect(() => {
@@ -38,10 +38,10 @@ const IndexSearchExamPeding = ({ isOpen }) => {
       courses={dataCourses}
       state={values}
       handleChange={handleInputChange}
-      handleOnClose={() => dispatch(closeModalSearchExamPeding())}
+      handleOnClose={() => dispatch(closeModalSearchExampending())}
       handleOnSubmit={handleOnSubmit}
     />
   );
 };
 
-export default IndexSearchExamPeding;
+export default IndexSearchExampending;

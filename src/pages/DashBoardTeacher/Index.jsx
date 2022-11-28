@@ -4,9 +4,7 @@ import { useNavigate } from "react-router-dom";
 import ModalCreateCourse from "../../components/ModalCreateCourse";
 import ModalDeleteCourse from "../../components/ModalDeleteCourse";
 import ModalEditCourse from "../../components/ModalEditCourse";
-import IndexSearchStudents from "../../components/ModalSeachStudents";
-import IndexSearchContens from "../../components/ModalSearchContens/Index";
-import IndexSearchExamPeding from "../../components/ModalSearchExamPeding/Index";
+
 import { useModal } from "../../hooks/useModal";
 import {
   ChoosenCourse,
@@ -31,9 +29,12 @@ const IndexTeacher = () => {
     handleOpenModal: handleOpenModalCreate,
     handleCloseModal: handleCloseModalCreate,
   } = useModal(false);
+
   const jwtPayload = jwtToObject();
   const { jwt } = useSelector((s) => s?.authReducer);
-  const { dataCourses, course } = useSelector((s) => s?.teacherReducer);
+  const { dataCourses, course, dataFiltered } = useSelector(
+    (s) => s?.teacherReducer
+  );
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -61,7 +62,7 @@ const IndexTeacher = () => {
 
   return (
     <Page
-      data={dataCourses}
+      data={dataFiltered.length === 0 ? dataCourses : dataFiltered}
       handleEdit={handleEdit}
       handleDelete={handleDelete}
       handleCreate={handleOpenModalCreate}

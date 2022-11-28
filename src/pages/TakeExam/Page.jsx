@@ -1,6 +1,7 @@
 import {
   Button,
   ButtonGroup,
+  IconButton,
   List,
   ListItem,
   TextField,
@@ -10,14 +11,19 @@ import { Box } from "@mui/system";
 import React from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import OutboxIcon from "@mui/icons-material/Outbox";
+import StopIcon from "@mui/icons-material/Stop";
+import KeyboardVoiceIcon from "@mui/icons-material/KeyboardVoice";
+import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 
 const Page = ({
   data,
   handleSeeExam,
   values,
-  handleInputChange,
   handleSendExam,
   fragementModals,
+  handleStartRecord,
+  handleStopRecord,
+  handleReadAnswer,
 }) => {
   return (
     <>
@@ -29,6 +35,9 @@ const Page = ({
           overflowX: "hidden",
           overflowY: "scroll",
           height: "80%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
         }}
       >
         {data.map((field) => {
@@ -46,6 +55,7 @@ const Page = ({
                 Pregunta {field}
               </Typography>
               <TextField
+                disabled
                 required
                 mx={10}
                 name={name}
@@ -55,8 +65,36 @@ const Page = ({
                 maxRows={4}
                 variant="standard"
                 value={values?.[name] ?? ""}
-                onChange={handleInputChange}
               />
+              <ButtonGroup>
+                <IconButton
+                  sx={{
+                    background: "#1976d2",
+                    marginX: "5px",
+                  }}
+                  onClick={() => handleStartRecord(name)}
+                >
+                  <KeyboardVoiceIcon />
+                </IconButton>
+                <IconButton
+                  sx={{
+                    background: "#1976d2",
+                    marginX: "5px",
+                  }}
+                  onClick={() => handleStopRecord()}
+                >
+                  <StopIcon />
+                </IconButton>
+                <IconButton
+                  sx={{
+                    background: "#1976d2",
+                    marginX: "5px",
+                  }}
+                  onClick={() => handleReadAnswer(name)}
+                >
+                  <VolumeUpIcon />
+                </IconButton>
+              </ButtonGroup>
             </ListItem>
           );
         })}

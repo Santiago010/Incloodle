@@ -28,7 +28,7 @@ const IndexAdmin = () => {
   } = useModal(false);
   const dispatch = useDispatch();
   const { jwt } = useSelector((s) => s?.authReducer);
-  const { data, profile } = useSelector((s) => s?.profileReducer);
+  const { data, profile, dataFiltered } = useSelector((s) => s?.profileReducer);
 
   const handleEdit = (profile) => {
     dispatch(ChoosenProfile(profile));
@@ -46,7 +46,7 @@ const IndexAdmin = () => {
 
   return (
     <Page
-      data={data}
+      data={dataFiltered.length === 0 ? data : dataFiltered}
       handleEdit={handleEdit}
       handleDelete={handleDelete}
       handleCreate={handleOpenModalCreate}

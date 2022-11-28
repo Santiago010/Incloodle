@@ -6,16 +6,16 @@ export const boxPrincipal = {
 
 export const BoxFields = {
   display: "flex",
-  alignItems: "center",
   maxHeight: "10%",
+  justifyContent: "space-between",
+  alignItems: "center",
 };
 
 export const formFilters = {
   display: "flex",
   flexDirection: "row",
-  width: "85%",
-  alignItems: "center",
   justifyContent: "space-between",
+  width: "82%",
 };
 
 export const BoxBtnAdd = { display: "flex", justifyContent: "flex-end" };

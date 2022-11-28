@@ -10,7 +10,7 @@ import {
 import { Box } from "@mui/system";
 import React from "react";
 import { useSelector } from "react-redux";
-import { FiltersByCourses } from "../../components/ContainersFiltersForTeacher";
+import { FiltersByDocuments } from "../../components/ContainersFiltersForTeacher";
 import EmptyListParagraph from "../../components/EmptyListParagraph";
 import AddIcon from "@mui/icons-material/Add";
 
@@ -24,7 +24,7 @@ const Page = ({
   const { loading } = useSelector((s) => s?.uiReducer);
   return (
     <>
-      <FiltersByCourses />
+      <FiltersByDocuments />
       <List
         sx={{
           backgroundColor: "#fff",

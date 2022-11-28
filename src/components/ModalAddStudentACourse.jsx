@@ -63,7 +63,7 @@ const ModalAddStudentACourse = ({ isOpen, handleOnClose }) => {
             textAlign="center"
             sx={titleModal}
           >
-            Agregar Estudiante al curso
+            Agregar estudiante al curso
           </Typography>
           <form
             onSubmit={(ev) => handleOnSubmit(ev)}
@@ -91,14 +91,20 @@ const ModalAddStudentACourse = ({ isOpen, handleOnClose }) => {
                 <Select
                   required
                   name="studentId"
-                  //fullWidth
-                  sx={textFields}
+                  sx={{
+                    ...textFields,
+                    minWidth: 230,
+                    backgroundColor: "#ffffff",
+                  }}
                   labelId="demo-simple-select-helper-label"
                   id="demo-simple-select-helper"
-                  label="Filtrar Por"
+                  label="Añadir estudiante"
                   onChange={handleInputChange}
                   value={studentId}
                 >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
                   {studentsAll.map((student) => (
                     <MenuItem key={student.rut} value={student.student_id}>
                       {student.name}

@@ -1,11 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Layout from "../components/Layout";
-import IndexContenByCourse from "../pages/ContensByCourse/Index";
 import IndexContensByCourseOfStudent from "../pages/ContentByCourseOfStudent/Index";
 import IndexCourseTeacher from "../pages/CourseTeacher/Index";
 import Dashboard from "../pages/Dashboard";
-import IndexExamsPedingTeacher from "../pages/ExamsPedingTeacher/Index";
+import IndexExamspendingTeacher from "../pages/ExamsPendingTeacher/Index";
 import Login from "../pages/Login";
 import NotFound from "../pages/NotFound";
 import IndexStudentExam from "../pages/StudentExam/Index";
@@ -60,7 +59,7 @@ const AppRouter = () => (
         element={
           <PrivateRoute>
             <Layout>
-              <IndexContenByCourse />
+              <IndexCourseTeacher />
             </Layout>
           </PrivateRoute>
         }
@@ -86,11 +85,11 @@ const AppRouter = () => (
         }
       />
       <Route
-        path="/pedingExam/:id"
+        path="/pendingExam/:id"
         element={
           <PrivateRoute>
             <Layout>
-              <IndexExamsPedingTeacher />
+              <IndexExamspendingTeacher />
             </Layout>
           </PrivateRoute>
         }

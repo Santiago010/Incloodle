@@ -6,14 +6,14 @@ import HeaderT from "./HeaderT";
 import IndexChangePass from "./ModalChangePass/Index";
 import IndexSearchStudents from "./ModalSeachStudents";
 import IndexSearchContens from "./ModalSearchContens/Index";
-import IndexSearchExamPeding from "./ModalSearchExamPeding/Index";
+import IndexSearchExampending from "./ModalSearchExamPending/Index";
 
 const Layout = ({ children }) => {
   const jwtPayload = jwtToObject();
   const {
     showModalSearchStudent,
     showModalSearchContens,
-    showModalSearchPedingExam,
+    showModalSearchpendingExam,
     showModalChangePass,
   } = useSelector((s) => s?.uiReducer);
   return (
@@ -39,7 +39,7 @@ const Layout = ({ children }) => {
           <>
             <IndexSearchStudents isOpen={showModalSearchStudent} />
             <IndexSearchContens isOpen={showModalSearchContens} />
-            <IndexSearchExamPeding isOpen={showModalSearchPedingExam} />
+            <IndexSearchExampending isOpen={showModalSearchpendingExam} />
           </>
         )}
 

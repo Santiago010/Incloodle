@@ -1,4 +1,5 @@
 import {
+  Button,
   FormControl,
   InputAdornment,
   InputLabel,
@@ -41,6 +42,7 @@ const ContainerFiltersForAdmin = () => {
       <Typography
         sx={{
           color: "#fff",
+          marginRight: "10px",
         }}
         variant="h5"
         component="span"
@@ -48,10 +50,15 @@ const ContainerFiltersForAdmin = () => {
         Administrar perfiles
       </Typography>
       <Box sx={formFilters}>
-        <Box ml={3} width="30%">
+        <Box
+          sx={{
+            width: "40%",
+          }}
+        >
           <FormControl size="small" fullWidth>
             <InputLabel id="rol-label">Filtrar por</InputLabel>
             <Select
+              fullWidth
               name="rol"
               value={rol}
               labelId="rol-label"
@@ -62,9 +69,8 @@ const ContainerFiltersForAdmin = () => {
               }}
             >
               <MenuItem value="">
-                <em>None</em>
+                <em>Todos</em>
               </MenuItem>
-              <MenuItem value={3}>Todos</MenuItem>
               <MenuItem value={1}>Profesor</MenuItem>
               <MenuItem value={2}>Estudiante</MenuItem>
             </Select>
@@ -73,11 +79,13 @@ const ContainerFiltersForAdmin = () => {
         <Box
           sx={{
             width: "50%",
-            backgroundColor: "#fff",
-            borderRadius: "10px",
           }}
         >
-          <FormControl size="small" fullWidth>
+          <FormControl
+            sx={{ backgroundColor: "#fff", borderRadius: "10px" }}
+            size="small"
+            fullWidth
+          >
             <TextField
               size="small"
               label="Ingrese nombre de usuario"

@@ -3,19 +3,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   ChooseDocument,
-  StartGetPedingExam,
+  StartGetpendingExam,
 } from "../../redux/actions/teacherActions";
 import Page from "./Page";
 
-const IndexExamsPedingTeacher = () => {
-  const { dataPedingExam } = useSelector((s) => s?.teacherReducer);
+const IndexExamspendingTeacher = () => {
+  const { datapendingExam, dataFiltered } = useSelector(
+    (s) => s?.teacherReducer
+  );
   const { jwt } = useSelector((s) => s?.authReducer);
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(StartGetPedingExam(jwt, id));
+    dispatch(StartGetpendingExam(jwt, id));
   }, []);
 
   const handleExamcorrected = (data) => {
@@ -25,8 +27,11 @@ const IndexExamsPedingTeacher = () => {
   };
 
   return (
-    <Page data={dataPedingExam} handleExamcorrected={handleExamcorrected} />
+    <Page
+      data={dataFiltered.length === 0 ? datapendingExam : dataFiltered}
+      handleExamcorrected={handleExamcorrected}
+    />
   );
 };
 
-export default IndexExamsPedingTeacher;
+export default IndexExamspendingTeacher;

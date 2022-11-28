@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import ModalAddStudentACourse from "../../components/ModalAddStudentACourse";
 import ModalDeleteStudentFromACourse from "../../components/ModalDeleteStudentFromACourse";
+import IndexFinalScoreOfTheStudent from "../../components/ModalFinalScoreOfTheStudent/Index";
 import { useModal } from "../../hooks/useModal";
 import {
   ChooseStudent,
@@ -21,13 +22,21 @@ const IndexStudentsByCourse = () => {
     handleOpenModal: handleOpenModalDelete,
     handleCloseModal: handleCloseModalDelete,
   } = useModal(false);
+  const {
+    isOpen: isOpenModalFinalScore,
+    handleOpenModal: handleOpenModalFinalScore,
+    handleCloseModal: handleCloseModalFinalScore,
+  } = useModal(false);
   const { jwt } = useSelector((s) => s?.authReducer);
-  const { dataStudentsByCourse } = useSelector((s) => s?.teacherReducer);
+  const { dataStudentsByCourse, dataFiltered } = useSelector(
+    (s) => s?.teacherReducer
+  );
   const { id } = useParams();
   const dispatch = useDispatch();
 
-  const handleEvaluateStudent = () => {
-    console.log("handleEvaluateStudent");
+  const handleEvaluateStudent = (data) => {
+    dispatch(ChooseStudent(data));
+    handleOpenModalFinalScore();
   };
 
   const handleReportStudent = () => {
@@ -45,7 +54,7 @@ const IndexStudentsByCourse = () => {
 
   return (
     <Page
-      data={dataStudentsByCourse}
+      data={dataFiltered.length === 0 ? dataStudentsByCourse : dataFiltered}
       handleEvaluateStudent={handleEvaluateStudent}
       handleReportStudent={handleReportStudent}
       handleDelete={handleDelete}
@@ -59,6 +68,10 @@ const IndexStudentsByCourse = () => {
           <ModalAddStudentACourse
             isOpen={isOpenModalCreate}
             handleOnClose={handleCloseModalCreate}
+          />
+          <IndexFinalScoreOfTheStudent
+            isOpen={isOpenModalFinalScore}
+            handleOnClose={handleCloseModalFinalScore}
           />
         </>
       }

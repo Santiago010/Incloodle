@@ -65,7 +65,7 @@ const IndexStudentExam = () => {
           <IndexSucessCorrectionExam
             isOpen={isOpen}
             handleOnClose={handleCloseModal}
-            name={conten.name}
+            name={conten.exam_name}
           />
         </>
       }

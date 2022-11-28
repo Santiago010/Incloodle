@@ -122,7 +122,6 @@ const Page = ({
               Contraseña
             </Typography>
             <TextField
-              required
               size="small"
               name="password"
               sx={textFields}

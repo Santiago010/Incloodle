@@ -38,7 +38,7 @@ const ModalDeleteStudentFromACourse = ({ isOpen, handleOnClose }) => {
             textAlign="center"
             sx={titleModal}
           >
-            ¿Está seguro que desea eliminar el Studiante del curso?
+            ¿Está seguro que desea eliminar el Estudiante del curso?
           </Typography>
           <Box mt={4} mb={3} sx={boxButton}>
             <Button

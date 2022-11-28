@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
-import { FiltersByPedingExam } from "../../components/ContainersFiltersForTeacher";
+import { FiltersBypendingExam } from "../../components/ContainersFiltersForTeacher";
 import EmptyListParagraph from "../../components/EmptyListParagraph";
 
 const Page = ({ data, handleExamcorrected, fragementModals }) => {
@@ -17,7 +17,7 @@ const Page = ({ data, handleExamcorrected, fragementModals }) => {
   console.log(data);
   return (
     <>
-      <FiltersByPedingExam />
+      <FiltersBypendingExam />
       <List
         sx={{
           backgroundColor: "#fff",
@@ -36,7 +36,7 @@ const Page = ({ data, handleExamcorrected, fragementModals }) => {
           data.map((data) => {
             return (
               <ListItem
-                key={`${data.id}-${data.name}`}
+                key={`${data.studentExam_id}-${data.exam_name}`}
                 sx={{
                   borderBottom: "2px solid #DFDFDF",
                   display: "flex",
@@ -50,7 +50,10 @@ const Page = ({ data, handleExamcorrected, fragementModals }) => {
                   dense={true}
                 >
                   <Typography variant="h6" component="p">
-                    {data.name}
+                    Examen: {data.exam_name}
+                  </Typography>
+                  <Typography mx={10} variant="h6" component="p">
+                    Respuestas de: {data.student_name}
                   </Typography>
                 </ListItemButton>
 
