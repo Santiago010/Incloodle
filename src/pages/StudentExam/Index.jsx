@@ -16,7 +16,7 @@ const IndexStudentExam = () => {
   const { dataAnswerExam, conten } = useSelector((s) => s?.teacherReducer);
 
   const [values, handleInputChange] = useForm({
-    qualification: 10,
+    qualification: 0,
   });
 
   const { qualification } = values;
@@ -48,12 +48,11 @@ const IndexStudentExam = () => {
     dispatch(StartGetAnswerExam(jwt, id));
   }, []);
 
-  useEffect(() => {
-    console.log(dataAnswerExam);
-  }, [dataAnswerExam]);
+  useEffect(() => {}, [dataAnswerExam]);
 
   return (
     <Page
+      exam={conten.link}
       handleOnSubmit={handleOnSubmit}
       data={dataAnswerExam}
       values={values}

@@ -9,14 +9,12 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
-import { FiltersBypendingExam } from "../../components/ContainersFiltersForTeacher";
 import EmptyListParagraph from "../../components/EmptyListParagraph";
 
-const Page = ({ data, handleExamcorrected, fragementModals }) => {
+const Page = ({ data, handleSeeContens }) => {
   const { loading } = useSelector((s) => s?.uiReducer);
   return (
     <>
-      <FiltersBypendingExam />
       <List
         sx={{
           backgroundColor: "#fff",
@@ -30,12 +28,12 @@ const Page = ({ data, handleExamcorrected, fragementModals }) => {
         {loading ? (
           <CircularProgress />
         ) : data.length === 0 ? (
-          <EmptyListParagraph emptyList={"estudiantes"} />
+          <EmptyListParagraph emptyList={"material"} />
         ) : (
           data.map((data) => {
             return (
               <ListItem
-                key={`${data.studentExam_id}-${data.exam_name}`}
+                key={`${data.id}-${data.name}`}
                 sx={{
                   borderBottom: "2px solid #DFDFDF",
                   display: "flex",
@@ -44,15 +42,12 @@ const Page = ({ data, handleExamcorrected, fragementModals }) => {
               >
                 <ListItemButton
                   sx={{
-                    width: "50px",
+                    width: "70%",
                   }}
                   dense={true}
                 >
                   <Typography variant="h6" component="p">
-                    Examen: {data.exam_name}
-                  </Typography>
-                  <Typography mx={10} variant="h6" component="p">
-                    Respuestas de: {data.student_name}
+                    {data.name}
                   </Typography>
                 </ListItemButton>
 
@@ -60,8 +55,8 @@ const Page = ({ data, handleExamcorrected, fragementModals }) => {
                   variant="contained"
                   aria-label="outlined primary button group"
                 >
-                  <Button onClick={() => handleExamcorrected(data)}>
-                    Ver sus respuestas
+                  <Button onClick={() => handleSeeContens(data.link)}>
+                    VER
                   </Button>
                 </ButtonGroup>
               </ListItem>
@@ -69,7 +64,6 @@ const Page = ({ data, handleExamcorrected, fragementModals }) => {
           })
         )}
       </List>
-      {fragementModals}
     </>
   );
 };

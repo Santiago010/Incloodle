@@ -10,22 +10,12 @@ import {
 import { Box } from "@mui/system";
 import React from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import OutboxIcon from "@mui/icons-material/Outbox";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import { useSelector } from "react-redux";
 import EmptyListParagraph from "../../components/EmptyListParagraph";
 
-const Page = ({
-  values,
-  handleInputChange,
-  data,
-  handleSendCorrectionAnswer,
-  handleSeeExam,
-  handleOnSubmit,
-  fragementModals,
-  exam,
-}) => {
+const Page = ({ data, handleSeeExam, score, exam }) => {
   const { loading } = useSelector((s) => s?.uiReducer);
   return (
     <>
@@ -45,9 +35,7 @@ const Page = ({
         <object data={exam} type="application/pdf" width="50%" height="100%">
           <p>
             Alternative text - include a link
-            <a href="https://africau.edu/images/default/sample.pdf">
-              to the PDF!
-            </a>
+            <a href={exam}>to the PDF!</a>
           </p>
         </object>
         <List
@@ -88,18 +76,11 @@ const Page = ({
                       disabled
                       value={data.answer_text}
                     />
-                    <Button
-                      startIcon={<CheckIcon />}
-                      onClick={() =>
-                        handleSendCorrectionAnswer(data.answer_id, 1)
-                      }
-                    ></Button>
-                    <Button
-                      startIcon={<CloseIcon />}
-                      onClick={() =>
-                        handleSendCorrectionAnswer(data.answer_id, 0)
-                      }
-                    ></Button>
+                    {data.is_correct === 1 ? (
+                      <Button disabled startIcon={<CheckIcon />}></Button>
+                    ) : (
+                      <Button disabled startIcon={<CloseIcon />}></Button>
+                    )}
                   </Box>
                 </ListItem>
               );
@@ -109,18 +90,18 @@ const Page = ({
       </Box>
       <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
         <ButtonGroup variant="contained">
-          <form onSubmit={handleOnSubmit}>
+          <form>
             <input
+              disabled
               name="qualification"
-              onChange={handleInputChange}
-              value={values?.qualification}
+              value={score}
               required
               type="number"
               min="10"
-              max="70"
+              max="50"
               variant="outlined"
               size="small"
-              placeholder="Ingresar Calificación"
+              placeholder="Calificación"
               id="standard-basic"
               style={{
                 backgroundColor: "#fff",
@@ -128,15 +109,6 @@ const Page = ({
                 borderColor: "#fff",
               }}
             />
-            <Button
-              type="submit"
-              startIcon={<OutboxIcon />}
-              sx={{
-                height: "100%",
-              }}
-            >
-              ENVIAR CORRECIÓN
-            </Button>
           </form>
           <Button
             startIcon={<VisibilityIcon />}
@@ -145,7 +117,6 @@ const Page = ({
             VER EXAMEN
           </Button>
         </ButtonGroup>
-        {fragementModals}
       </Box>
     </>
   );

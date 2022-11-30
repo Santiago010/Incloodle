@@ -9,14 +9,12 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
-import { FiltersBypendingExam } from "../../components/ContainersFiltersForTeacher";
 import EmptyListParagraph from "../../components/EmptyListParagraph";
 
-const Page = ({ data, handleExamcorrected, fragementModals }) => {
+const Page = ({ data, handleSeeCorrections }) => {
   const { loading } = useSelector((s) => s?.uiReducer);
   return (
     <>
-      <FiltersBypendingExam />
       <List
         sx={{
           backgroundColor: "#fff",
@@ -30,7 +28,7 @@ const Page = ({ data, handleExamcorrected, fragementModals }) => {
         {loading ? (
           <CircularProgress />
         ) : data.length === 0 ? (
-          <EmptyListParagraph emptyList={"estudiantes"} />
+          <EmptyListParagraph emptyList={"examenes corregidos"} />
         ) : (
           data.map((data) => {
             return (
@@ -49,10 +47,10 @@ const Page = ({ data, handleExamcorrected, fragementModals }) => {
                   dense={true}
                 >
                   <Typography variant="h6" component="p">
-                    Examen: {data.exam_name}
+                    Examen: {data.name}
                   </Typography>
                   <Typography mx={10} variant="h6" component="p">
-                    Respuestas de: {data.student_name}
+                    Nota: {data.score}
                   </Typography>
                 </ListItemButton>
 
@@ -60,8 +58,8 @@ const Page = ({ data, handleExamcorrected, fragementModals }) => {
                   variant="contained"
                   aria-label="outlined primary button group"
                 >
-                  <Button onClick={() => handleExamcorrected(data)}>
-                    Ver sus respuestas
+                  <Button onClick={() => handleSeeCorrections(data)}>
+                    Ver correciones
                   </Button>
                 </ButtonGroup>
               </ListItem>
@@ -69,7 +67,6 @@ const Page = ({ data, handleExamcorrected, fragementModals }) => {
           })
         )}
       </List>
-      {fragementModals}
     </>
   );
 };

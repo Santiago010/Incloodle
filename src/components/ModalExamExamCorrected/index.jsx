@@ -2,16 +2,13 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import useForm from "../../hooks/useForm";
-import {
-  ChoosenCourse,
-  StartGetCourses,
-} from "../../redux/actions/teacherActions";
-import { closeModalSearchContens } from "../../redux/actions/uiActions";
+import { StartGetMyCourses } from "../../redux/actions/studentsActions";
+import { closeModalSearchExamCorrected } from "../../redux/actions/uiActions";
 import Page from "./Page";
 
-const IndexSearchContens = ({ isOpen }) => {
+const IndexSearchExamCorrected = ({ isOpen }) => {
   const { jwt } = useSelector((s) => s?.authReducer);
-  const { dataCourses } = useSelector((s) => s?.teacherReducer);
+  const { dataCourses } = useSelector((s) => s?.studentReducer);
   const [values, handleInputChange, resetValues] = useForm({
     course: 0,
   });
@@ -20,28 +17,23 @@ const IndexSearchContens = ({ isOpen }) => {
 
   const handleOnSubmit = (ev) => {
     ev.preventDefault();
-    dispatch(closeModalSearchContens());
-    let chosenCourse = dataCourses.filter(
-      (data) => data.course_id === values.course
-    );
-    dispatch(ChoosenCourse(chosenCourse[0]));
-    navigate(`/contens/${values.course}`);
+    dispatch(closeModalSearchExamCorrected());
+    navigate(`/examCorrected/${values.course}`);
   };
 
   useEffect(() => {
-    dispatch(StartGetCourses(jwt));
+    dispatch(StartGetMyCourses(jwt));
   }, []);
-
   return (
     <Page
       isOpen={isOpen}
       courses={dataCourses}
       state={values}
       handleChange={handleInputChange}
-      handleOnClose={() => dispatch(closeModalSearchContens())}
+      handleOnClose={() => dispatch(closeModalSearchExamCorrected())}
       handleOnSubmit={handleOnSubmit}
     />
   );
 };
 
-export default IndexSearchContens;
+export default IndexSearchExamCorrected;

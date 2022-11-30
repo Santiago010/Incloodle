@@ -1,12 +1,16 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Layout from "../components/Layout";
+import IndexAllDocumentsStudent from "../pages/AllDocumentsStudent/Index";
+import IndexAllExams from "../pages/AllExamsStudent/Index";
 import IndexContensByCourseOfStudent from "../pages/ContentByCourseOfStudent/Index";
 import IndexCourseTeacher from "../pages/CourseTeacher/Index";
 import Dashboard from "../pages/Dashboard";
+import IndexExamsCorrected from "../pages/ExamsCorrected/Index";
 import IndexExamspendingTeacher from "../pages/ExamsPendingTeacher/Index";
 import Login from "../pages/Login";
 import NotFound from "../pages/NotFound";
+import IndexSeeCorrections from "../pages/SeeCorrections/Index";
 import IndexStudentExam from "../pages/StudentExam/Index";
 import IndexStudentsByCourse from "../pages/StudentsByCourse/Index";
 import IndexTakeExam from "../pages/TakeExam/Index";
@@ -100,6 +104,46 @@ const AppRouter = () => (
           <PrivateRoute>
             <Layout>
               <IndexStudentExam />
+            </Layout>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/allDocuments"
+        element={
+          <PrivateRoute>
+            <Layout>
+              <IndexAllDocumentsStudent />
+            </Layout>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/allExams"
+        element={
+          <PrivateRoute>
+            <Layout>
+              <IndexAllExams />
+            </Layout>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/examCorrected/:id"
+        element={
+          <PrivateRoute>
+            <Layout>
+              <IndexExamsCorrected />
+            </Layout>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/seeCorrections/:id"
+        element={
+          <PrivateRoute>
+            <Layout>
+              <IndexSeeCorrections />
             </Layout>
           </PrivateRoute>
         }

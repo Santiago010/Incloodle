@@ -21,7 +21,6 @@ const IndexExamspendingTeacher = () => {
   }, []);
 
   const handleExamcorrected = (data) => {
-    console.log(data);
     dispatch(ChooseDocument(data));
     navigate(`/studentExam/${data.studentExam_id}`);
   };

@@ -16,7 +16,7 @@ const Page = ({ data, handleSeeContens, handleTakeExam }) => {
   const { loading } = useSelector((s) => s?.uiReducer);
   return (
     <>
-      <FiltersByDocuments />
+      {/* <FiltersByDocuments /> */}
       <List
         sx={{
           backgroundColor: "#fff",
@@ -30,10 +30,9 @@ const Page = ({ data, handleSeeContens, handleTakeExam }) => {
         {loading ? (
           <CircularProgress />
         ) : data.length === 0 ? (
-          <EmptyListParagraph emptyList={"cotenido"} />
+          <EmptyListParagraph emptyList={"contenido"} />
         ) : (
           data.map((data) => {
-            console.log(data);
             return (
               <ListItem
                 key={`${data.id}-${data.name}`}

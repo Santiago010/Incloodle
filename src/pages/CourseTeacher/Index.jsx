@@ -34,7 +34,6 @@ const IndexCourseTeacher = () => {
   };
 
   const handleSeeMaterial = (link) => {
-    console.log(link);
     window.open(link);
   };
 

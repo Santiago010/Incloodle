@@ -13,7 +13,6 @@ export const StartGetAllStudents = (jwt) => {
       const { data } = await api.get("/api/student", {
         headers: { Authorization: `Bearer ${jwt}` },
       });
-      console.log(data);
       dispatch(GetAllStudents(data.data));
     } catch (error) {
       console.error(error);
@@ -35,7 +34,6 @@ export const StartGetMyCourses = (jwt) => {
       });
       dispatch(GetMyCourses(data));
       dispatch(StopLoading());
-      console.log(data);
     } catch (error) {
       console.error(error);
     }
@@ -102,12 +100,12 @@ export const StartSendExamAnswers = (exam_id, answers, jwt) => {
         {
           exam_id,
           answers,
+          init_date: new Date(),
         },
         {
           headers: { Authorization: `Bearer ${jwt}` },
         }
       );
-      console.log(data);
     } catch (error) {
       console.error(error);
     }
@@ -136,3 +134,84 @@ export const StartResetPassStudent = (jwt, values) => {
     }
   };
 };
+
+export const StartGetAllDocuments = (jwt) => {
+  return async (dispatch) => {
+    dispatch(StartLoading());
+    try {
+      dispatch(StartLoading());
+      let { data } = await api.get("/api/student/allDocuments", {
+        headers: { Authorization: `Bearer ${jwt}` },
+      });
+      dispatch(GetAllDocuments(data));
+      dispatch(StopLoading());
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+const GetAllDocuments = (data) => ({
+  type: types.studentGetAllDocuments,
+  payload: data,
+});
+
+export const StartGetAllExam = (jwt) => {
+  return async (dispatch) => {
+    try {
+      dispatch(StartLoading());
+      let { data } = await api.get("/api/student/allExams", {
+        headers: { Authorization: `Bearer ${jwt}` },
+      });
+      dispatch(GetAllExam(data));
+      dispatch(StopLoading());
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+const GetAllExam = (data) => ({
+  type: types.studentGetAllExam,
+  payload: data,
+});
+
+export const StartGetExamsCorrected = (jwt, courseId) => {
+  return async (dispatch) => {
+    try {
+      dispatch(StartLoading());
+      let { data } = await api.get(`/api/student/${courseId}/exams-rated`, {
+        headers: { Authorization: `Bearer ${jwt}` },
+      });
+      dispatch(GetExamsCorrected(data));
+      dispatch(StopLoading());
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+const GetExamsCorrected = (data) => ({
+  type: types.studentGetExamsCorrected,
+  payload: data,
+});
+
+export const StartGetAnswersCorrections = (jwt, id) => {
+  return async (dispatch) => {
+    try {
+      dispatch(StartLoading());
+      let { data } = await api.get(`/api/answer/${id}`, {
+        headers: { Authorization: `Bearer ${jwt}` },
+      });
+      dispatch(StopLoading());
+      dispatch(GetAnswersCorrections(data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+const GetAnswersCorrections = (data) => ({
+  type: types.studentGetAnswersCorrections,
+  payload: data,
+});

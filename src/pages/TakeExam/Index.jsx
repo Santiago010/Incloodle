@@ -44,7 +44,6 @@ const IndexTakeExam = () => {
   };
 
   const handleSendExam = () => {
-    console.log(values);
     let arrayTemp = [];
     let i = 1;
     for (const value in values) {
@@ -73,7 +72,6 @@ const IndexTakeExam = () => {
   };
 
   const handleReadAnswer = (name) => {
-    console.log(values);
     const speech = new SpeechSynthesisUtterance();
     speech.text = values[name];
     speech.volume = 1;
@@ -141,6 +139,7 @@ const IndexTakeExam = () => {
         handleStopRecord={handleStopRecord}
         handleReadAnswer={handleReadAnswer}
         handleSendExam={handleSendExam}
+        exam={exam.link}
         fragementModals={
           <>
             <IndexSucessResExam

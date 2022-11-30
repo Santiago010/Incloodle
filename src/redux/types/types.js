@@ -21,12 +21,17 @@ export const types = {
   teacherFilterMaterial: "[TEACHER] FilterMaterial",
   teacherFilterStudent: "[TEACHER] FilterStudent",
   teacherFilterExamPending: "[TEACHER] FilterExamPending",
+  teacherGetReport: "[TEACHER] GetReport",
 
   //TODO: STUDENT
   studentGetAllStudents: "[STUDENT] GetAllStudents",
   studentGetMyCourses: "[STUDENT] GetMyCourse",
   studentGetDocumentsByCourse: "[STUDENT] GetMaterialOfCourse",
   studentChooseExam: "[STUDENT] ChoosenExam",
+  studentGetAllDocuments: "[STUDENT] GetAllDocuments",
+  studentGetAllExam: "[STUDENT] GetAllExam",
+  studentGetExamsCorrected: "[STUDENT] GetExamsCorrected",
+  studentGetAnswersCorrections: "[STUDENT] GetAnswersCorrections",
   //TODO: UI
   uiStartLoading: "[UI] StartLoading",
   uiStopLoading: "[UI] StopLoading",
@@ -36,6 +41,7 @@ export const types = {
   uiShowModalSearchContens: "[UI] ShowModalSearchCotens",
   uiShowModalSearchExampending: "[UI] ShowModalSearchExampending",
   uiShowModalChangePass: "[UI] ShowModalChangePass",
+  uiShowModalSearchExamCorrected: "[UI] ShowModalSearchExamCorrected",
   uiResetPass: "[UI] ResetPass",
 
   //ALL FILTERS

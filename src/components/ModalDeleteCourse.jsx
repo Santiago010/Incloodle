@@ -17,7 +17,6 @@ const ModalDeleteCourse = ({ isOpen, handleOnClose, course }) => {
 
   const handleOnDelete = () => {
     dispatch(StartDeleteCourse(jwt, course.course_id));
-    console.log(course);
     handleOnClose();
   };
   return (

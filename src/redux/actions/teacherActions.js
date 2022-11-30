@@ -1,6 +1,5 @@
 import api from "../../api/api";
 import { types } from "../types/types";
-import swal from "sweetalert";
 import {
   closeModalChangePass,
   ResetPass,
@@ -8,6 +7,7 @@ import {
   StopLoading,
 } from "../actions/uiActions";
 import { FiltersEmptyFilter } from "../../helpers/FiltersEmptyFilter";
+import swal from "sweetalert";
 
 export const StartGetCourses = (jwt) => {
   return async (dispatch) => {
@@ -49,7 +49,6 @@ export const StartAddCourse = (jwt, values, idTeacher) => {
           headers: { Authorization: `Bearer ${jwt}` },
         }
       );
-      console.log(data);
       dispatch(StartGetCourses(jwt));
     } catch (error) {
       console.error(error);
@@ -70,7 +69,6 @@ export const StartEditCourse = (jwt, values) => {
           headers: { Authorization: `Bearer ${jwt}` },
         }
       );
-      console.log(data);
       dispatch(StartGetCourses(jwt));
     } catch (error) {
       console.error(error);
@@ -84,7 +82,6 @@ export const StartDeleteCourse = (jwt, idCourse) => {
       let { data } = await api.delete(`/api/course/${idCourse}`, {
         headers: { Authorization: `Bearer ${jwt}` },
       });
-      console.log(data);
       dispatch(StartGetCourses(jwt));
     } catch (error) {
       console.error(error);
@@ -152,12 +149,10 @@ export const StartDeleteDocumentByCourse = (
         let { data } = await api.delete(`/api/document/${documentId}`, {
           headers: { Authorization: `Bearer ${jwt}` },
         });
-        console.log(data);
       } else if (documentType === 1) {
         let { data } = await api.delete(`/api/exam/${documentId}`, {
           headers: { Authorization: `Bearer ${jwt}` },
         });
-        console.log(data);
       }
       dispatch(startGetDocumentsByCourse(jwt, courseId));
     } catch (error) {
@@ -186,7 +181,6 @@ export const StartAddDocumentsByCourse = (
             "Content-Type": "multipart/form-data",
           },
         });
-        console.log(data);
       } else if (type === 1) {
         let { data } = await api.post("/api/exam", formData, {
           params: {
@@ -199,7 +193,6 @@ export const StartAddDocumentsByCourse = (
             "Content-Type": "multipart/form-data",
           },
         });
-        console.log(data);
       }
       dispatch(startGetDocumentsByCourse(jwt, courseId));
     } catch (error) {
@@ -219,7 +212,6 @@ export const StartGetStudentByCourse = (jwt, courseId) => {
         },
         headers: { Authorization: `Bearer ${jwt}` },
       });
-      console.log(data);
       dispatch(GetStudentByCourse(data));
       dispatch(StopLoading());
     } catch (error) {}
@@ -249,7 +241,6 @@ export const StartAddStudentToACourse = (jwt, values) => {
           headers: { Authorization: `Bearer ${jwt}` },
         }
       );
-      console.log(data);
       dispatch(StartGetStudentByCourse(jwt, values.courseId));
     } catch (error) {
       console.error(error);
@@ -267,7 +258,6 @@ export const StartDeleteStudentFromACourse = (jwt, student) => {
         },
         headers: { Authorization: `Bearer ${jwt}` },
       });
-      console.log(data);
       dispatch(StartGetStudentByCourse(jwt, student.course_id));
     } catch (error) {
       console.error(error);
@@ -286,7 +276,6 @@ export const StartGetpendingExam = (jwt, courseId) => {
         },
         headers: { Authorization: `Bearer ${jwt}` },
       });
-      console.log(data);
       dispatch(GetpendingExam(data));
       dispatch(StopLoading());
     } catch (error) {
@@ -307,7 +296,6 @@ export const StartGetAnswerExam = (jwt, studentExamId) => {
       let { data } = await api.get(`/api/answer/${studentExamId}`, {
         headers: { Authorization: `Bearer ${jwt}` },
       });
-      console.log(data);
       dispatch(GetAnswerExam(data));
       dispatch(StopLoading());
     } catch (error) {
@@ -323,7 +311,6 @@ const GetAnswerExam = (data) => ({
 
 export const StartEvaluatingAnswer = (jwt, answerId, isCorrect) => {
   return async (dispatch) => {
-    console.log({ answerId, isCorrect });
     try {
       let { data } = await api.put(
         "/api/answer",
@@ -332,7 +319,11 @@ export const StartEvaluatingAnswer = (jwt, answerId, isCorrect) => {
           headers: { Authorization: `Bearer ${jwt}` },
         }
       );
-      console.log(data);
+      swal({
+        title: `${isCorrect === 1 ? "Correcta" : "Incorrecta"}`,
+        icon: "success",
+        text: `¡Respuesta con el id ${answerId} corregida con exito!`,
+      });
     } catch (error) {
       console.error(error);
     }
@@ -352,7 +343,6 @@ export const StartQualification = (jwt, score, studentExam_id) => {
           headers: { Authorization: `Bearer ${jwt}` },
         }
       );
-      console.log(data);
     } catch (error) {
       console.error(error);
     }
@@ -396,7 +386,6 @@ export const StartSetFinalScore = (jwt, course_id, student_id, final_score) => {
           headers: { Authorization: `Bearer ${jwt}` },
         }
       );
-      console.log(data);
     } catch (error) {
       console.error(error);
     }
@@ -461,4 +450,27 @@ export const StartFilterExamByName = (jwt, name, id) => {
 const FilterExamByName = (name) => ({
   type: types.teacherFilterExamPending,
   payload: name,
+});
+
+export const StartGetReport = (jwt, student_id, course_id) => {
+  return async (dispatch) => {
+    dispatch(StartLoading());
+    try {
+      let { data } = await api.get(
+        `/api/teacher/report/?student_id=${student_id}&course_id=${course_id}`,
+        {
+          headers: { Authorization: `Bearer ${jwt}` },
+        }
+      );
+      dispatch(StopLoading());
+      dispatch(GetReport(data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+const GetReport = (data) => ({
+  type: types.teacherGetReport,
+  payload: data,
 });

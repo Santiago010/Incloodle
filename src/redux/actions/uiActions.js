@@ -44,6 +44,17 @@ export const closeModalChangePass = () => ({
   type: types.uiShowModalChangePass,
   payload: false,
 });
+
+export const openModalSearchExamCorrected = () => ({
+  type: types.uiShowModalSearchExamCorrected,
+  payload: true,
+});
+
+export const closeModalSearchExamCorrected = () => ({
+  type: types.uiShowModalSearchExamCorrected,
+  payload: false,
+});
+
 export const ResetPass = (data) => ({
   type: types.uiResetPass,
   payload: data,

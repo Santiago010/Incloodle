@@ -69,8 +69,8 @@ const Page = ({
                   <Button onClick={() => handleEvaluateStudent(data)}>
                     EVALUAR
                   </Button>
-                  <Button onClick={() => handleReportStudent()}>
-                    REPORTAR
+                  <Button onClick={() => handleReportStudent(data)}>
+                    VER REPORTE
                   </Button>
                   <Button onClick={() => handleDelete(data)}>ELIMINAR</Button>
                 </ButtonGroup>

@@ -57,14 +57,12 @@ export const StartAddProfile = (jwt, values, rol) => {
         let { data } = await api.post("/api/teacher", values, {
           headers: { Authorization: `Bearer ${jwt}` },
         });
-        console.log(data);
         dispatch(StartGetProfile(jwt));
       } else if (rol === 2) {
         let { data } = await api.post("/api/student", values, {
           headers: { Authorization: `Bearer ${jwt}` },
         });
         dispatch(StartGetProfile(jwt));
-        console.log(data);
       }
     } catch (error) {
       console.error(error);
@@ -87,7 +85,6 @@ export const StartEditProfile = (jwt, values) => {
             headers: { Authorization: `Bearer ${jwt}` },
           }
         );
-        console.log(data);
         dispatch(StartGetProfile(jwt));
       } else if (values.rol === 2) {
         let { data } = await api.put(
@@ -101,7 +98,6 @@ export const StartEditProfile = (jwt, values) => {
             headers: { Authorization: `Bearer ${jwt}` },
           }
         );
-        console.log(data);
         dispatch(StartGetProfile(jwt));
       }
     } catch (error) {
@@ -117,13 +113,11 @@ export const StartDeleteProfile = (jwt, id, rol) => {
         let { data } = await api.delete(`/api/teacher/${id}`, {
           headers: { Authorization: `Bearer ${jwt}` },
         });
-        console.log(data);
         dispatch(StartGetProfile(jwt));
       } else if (rol === 2) {
         let { data } = await api.delete(`/api/student/${id}`, {
           headers: { Authorization: `Bearer ${jwt}` },
         });
-        console.log(data);
         dispatch(StartGetProfile(jwt));
       }
     } catch (error) {

@@ -4,24 +4,11 @@ const initialState = {
   err: false,
   message: "",
   studentsAll: [],
-  data: [],
-  exam: {
-    course_id: 0,
-    createdAt: "",
-    exam_id: 0,
-    finish_date: null,
-    id: 0,
-    init_date: null,
-    is_pendient: 0,
-    link: "",
-    name: "",
-    num_of_questions: 0,
-    score: null,
-    type: 0,
-    updatedAt: null,
-  },
+  exam: {},
   dataCourses: [],
   dataDocuments: [],
+  dataExam: [],
+  dataAnswers: [],
 };
 
 export const studentReducer = (state = initialState, action) => {
@@ -51,6 +38,34 @@ export const studentReducer = (state = initialState, action) => {
       return {
         ...state,
         exam: action.payload,
+      };
+    case types.studentGetAllDocuments:
+      return {
+        ...state,
+        err: action.payload.err,
+        message: action.payload.message,
+        dataDocuments: action.payload.data,
+      };
+    case types.studentGetAllExam:
+      return {
+        ...state,
+        err: action.payload.err,
+        message: action.payload.message,
+        dataExam: action.payload.data,
+      };
+    case types.studentGetExamsCorrected:
+      return {
+        ...state,
+        err: action.payload.err,
+        message: action.payload.message,
+        dataExam: action.payload.data,
+      };
+    case types.studentGetAnswersCorrections:
+      return {
+        ...state,
+        err: action.payload.err,
+        message: action.payload.message,
+        dataAnswers: action.payload.data,
       };
     default:
       return state;

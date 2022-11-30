@@ -7,6 +7,7 @@ const initialState = {
   showModalSearchContens: false,
   showModalSearchpendingExam: false,
   showModalChangePass: false,
+  showModalSearchExamCorrected: false,
   messageResetPass: "",
 };
 
@@ -46,6 +47,11 @@ export const uiReducer = (state = initialState, action) => {
       return {
         ...state,
         messageResetPass: action.payload,
+      };
+    case types.uiShowModalSearchExamCorrected:
+      return {
+        ...state,
+        showModalSearchExamCorrected: action.payload,
       };
     default:
       return state;

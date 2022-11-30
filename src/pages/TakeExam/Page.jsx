@@ -24,10 +24,12 @@ const Page = ({
   handleStartRecord,
   handleStopRecord,
   handleReadAnswer,
+  handleInputChange,
+  exam,
 }) => {
   return (
     <>
-      <List
+      <Box
         sx={{
           backgroundColor: "#fff",
           borderRadius: "10px",
@@ -36,69 +38,87 @@ const Page = ({
           overflowY: "scroll",
           height: "80%",
           display: "flex",
-          flexDirection: "column",
+          flexDirection: "row",
           justifyContent: "center",
         }}
       >
-        {data.map((field) => {
-          let name = `response${field}`;
-          return (
-            <ListItem
-              key={field}
-              sx={{
-                display: "flex",
-                overflow: "hidden",
-                justifyContent: "center",
-              }}
-            >
-              <Typography mx={10} component="h6" variant="h6">
-                Pregunta {field}
-              </Typography>
-              <TextField
-                disabled
-                required
-                mx={10}
-                name={name}
-                id="standard-basic"
-                label={`Respuesta ${field}`}
-                multiline
-                maxRows={4}
-                variant="standard"
-                value={values?.[name] ?? ""}
-              />
-              <ButtonGroup>
-                <IconButton
-                  sx={{
-                    background: "#1976d2",
-                    marginX: "5px",
-                  }}
-                  onClick={() => handleStartRecord(name)}
-                >
-                  <KeyboardVoiceIcon />
-                </IconButton>
-                <IconButton
-                  sx={{
-                    background: "#1976d2",
-                    marginX: "5px",
-                  }}
-                  onClick={() => handleStopRecord()}
-                >
-                  <StopIcon />
-                </IconButton>
-                <IconButton
-                  sx={{
-                    background: "#1976d2",
-                    marginX: "5px",
-                  }}
-                  onClick={() => handleReadAnswer(name)}
-                >
-                  <VolumeUpIcon />
-                </IconButton>
-              </ButtonGroup>
-            </ListItem>
-          );
-        })}
-      </List>
+        <object data={exam} type="application/pdf" width="50%" height="100%">
+          <p>
+            Alternative text - include a link
+            <a href="https://africau.edu/images/default/sample.pdf">
+              to the PDF!
+            </a>
+          </p>
+        </object>
+        <List
+          sx={{
+            overflowX: "hidden",
+            height: "100%%",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+          }}
+        >
+          {data.map((field) => {
+            let name = `response${field}`;
+            return (
+              <ListItem
+                key={field}
+                sx={{
+                  display: "flex",
+                  overflow: "hidden",
+                  justifyContent: "center",
+                }}
+              >
+                <Typography mx={10} component="h6" variant="h6">
+                  Pregunta {field}
+                </Typography>
+                <TextField
+                  onChange={handleInputChange}
+                  required
+                  mx={10}
+                  name={name}
+                  id="standard-basic"
+                  label={`Respuesta ${field}`}
+                  multiline
+                  maxRows={4}
+                  variant="standard"
+                  value={values?.[name] ?? ""}
+                />
+                <ButtonGroup>
+                  <IconButton
+                    sx={{
+                      background: "#1976d2",
+                      marginX: "5px",
+                    }}
+                    onClick={() => handleStartRecord(name)}
+                  >
+                    <KeyboardVoiceIcon />
+                  </IconButton>
+                  <IconButton
+                    sx={{
+                      background: "#1976d2",
+                      marginX: "5px",
+                    }}
+                    onClick={() => handleStopRecord()}
+                  >
+                    <StopIcon />
+                  </IconButton>
+                  <IconButton
+                    sx={{
+                      background: "#1976d2",
+                      marginX: "5px",
+                    }}
+                    onClick={() => handleReadAnswer(name)}
+                  >
+                    <VolumeUpIcon />
+                  </IconButton>
+                </ButtonGroup>
+              </ListItem>
+            );
+          })}
+        </List>
+      </Box>
       <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
         <ButtonGroup variant="contained">
           <Button startIcon={<OutboxIcon />} onClick={() => handleSendExam()}>
