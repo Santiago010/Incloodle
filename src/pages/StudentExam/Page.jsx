@@ -26,6 +26,7 @@ const Page = ({
   fragementModals,
   exam,
 }) => {
+  console.log(exam);
   const { loading } = useSelector((s) => s?.uiReducer);
   return (
     <>

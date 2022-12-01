@@ -1,5 +1,6 @@
 import api from "../../api/api";
 import { types } from "../types/types";
+import moment from "moment";
 import {
   closeModalChangePass,
   ResetPass,
@@ -100,7 +101,7 @@ export const StartSendExamAnswers = (exam_id, answers, jwt) => {
         {
           exam_id,
           answers,
-          init_date: new Date(),
+          init_date: moment(),
         },
         {
           headers: { Authorization: `Bearer ${jwt}` },
