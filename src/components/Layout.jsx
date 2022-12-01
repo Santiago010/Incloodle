@@ -43,7 +43,7 @@ const Layout = ({ children }) => {
       name: "Font Zoom",
       func: () => {
         if (!fontZoom) {
-          htmlRef.current.style.fontSize = "2em";
+          htmlRef.current.style.fontSize = "1.7em";
           setFontZoom(true);
         } else {
           htmlRef.current.style.fontSize = "1em";
