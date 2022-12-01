@@ -1,4 +1,4 @@
-import api from "../../api/api";
+import api, { BASE_URL } from "../../api/api";
 import { types } from "../types/types";
 import {
   closeModalChangePass,
@@ -454,23 +454,12 @@ const FilterExamByName = (name) => ({
 
 export const StartGetReport = (jwt, student_id, course_id) => {
   return async (dispatch) => {
-    dispatch(StartLoading());
     try {
-      let { data } = await api.get(
-        `/api/teacher/report/?student_id=${student_id}&course_id=${course_id}`,
-        {
-          headers: { Authorization: `Bearer ${jwt}` },
-        }
+      window.open(
+        `${BASE_URL}/api/teacher/report/?student_id=${student_id}&course_id=${course_id}`
       );
-      dispatch(StopLoading());
-      dispatch(GetReport(data));
     } catch (error) {
       console.error(error);
     }
   };
 };
-
-const GetReport = (data) => ({
-  type: types.teacherGetReport,
-  payload: data,
-});

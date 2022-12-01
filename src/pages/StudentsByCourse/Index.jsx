@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import ModalAddStudentACourse from "../../components/ModalAddStudentACourse";
 import ModalDeleteStudentFromACourse from "../../components/ModalDeleteStudentFromACourse";
 import IndexFinalScoreOfTheStudent from "../../components/ModalFinalScoreOfTheStudent/Index";
-import IndexReportStudent from "../../components/ModalReportStudent/Index";
 import { useModal } from "../../hooks/useModal";
 import {
   ChooseStudent,
@@ -29,11 +28,7 @@ const IndexStudentsByCourse = () => {
     handleOpenModal: handleOpenModalFinalScore,
     handleCloseModal: handleCloseModalFinalScore,
   } = useModal(false);
-  const {
-    isOpen: isOpenModalReport,
-    handleOpenModal: handleOpenModalReport,
-    handleCloseModal: handleCloseModalReport,
-  } = useModal(false);
+
   const { jwt } = useSelector((s) => s?.authReducer);
   const { dataStudentsByCourse, dataFiltered } = useSelector(
     (s) => s?.teacherReducer
@@ -48,7 +43,6 @@ const IndexStudentsByCourse = () => {
 
   const handleReportStudent = (data) => {
     dispatch(ChooseStudent(data));
-    handleOpenModalReport();
     dispatch(StartGetReport(jwt, data.student_id, Number(id)));
   };
 
@@ -81,10 +75,6 @@ const IndexStudentsByCourse = () => {
           <IndexFinalScoreOfTheStudent
             isOpen={isOpenModalFinalScore}
             handleOnClose={handleCloseModalFinalScore}
-          />
-          <IndexReportStudent
-            isOpen={isOpenModalReport}
-            handleOnClose={handleCloseModalReport}
           />
         </>
       }

@@ -1,7 +1,9 @@
 import axios from "axios";
 
+export const BASE_URL = "https://incloodle.herokuapp.com/v1";
+
 const api = axios.create({
-  baseURL: "https://incloodle.herokuapp.com/v1",
+  baseURL: BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },

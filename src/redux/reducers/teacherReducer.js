@@ -30,7 +30,6 @@ const initialState = {
   datapendingExam: [],
   dataAnswerExam: [],
   dataFiltered: [],
-  dataReport: [],
 };
 
 export const teacherReducer = (state = initialState, action) => {
@@ -118,13 +117,7 @@ export const teacherReducer = (state = initialState, action) => {
         ...state,
         dataFiltered: [],
       };
-    case types.teacherGetReport:
-      return {
-        ...state,
-        err: action.payload.err,
-        message: action.payload.message,
-        dataReport: action.payload.data,
-      };
+
     default:
       return state;
   }
