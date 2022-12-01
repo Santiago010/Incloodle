@@ -11,8 +11,10 @@ import SpeechRecognition, {
 import { Button, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import GoogleIcon from "@mui/icons-material/Google";
+import moment from "moment";
 
 const IndexTakeExam = () => {
+  const [init_date, setInit_date] = useState(null);
   const [fields, setFields] = useState([]);
   const { exam } = useSelector((s) => s?.studentReducer);
   const { jwt } = useSelector((s) => s?.authReducer);
@@ -33,6 +35,7 @@ const IndexTakeExam = () => {
 
   useEffect(() => {
     createArray();
+    setInit_date(moment());
   }, []);
 
   const createArray = () => {
@@ -57,7 +60,12 @@ const IndexTakeExam = () => {
     }
 
     dispatch(
-      StartSendExamAnswers(exam.exam_id, JSON.stringify(arrayTemp), jwt)
+      StartSendExamAnswers(
+        exam.exam_id,
+        JSON.stringify(arrayTemp),
+        jwt,
+        init_date
+      )
     );
     handleOpenModal();
   };

@@ -93,7 +93,7 @@ export const ChoosenExam = (data) => ({
   payload: data,
 });
 
-export const StartSendExamAnswers = (exam_id, answers, jwt) => {
+export const StartSendExamAnswers = (exam_id, answers, jwt, init_date) => {
   return async (dispatch) => {
     try {
       const { data } = await api.post(
@@ -101,7 +101,7 @@ export const StartSendExamAnswers = (exam_id, answers, jwt) => {
         {
           exam_id,
           answers,
-          init_date: moment(),
+          init_date,
         },
         {
           headers: { Authorization: `Bearer ${jwt}` },
