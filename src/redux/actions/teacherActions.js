@@ -187,6 +187,7 @@ export const StartAddDocumentsByCourse = (
             name: values.name,
             course_id: courseId,
             num_of_questions: values.numberQuestions,
+            max_score: values.maxScore,
           },
           headers: {
             Authorization: `Bearer ${jwt}`,
@@ -241,7 +242,7 @@ export const StartAddStudentToACourse = (jwt, values) => {
           headers: { Authorization: `Bearer ${jwt}` },
         }
       );
-      dispatch(StartGetStudentByCourse(jwt, values.courseId));
+      dispatch(StartGetStudentWithoutCourse(jwt, values.courseId));
     } catch (error) {
       console.error(error);
     }
@@ -309,12 +310,19 @@ const GetAnswerExam = (data) => ({
   payload: data,
 });
 
-export const StartEvaluatingAnswer = (jwt, answerId, isCorrect) => {
+export const StartEvaluatingAnswer = (
+  jwt,
+  question,
+  answerId,
+  isCorrect,
+  comment,
+  score
+) => {
   return async (dispatch) => {
     try {
       let { data } = await api.put(
-        "/api/answer",
-        { answer_id: answerId, is_correct: isCorrect },
+        "/api/answer/rate-answer",
+        { answer_id: answerId, is_correct: isCorrect, comment, score },
         {
           headers: { Authorization: `Bearer ${jwt}` },
         }
@@ -322,10 +330,19 @@ export const StartEvaluatingAnswer = (jwt, answerId, isCorrect) => {
       swal({
         title: `${isCorrect === 1 ? "Correcta" : "Incorrecta"}`,
         icon: "success",
-        text: `¡Respuesta con el id ${answerId} corregida con exito!`,
+        text: `¡Pregunta :${question} corregida con exito!`,
+        buttons: false,
+        timer: 2000,
       });
     } catch (error) {
       console.error(error);
+      swal({
+        title: `Atención`,
+        icon: "warning",
+        text: `¡Debes dejar un comentario y un puntaje!`,
+        buttons: false,
+        timer: 3000,
+      });
     }
   };
 };
@@ -463,3 +480,60 @@ export const StartGetReport = (jwt, student_id, course_id) => {
     }
   };
 };
+
+export const StartGetStudentWithoutCourse = (jwt, course) => {
+  return async (dispatch) => {
+    try {
+      dispatch(StartLoading());
+      const { data } = await api.get(
+        `/api/enrollment/${course}/without-course`,
+        {
+          headers: { Authorization: `Bearer ${jwt}` },
+        }
+      );
+      dispatch(GetStudentWithoutCourse(data));
+      dispatch(StopLoading());
+    } catch (error) {
+      console.error(error);
+      dispatch(StopLoading());
+    }
+  };
+};
+
+const GetStudentWithoutCourse = (data) => ({
+  type: types.teacherGetStudentWithoutCourse,
+  payload: data,
+});
+
+export const StartGetPeriodsAndCareers = (jwt) => {
+  return async (dispatch) => {
+    try {
+      dispatch(StartLoading());
+      const reqPeriods = api.get("/api/period", {
+        headers: { Authorization: `Bearer ${jwt}` },
+      });
+      const reqCareers = api.get("/api/career", {
+        headers: { Authorization: `Bearer ${jwt}` },
+      });
+
+      const [resPeriod, resCareer] = await Promise.all([
+        reqPeriods,
+        reqCareers,
+      ]);
+      dispatch(GetPeriods(resPeriod.data));
+      dispatch(GetCareers(resCareer.data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+const GetPeriods = (data) => ({
+  type: types.teacherGetPeriods,
+  payload: data,
+});
+
+const GetCareers = (data) => ({
+  type: types.teacherGetCareers,
+  payload: data,
+});

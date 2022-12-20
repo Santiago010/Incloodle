@@ -32,11 +32,11 @@ const Page = ({ data, handleSeeExam, score, exam }) => {
           justifyContent: "center",
         }}
       >
-        <object data={exam} type="application/pdf" width="50%" height="100%">
-          <p>
-            Alternative text - include a link
-            <a href={exam}>to the PDF!</a>
-          </p>
+        <object data={exam} type="application/pdf" width="30%" height="100%">
+          <Typography variant="h6" component="h6">
+            No se pudo mostrar el exam
+            <a href={exam}>Ir al examen</a>
+          </Typography>
         </object>
         <List
           sx={{
@@ -67,14 +67,31 @@ const Page = ({ data, handleSeeExam, score, exam }) => {
                   </Typography>
                   <Box>
                     <TextField
-                      mx={10}
+                      size="small"
                       id="standard-basic"
                       label={`Respuesta Pregunta ${data.question_id}`}
                       multiline
-                      maxRows={4}
                       variant="outlined"
                       disabled
                       value={data.answer_text}
+                    />
+                    <TextField
+                      size="small"
+                      id="standard-basic"
+                      label={`Comentario Pregunta ${data.question_id}`}
+                      multiline
+                      variant="outlined"
+                      disabled
+                      value={data.comment}
+                    />
+                    <TextField
+                      size="small"
+                      id="standard-basic"
+                      label={`Puntaje Pregunta ${data.question_id}`}
+                      multiline
+                      variant="outlined"
+                      disabled
+                      value={data.score}
                     />
                     {data.is_correct === 1 ? (
                       <Button disabled startIcon={<CheckIcon />}></Button>
@@ -98,7 +115,6 @@ const Page = ({ data, handleSeeExam, score, exam }) => {
               required
               type="number"
               min="10"
-              max="50"
               variant="outlined"
               size="small"
               placeholder="Calificación"

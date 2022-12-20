@@ -85,7 +85,7 @@ const Page = ({
           variant="contained"
           onClick={() => handleCreate()}
         >
-          Agregar Estudiante
+          Agregar Estudiantes
         </Button>
         {fragmentModals}
       </Box>

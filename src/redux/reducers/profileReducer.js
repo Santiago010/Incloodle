@@ -3,7 +3,9 @@ import { types } from "../types/types";
 const intialState = {
   err: null,
   message: null,
-  data: [],
+  profiles: [],
+  periods: [],
+  careers: [],
   profile: {
     name: "",
     rut: "",
@@ -12,6 +14,8 @@ const intialState = {
     id: 0,
     rol: 0,
   },
+  period: {},
+  career: {},
   dataFiltered: [],
 };
 
@@ -22,7 +26,7 @@ export const profileReducer = (state = intialState, action) => {
         ...state,
         err: action.payload.err,
         message: action.payload.message,
-        data: action.payload.data,
+        profiles: action.payload.data,
       };
     case types.profileChoose:
       return {
@@ -32,14 +36,14 @@ export const profileReducer = (state = intialState, action) => {
     case types.profileFilterByRol:
       return {
         ...state,
-        dataFiltered: state.data.filter(
+        dataFiltered: state.profiles.filter(
           (profile) => profile.rol === action.payload
         ),
       };
     case types.profileFilterByName:
       return {
         ...state,
-        dataFiltered: state.data.filter((profile) =>
+        dataFiltered: state.profiles.filter((profile) =>
           profile.name.toLowerCase().includes(action.payload)
         ),
       };
@@ -47,6 +51,30 @@ export const profileReducer = (state = intialState, action) => {
       return {
         ...state,
         dataFiltered: [],
+      };
+    case types.profileGetPeriods:
+      return {
+        ...state,
+        err: action.payload.err,
+        message: action.payload.message,
+        periods: action.payload.data,
+      };
+    case types.profileGetCareers:
+      return {
+        ...state,
+        err: action.payload.err,
+        message: action.payload.message,
+        careers: action.payload.data,
+      };
+    case types.profileChoosenPeriod:
+      return {
+        ...state,
+        period: action.payload,
+      };
+    case types.profileChoosenCareer:
+      return {
+        ...state,
+        career: action.payload,
       };
     default:
       return state;

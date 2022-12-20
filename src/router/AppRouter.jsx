@@ -1,8 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Layout from "../components/Layout";
+import IndexAddStudent from "../pages/AddStudent/Index";
 import IndexAllDocumentsStudent from "../pages/AllDocumentsStudent/Index";
 import IndexAllExams from "../pages/AllExamsStudent/Index";
+import IndexCareers from "../pages/Careers";
 import IndexContensByCourseOfStudent from "../pages/ContentByCourseOfStudent/Index";
 import IndexCourseTeacher from "../pages/CourseTeacher/Index";
 import Dashboard from "../pages/Dashboard";
@@ -10,6 +12,7 @@ import IndexExamsCorrected from "../pages/ExamsCorrected/Index";
 import IndexExamspendingTeacher from "../pages/ExamsPendingTeacher/Index";
 import Login from "../pages/Login";
 import NotFound from "../pages/NotFound";
+import IndexPeriods from "../pages/Periods";
 import IndexSeeCorrections from "../pages/SeeCorrections/Index";
 import IndexStudentExam from "../pages/StudentExam/Index";
 import IndexStudentsByCourse from "../pages/StudentsByCourse/Index";
@@ -144,6 +147,36 @@ const AppRouter = () => (
           <PrivateRoute>
             <Layout>
               <IndexSeeCorrections />
+            </Layout>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/careers"
+        element={
+          <PrivateRoute>
+            <Layout>
+              <IndexCareers />
+            </Layout>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/periods"
+        element={
+          <PrivateRoute>
+            <Layout>
+              <IndexPeriods />
+            </Layout>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/addStudent"
+        element={
+          <PrivateRoute>
+            <Layout>
+              <IndexAddStudent />
             </Layout>
           </PrivateRoute>
         }

@@ -10,9 +10,11 @@ export const StartLogin = (values) => {
       const { data } = await api.post("/auth", values);
       if (data?.err) {
         swal({
-          title: "Oops!",
+          title: "Atención",
           icon: "error",
           text: data?.message,
+          buttons: false,
+          timer: 3000,
         });
       } else {
         localStorage.setItem("jwt", data?.jwt);

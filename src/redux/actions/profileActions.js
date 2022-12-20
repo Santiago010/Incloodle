@@ -156,3 +156,142 @@ const FilterProfileByName = (name) => ({
   type: types.profileFilterByName,
   payload: name,
 });
+
+export const StartGetPeriods = (jwt) => {
+  return async (dispatch) => {
+    dispatch(StartLoading());
+    try {
+      const { data } = await api.get("/api/period", {
+        headers: { Authorization: `Bearer ${jwt}` },
+      });
+      dispatch(GetPeriods(data));
+      dispatch(StopLoading());
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+const GetPeriods = (data) => ({
+  type: types.profileGetPeriods,
+  payload: data,
+});
+
+export const StartDeletePeriod = (jwt, id) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await api.delete(`/api/period/${id}`);
+      dispatch(StartGetPeriods());
+    } catch (error) {}
+  };
+};
+
+export const StartAddPeriod = (jwt, name) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await api.post(
+        "/api/period/",
+        {
+          name,
+        },
+        { headers: { Authorization: `Bearer ${jwt}` } }
+      );
+      dispatch(StartGetPeriods());
+    } catch (error) {
+      dispatch(StopLoading());
+      console.error(error);
+    }
+  };
+};
+
+export const StartUpdatePeriod = (jwt, name, id) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await api.put(
+        `/api/period/${id}`,
+        {
+          name,
+        },
+        {
+          headers: { Authorization: `Bearer ${jwt}` },
+        }
+      );
+
+      dispatch(StartGetPeriods());
+    } catch (error) {}
+  };
+};
+
+export const StartGetCareers = (jwt) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await api.get("/api/career", {
+        headers: { Authorization: `Bearer ${jwt}` },
+      });
+      dispatch(GetCareers(data));
+      dispatch(StopLoading());
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+const GetCareers = (data) => ({
+  type: types.profileGetCareers,
+  payload: data,
+});
+
+export const StartDeleteCareer = (jwt, id) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await api.delete(`/api/career/${id}`);
+      dispatch(StartGetPeriods());
+      dispatch(StartGetCareers());
+    } catch (error) {}
+  };
+};
+
+export const StartUpdateCareer = (jwt, name, id) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await api.put(
+        `/api/career/${id}`,
+        {
+          name,
+        },
+        {
+          headers: { Authorization: `Bearer ${jwt}` },
+        }
+      );
+
+      dispatch(StartGetCareers());
+    } catch (error) {}
+  };
+};
+
+export const ChoosenPeriod = (data) => ({
+  type: types.profileChoosenPeriod,
+  payload: data,
+});
+export const ChoosenCareer = (data) => ({
+  type: types.profileChoosenCareer,
+  payload: data,
+});
+
+export const StartAddCareer = (jwt, name) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await api.post(
+        "/api/career/",
+        {
+          name,
+        },
+        { headers: { Authorization: `Bearer ${jwt}` } }
+      );
+      dispatch(StartGetCareers());
+    } catch (error) {
+      dispatch(StopLoading());
+      console.error(error);
+    }
+  };
+};

@@ -43,12 +43,10 @@ const Page = ({
         }}
       >
         <object data={exam} type="application/pdf" width="50%" height="100%">
-          <p>
-            Alternative text - include a link
-            <a href="https://africau.edu/images/default/sample.pdf">
-              to the PDF!
-            </a>
-          </p>
+          <Typography variant="h6" component="h6">
+            No se pudo mostrar el exam
+            <a href={exam}>Ir al examen</a>
+          </Typography>
         </object>
         <List
           sx={{

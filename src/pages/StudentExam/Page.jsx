@@ -17,6 +17,8 @@ import { useSelector } from "react-redux";
 import EmptyListParagraph from "../../components/EmptyListParagraph";
 
 const Page = ({
+  correctionsAnswer,
+  handleCorrectionsAnswer,
   values,
   handleInputChange,
   data,
@@ -26,7 +28,6 @@ const Page = ({
   fragementModals,
   exam,
 }) => {
-  console.log(exam);
   const { loading } = useSelector((s) => s?.uiReducer);
   return (
     <>
@@ -43,18 +44,16 @@ const Page = ({
           justifyContent: "center",
         }}
       >
-        <object data={exam} type="application/pdf" width="50%" height="100%">
-          <p>
-            Alternative text - include a link
-            <a href="https://africau.edu/images/default/sample.pdf">
-              to the PDF!
-            </a>
-          </p>
+        <object data={exam} type="application/pdf" width="40%" height="100%">
+          <Typography variant="h6" component="h6">
+            No se pudo mostrar el exam
+            <a href={exam}>Ir al examen</a>
+          </Typography>
         </object>
         <List
           sx={{
             overflowX: "hidden",
-            height: "100%%",
+            height: "100%",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
@@ -66,6 +65,8 @@ const Page = ({
             <EmptyListParagraph emptyList={"Respuestas"} />
           ) : (
             data.map((data, index) => {
+              let comment = `comment${index + 1}`;
+              let score = `score${index + 1}`;
               return (
                 <ListItem
                   key={data.answer_id}
@@ -78,7 +79,11 @@ const Page = ({
                   <Typography mx={10} component="h6" variant="h6">
                     Pregunta {data.question_id}
                   </Typography>
-                  <Box>
+                  <Box
+                    sx={{
+                      display: "flex",
+                    }}
+                  >
                     <TextField
                       mx={10}
                       id="standard-basic"
@@ -89,16 +94,48 @@ const Page = ({
                       disabled
                       value={data.answer_text}
                     />
+                    <TextField
+                      type="text"
+                      id="standard-basic"
+                      label="Comentario"
+                      variant="outlined"
+                      required
+                      name={comment}
+                      value={correctionsAnswer[comment] ?? ""}
+                      onChange={handleCorrectionsAnswer}
+                    />
+                    <TextField
+                      type="number"
+                      id="standard-basic"
+                      label="Puntaje"
+                      variant="outlined"
+                      required
+                      name={score}
+                      value={correctionsAnswer[score] ?? ""}
+                      onChange={handleCorrectionsAnswer}
+                    />
                     <Button
                       startIcon={<CheckIcon />}
                       onClick={() =>
-                        handleSendCorrectionAnswer(data.answer_id, 1)
+                        handleSendCorrectionAnswer(
+                          index + 1,
+                          data.answer_id,
+                          1,
+                          comment,
+                          score
+                        )
                       }
                     ></Button>
                     <Button
                       startIcon={<CloseIcon />}
                       onClick={() =>
-                        handleSendCorrectionAnswer(data.answer_id, 0)
+                        handleSendCorrectionAnswer(
+                          index + 1,
+                          data.answer_id,
+                          0,
+                          comment,
+                          score
+                        )
                       }
                     ></Button>
                   </Box>
@@ -113,12 +150,12 @@ const Page = ({
           <form onSubmit={handleOnSubmit}>
             <input
               name="qualification"
+              disabled
               onChange={handleInputChange}
               value={values?.qualification}
               required
               type="number"
               min="10"
-              max="70"
               variant="outlined"
               size="small"
               placeholder="Ingresar Calificación"

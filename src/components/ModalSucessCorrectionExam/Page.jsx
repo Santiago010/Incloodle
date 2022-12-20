@@ -30,7 +30,7 @@ const Page = ({ isOpen, handleOnClose, name }) => {
           >
             Examen de {name} corregido con exito
           </Typography>
-          <img src={successImg}></img>
+          <img alt="Corrección hecha" src={successImg}></img>
         </Box>
       </Box>
     </Modal>

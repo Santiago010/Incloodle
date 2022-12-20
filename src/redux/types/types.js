@@ -8,6 +8,10 @@ export const types = {
   profileChoose: "[PROFILE] Choose",
   profileFilterByRol: "[PROFILE] FilterByRol",
   profileFilterByName: "[PROFILE] FilterByName",
+  profileGetPeriods: "[PROFILE] GetPeriods",
+  profileGetCareers: "[PROFILE] GetCareers",
+  profileChoosenPeriod: "[PROFILE] ChoosenPeriod",
+  profileChoosenCareer: "[PROFILE] ChoosenCareer",
   //TODO: TEACHER
   teacherGetCourse: "[TEACHER] GetCourse",
   teacherChooseCourse: "[TEACHER] ChooseCourse",
@@ -22,6 +26,9 @@ export const types = {
   teacherFilterStudent: "[TEACHER] FilterStudent",
   teacherFilterExamPending: "[TEACHER] FilterExamPending",
   teacherGetReport: "[TEACHER] GetReport",
+  teacherGetStudentWithoutCourse: "[TEACHER] GetStudentWithoutCourse",
+  teacherGetPeriods: "[TEACHER] GetPeriods",
+  teacherGetCareers: "[TEACHER] teacherGetCareers",
 
   //TODO: STUDENT
   studentGetAllStudents: "[STUDENT] GetAllStudents",

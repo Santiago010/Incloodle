@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import ModalCreateDocument from "../../components/ModalCreateDocument";
-import ModalDeleteDocument from "../../components/ModalDeleteDocument";
+import IndexModalCreateDocument from "../../components/ModalCreateDocument/Index";
+import IndexModalDeleteDocument from "../../components/ModalDeleteDocument/Index";
 import { useModal } from "../../hooks/useModal";
 import {
   ChooseDocument,
@@ -22,9 +22,7 @@ const IndexCourseTeacher = () => {
     handleCloseModal: handleCloseModalDelete,
   } = useModal(false);
   const { id } = useParams();
-  const { dataDocuments, course, document, dataFiltered } = useSelector(
-    (s) => s?.teacherReducer
-  );
+  const { dataDocuments, dataFiltered } = useSelector((s) => s?.teacherReducer);
   const { jwt } = useSelector((s) => s?.authReducer);
   const dispatch = useDispatch();
 
@@ -49,15 +47,13 @@ const IndexCourseTeacher = () => {
       handleSeeMaterial={handleSeeMaterial}
       fragmentModals={
         <>
-          <ModalDeleteDocument
+          <IndexModalDeleteDocument
             isOpen={isOpenModalDelete}
             handleOnClose={handleCloseModalDelete}
-            document={document}
           />
-          <ModalCreateDocument
+          <IndexModalCreateDocument
             isOpen={isOpenModalCreate}
             handleOnClose={handleCloseModalCreate}
-            course={course}
           />
         </>
       }

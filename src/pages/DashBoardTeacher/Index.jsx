@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import ModalCreateCourse from "../../components/ModalCreateCourse";
-import ModalDeleteCourse from "../../components/ModalDeleteCourse";
-import ModalEditCourse from "../../components/ModalEditCourse";
+import IndexModalCreateCourse from "../../components/ModalCreateCourse/Index";
+import IndexModalDeleteCourse from "../../components/ModalDeleteCourse/Index";
+import IndexModalEditCourse from "../../components/ModalEditCourse/Index";
 
 import { useModal } from "../../hooks/useModal";
 import {
@@ -69,16 +69,17 @@ const IndexTeacher = () => {
       handleSeeMaterial={handleSeeMaterial}
       fragmentModals={
         <>
-          <ModalEditCourse
+          <IndexModalEditCourse
             isOpen={isOpenModalEdit}
             handleOnClose={handleCloseModalEdit}
           />
-          <ModalDeleteCourse
+
+          <IndexModalDeleteCourse
             isOpen={isOpenModalDelete}
             handleOnClose={handleCloseModalDelete}
             course={course}
           />
-          <ModalCreateCourse
+          <IndexModalCreateCourse
             isOpen={isOpenModalCreate}
             handleOnClose={handleCloseModalCreate}
             teacher={teacher}

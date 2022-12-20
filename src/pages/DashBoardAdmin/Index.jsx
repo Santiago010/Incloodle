@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import ModalCreateProfile from "../../components/ModalCreateProfile";
-import ModalDeleteProfile from "../../components/ModalDeleteProfile";
+import IndexModalCreateProfile from "../../components/ModalCreateProfile/Index";
+import IndexModalDeleteProfile from "../../components/ModalDeleteProfile/Index";
 import ModalEditProfile from "../../components/ModalEditProfile";
 import { useModal } from "../../hooks/useModal";
 import {
@@ -28,7 +28,9 @@ const IndexAdmin = () => {
   } = useModal(false);
   const dispatch = useDispatch();
   const { jwt } = useSelector((s) => s?.authReducer);
-  const { data, profile, dataFiltered } = useSelector((s) => s?.profileReducer);
+  const { profiles, profile, dataFiltered } = useSelector(
+    (s) => s?.profileReducer
+  );
 
   const handleEdit = (profile) => {
     dispatch(ChoosenProfile(profile));
@@ -46,7 +48,7 @@ const IndexAdmin = () => {
 
   return (
     <Page
-      data={dataFiltered.length === 0 ? data : dataFiltered}
+      data={dataFiltered.length === 0 ? profiles : dataFiltered}
       handleEdit={handleEdit}
       handleDelete={handleDelete}
       handleCreate={handleOpenModalCreate}
@@ -57,12 +59,13 @@ const IndexAdmin = () => {
             handleOnClose={handleCloseModalEdit}
             profile={profile}
           />
-          <ModalCreateProfile
+
+          <IndexModalCreateProfile
             isOpen={isOpenModalCreate}
             handleOnClose={handleCloseModalCreate}
-            profile={profile}
           />
-          <ModalDeleteProfile
+
+          <IndexModalDeleteProfile
             isOpen={isOpenModalDelete}
             handleOnClose={handleCloseModalDelete}
             profile={profile}

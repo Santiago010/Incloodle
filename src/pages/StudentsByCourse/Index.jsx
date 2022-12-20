@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import ModalAddStudentACourse from "../../components/ModalAddStudentACourse";
+import { useNavigate, useParams } from "react-router-dom";
 import ModalDeleteStudentFromACourse from "../../components/ModalDeleteStudentFromACourse";
 import IndexFinalScoreOfTheStudent from "../../components/ModalFinalScoreOfTheStudent/Index";
 import { useModal } from "../../hooks/useModal";
@@ -13,11 +12,6 @@ import {
 import Page from "./Page";
 
 const IndexStudentsByCourse = () => {
-  const {
-    isOpen: isOpenModalCreate,
-    handleOpenModal: handleOpenModalCreate,
-    handleCloseModal: handleCloseModalCreate,
-  } = useModal(false);
   const {
     isOpen: isOpenModalDelete,
     handleOpenModal: handleOpenModalDelete,
@@ -34,6 +28,7 @@ const IndexStudentsByCourse = () => {
     (s) => s?.teacherReducer
   );
   const { id } = useParams();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleEvaluateStudent = (data) => {
@@ -61,17 +56,14 @@ const IndexStudentsByCourse = () => {
       handleEvaluateStudent={handleEvaluateStudent}
       handleReportStudent={handleReportStudent}
       handleDelete={handleDelete}
-      handleCreate={handleOpenModalCreate}
+      handleCreate={() => navigate("/addStudent")}
       fragmentModals={
         <>
           <ModalDeleteStudentFromACourse
             isOpen={isOpenModalDelete}
             handleOnClose={handleCloseModalDelete}
           />
-          <ModalAddStudentACourse
-            isOpen={isOpenModalCreate}
-            handleOnClose={handleCloseModalCreate}
-          />
+
           <IndexFinalScoreOfTheStudent
             isOpen={isOpenModalFinalScore}
             handleOnClose={handleCloseModalFinalScore}

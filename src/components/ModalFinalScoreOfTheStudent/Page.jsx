@@ -61,7 +61,6 @@ const Page = ({
                 required
                 type="number"
                 min="10"
-                max="50"
                 variant="outlined"
                 size="small"
                 placeholder="Ingresar Nota Final"
